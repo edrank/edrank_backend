@@ -8,6 +8,8 @@ import (
 	"github.com/edrank/edrank_backend/utils"
 )
 
+var TOKEN_SECRET []byte = []byte("gr8G5XhD8aJr3Ov8SXrWMwbgvgAgddDDyy4S9XLT")
+
 func LoadConfig() *types.DatabaseConfig {
 	var mainConfig *types.DatabaseConfig
 	jsonFile, err := ioutil.ReadFile("./config/database.json")

@@ -3,6 +3,7 @@ package routes
 import (
 	"fmt"
 
+	"github.com/edrank/edrank_backend/controllers"
 	"github.com/edrank/edrank_backend/db"
 	"github.com/gin-gonic/gin"
 )
@@ -44,7 +45,10 @@ func InitRoutes(r *gin.Engine) {
 }
 
 func InitPublicRoutes(r *gin.RouterGroup) {
+	// common APIs
+	r.POST("/login", controllers.LoginController)
 
+	// college admin APIs
 }
 
 func InitPrivateRoutes(r *gin.RouterGroup) {

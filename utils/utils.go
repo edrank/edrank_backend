@@ -16,3 +16,7 @@ func PrintToConsole(msg string, reportType string) {
 		color.Green(msg)
 	}
 }
+
+func GetVersion() string {
+	return "v1"
+}
