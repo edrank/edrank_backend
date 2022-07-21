@@ -1,0 +1,1 @@
+web: ./edrank_backend -e development
