@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Jul 21 21:57:21 2022
+# Make data base, printed on Fri Jul 22 09:08:23 2022
 
 # Variables
 
@@ -14,8 +14,6 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 GDK_BACKEND = x11
 # environment
 LC_ALL = C
-# environment
-NO_AT_BRIDGE = 1
 # environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
@@ -61,13 +59,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.0NRSP1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.Y1ICP1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.98
+GNOME_TERMINAL_SERVICE = :1.129
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -103,13 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 47113
+VSCODE_PID = 5713
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/46234,unix/om-bridgeup:/tmp/.ICE-unix/46234
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2505,unix/om-bridgeup:/tmp/.ICE-unix/2505
 # automatic
 *F = $(notdir $*)
 # environment
@@ -133,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/148df924_29ba_44f5_abfd_b5e4d0fc5c93
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ad788a28_297a_4a12_9812_fb7de2e42cb5
 # environment
 MAKELEVEL := 0
 # default
@@ -185,7 +183,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 46529
+SYSTEMD_EXEC_PID = 2539
 # environment
 DISPLAY = :0
 # environment
@@ -259,7 +257,7 @@ GDMSESSION = ubuntu
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=124/1024=12%, Rehash=0, Collisions=10/158=6%
+# Load=123/1024=12%, Rehash=0, Collisions=10/157=6%
 
 # Pattern-specific Variable Values
 
@@ -267,9 +265,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 66310, inode 1720857): 21 files, no impossibilities.
+# . (device 66310, inode 1720857): 24 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 24 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -277,9 +275,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Files
 
- 
 # Not a target:
 Makefile:
+ 
 #  Implicit rule search has been done.
 #  Last modified 2022-07-21 09:25:26.310328947
 #  File has been updated.
@@ -399,12 +397,12 @@ deps:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 34 / storage = 252 B / avg = 7 B
-# current buf: size = 8162 B / used = 252 B / count = 34 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 37 / storage = 286 B / avg = 7 B
+# current buf: size = 8162 B / used = 286 B / count = 37 / avg = 7 B
 
-# strcache performance: lookups = 72 / hit rate = 52%
+# strcache performance: lookups = 75 / hit rate = 50%
 # hash-table stats:
-# Load=34/8192=0%, Rehash=0, Collisions=0/72=0%
-# Finished Make data base on Thu Jul 21 21:57:21 2022
+# Load=37/8192=0%, Rehash=0, Collisions=0/75=0%
+# Finished Make data base on Fri Jul 22 09:08:23 2022
 
  

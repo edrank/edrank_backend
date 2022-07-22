@@ -13,21 +13,8 @@ var signingMethod = jwt.SigningMethodHS256
 var secretKey = config.TOKEN_SECRET
 
 func LoginController (c *gin.Context) {
-	a, err := GenerateTokenString(types.CustomClaims{
-		TenantId: "1",
-		TenantType: "STUDENT",
-		IsActive: "true",
-		Email: "hello@gmail.com",
-	})
-
-	if err != nil {
-		c.JSON(200, gin.H{
-			"data": err.Error(),
-		})	
-		return
-	}
 	c.JSON(200, gin.H{
-		"data": a,
+		"data": "",
 	})
 }
 
