@@ -1,5 +1,8 @@
 # EdRank Backend
 
+
+[API DOCS]()
+
 ## Setting up locally
 
 - Clone the repo
