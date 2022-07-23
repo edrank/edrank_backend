@@ -1,7 +1,7 @@
 # EdRank Backend
 
 
-[API DOCS]()
+[API DOCS](https://github.com/edrank/edrank_backend/blob/master/docs/API_DOCS.md)
 
 ## Setting up locally
 
@@ -17,9 +17,3 @@
     - `spin.bat`
 - On Linux
     - `bash spin.sh`
-
-## Testing Login Credentials
-### College Admins
-- omgupta1608@gmail.com - om123
-- samridhikots@gmail.com - sam123
-- rishidholkheria2001@gmail.com - rishirishi
