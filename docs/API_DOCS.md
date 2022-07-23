@@ -1,5 +1,11 @@
 # Edrank Backend Docs
-
+- `tenant_type` can be one of the following types
+    - `STUDENT`
+    - `TEACHER`
+    - `COLLEGE_ADMIN`
+    - `SUPER_ADMIN`
+    - `PARENT`
+    - `HIEA`
 ## Test Credentials
 ### College Admin
 ``` json
@@ -26,7 +32,7 @@
 #### Request Headers
 ``` json
 {
-    "tenant_type":"STUDENT" //|"TEACHER"|"PARENT"|"COLLEGE_ADMIN"|"SUPER_ADMIN"|"HEIA"
+    "tenant_type":"COLLEGE_ADMIN"
 }
 ```
 #### Request Body
