@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jul 23 17:26:25 2022
+# Make data base, printed on Sat Jul 23 18:05:30 2022
 
 # Variables
 
@@ -21,7 +21,7 @@ SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-VSCODE_CWD = /home/omgupta/Desktop/edrank
+VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 NVM_DIR = /home/omgupta/.nvm
 # default
@@ -47,7 +47,7 @@ PWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-OLDPWD = /home/omgupta
+OLDPWD = /home/omgupta/Desktop/edrank
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -101,7 +101,7 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 3432
+VSCODE_PID = 44088
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -265,9 +265,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 66310, inode 1720857): 25 files, no impossibilities.
+# . (device 66310, inode 1720857): 27 files, no impossibilities.
 
-# 25 files, no impossibilities in 1 directories.
+# 27 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -397,12 +397,12 @@ deps:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 38 / storage = 291 B / avg = 7 B
-# current buf: size = 8162 B / used = 291 B / count = 38 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 40 / storage = 305 B / avg = 7 B
+# current buf: size = 8162 B / used = 305 B / count = 40 / avg = 7 B
 
-# strcache performance: lookups = 76 / hit rate = 50%
+# strcache performance: lookups = 78 / hit rate = 48%
 # hash-table stats:
-# Load=38/8192=0%, Rehash=0, Collisions=0/76=0%
-# Finished Make data base on Sat Jul 23 17:26:25 2022
+# Load=40/8192=0%, Rehash=0, Collisions=0/78=0%
+# Finished Make data base on Sat Jul 23 18:05:30 2022
 
  

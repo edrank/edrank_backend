@@ -3,8 +3,9 @@ package main
 import (
 	"github.com/edrank/edrank_backend/config"
 	"github.com/edrank/edrank_backend/db"
-	"github.com/edrank/edrank_backend/routes"
 	"github.com/edrank/edrank_backend/middlewares"
+	"github.com/edrank/edrank_backend/routes"
+	"github.com/edrank/edrank_backend/services"
 	"github.com/edrank/edrank_backend/utils"
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +13,17 @@ import (
 func main() {
 	// load config
 	dbConfig := config.LoadConfig()
-	
+
+	// load aws env
+	utils.LoadEnv()
+
+	// connect to aws (create session)
+	awsSession, err := services.ConnectAws()
+
+	if err != nil {
+		utils.PrintToConsole("Cannot connect to aws : "+err.Error(), "red")
+		return
+	}
 	// init db
 	db.Init(dbConfig)
 
@@ -20,6 +31,12 @@ func main() {
 	router := gin.New()
 	router.Use(gin.Logger())
 	router.Use(gin.Recovery())
+
+	// set aws session to router context
+	router.Use(func(c *gin.Context) {
+		c.Set("sess", awsSession)
+		c.Next()
+	})
 
 	// attach cors middlware
 	router.Use(middlewares.CORSMiddleware())

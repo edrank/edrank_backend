@@ -42,3 +42,12 @@ func SendValidationError(c *gin.Context, errorFieldsList []string) {
 func SendResponse(c *gin.Context, data map[string]any) {
 	c.JSON(http.StatusOK, data)
 }
+
+// sends an unauthorized http response
+func SendUnauthorized(c *gin.Context, message string, err error) {
+	c.JSON(http.StatusUnauthorized, gin.H{
+		"message": message,
+		"error":   err.Error(),
+	})
+	c.Abort()
+}

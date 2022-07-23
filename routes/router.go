@@ -21,5 +21,6 @@ func InitPublicRoutes(r *gin.RouterGroup) {
 }
 
 func InitPrivateRoutes(r *gin.RouterGroup) {
-
+	// file routes
+	r.POST("/file-upload", controllers.FileUploadController)
 }

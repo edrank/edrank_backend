@@ -7,8 +7,8 @@ import (
 	jwt "github.com/dgrijalva/jwt-go"
 	config "github.com/edrank/edrank_backend/config"
 	"github.com/edrank/edrank_backend/types"
+	"github.com/edrank/edrank_backend/utils"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 var signingMethod = jwt.SigningMethodHS256
@@ -21,7 +21,7 @@ func JWTMiddleware() gin.HandlerFunc {
 		// get jwt stored in cookie
 		authHeader := c.GetHeader("Authorization")
 		if len(authHeader) <= len(BEARER_SCHEMA) {
-			sendUnauthorized(c, "Please login again. Bad Token", nil)
+			utils.SendUnauthorized(c, "Please login again.", errors.New("Invalid Token"))
 			return
 		}
 		tokenString := authHeader[len(BEARER_SCHEMA)+1:]
@@ -29,7 +29,7 @@ func JWTMiddleware() gin.HandlerFunc {
 		// parse jwt token
 		user, err := ParseToken(tokenString)
 		if err != nil {
-			sendUnauthorized(c, "Please Login again. Bad Token", err)
+			utils.SendUnauthorized(c, "Please Login again. Bad Token", err)
 			return
 		}
 
@@ -61,13 +61,4 @@ func ParseToken(tokenString string) (*types.CustomClaims, error) {
 	}
 
 	return nil, errors.New("Invalid Token, parse error")
-}
-
-// sends an unauthorized http response
-func sendUnauthorized(c *gin.Context, message string, err error) {
-	c.JSON(http.StatusUnauthorized, gin.H{
-		"message": message,
-		"error":   err.Error(),
-	})
-	c.Abort()
 }

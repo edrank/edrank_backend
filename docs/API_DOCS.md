@@ -57,3 +57,22 @@
     }
 }
 ```
+### File Upload API
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Body (FORM DATA)
+``` json
+{
+   "file": "FILE TO UPLOAD"
+}
+```
+#### Response
+``` json
+{
+    "filepath": "https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/{FILE_NAME}.{FILE_EXTENSION}"
+}
+```
