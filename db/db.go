@@ -11,7 +11,7 @@ import (
 var DB *sql.DB
 
 func Init(dbConfig *types.DatabaseConfig) {
-	connString := fmt.Sprintf("%s:%s@(%s)/%s", dbConfig.DbUser, dbConfig.DbPassword, dbConfig.DbHost, dbConfig.DbName)
+	connString := fmt.Sprintf("%s:%s@(%s)/%s?parseTime=true", dbConfig.DbUser, dbConfig.DbPassword, dbConfig.DbHost, dbConfig.DbName)
 
 	dbc, err := sql.Open("mysql", connString)
 	DB = dbc

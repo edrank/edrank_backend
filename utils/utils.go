@@ -20,3 +20,12 @@ func PrintToConsole(msg string, reportType string) {
 func GetVersion() string {
 	return "v1"
 }
+
+func Find(arr []string, val string) int {
+	for i, s := range arr {
+		if s == val {
+			return i
+		}
+	}
+	return -1
+}
