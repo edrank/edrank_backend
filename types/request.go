@@ -1,8 +1,13 @@
 package types
 
 type (
-	RequestHeaders struct {
-		TenantId int `json:"tenant_id"`
-		TenantType int `json:"tenant_type"`
+	// Common
+	ChangePasswordTypes struct {
+		OldPassword string `json:"old_password"`
+		NewPassword string `json:"new_password"`
+	}
+
+	ForgetPasswordTypes struct {
+		Email string
 	}
 )

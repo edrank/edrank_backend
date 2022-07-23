@@ -24,7 +24,7 @@ func LoginController(c *gin.Context) {
 		return
 	}
 
-	tenant_type := c.GetHeader("tenant_type")
+	tenant_type := c.GetHeader("x-edrank-tenant-type")
 	var tenant_id int
 	if utils.Find(utils.ValidTentantTypes[:], tenant_type) == -1 {
 		utils.SendError(c, http.StatusBadRequest, errors.New("Invalid Tenant Type"))
@@ -91,6 +91,75 @@ func LoginController(c *gin.Context) {
 		"user":         user,
 	})
 	return
+}
+
+func ForgetPasswordController(c *gin.Context) {
+
+}
+
+func ChangePasswordController(c *gin.Context) {
+	var body types.ChangePasswordTypes
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
+		return
+	}
+
+	tenant_type := c.GetString("TenantType")
+	tenant_id := c.GetInt("TenantId")
+
+	switch tenant_type {
+	case utils.TenantMap["COLLEGE_ADMIN"]:
+		var ca models.CollegeAdminModel
+
+		ca, err := models.GetAllCollegeAdminByField("id", tenant_id)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+
+		if !ca.IsActive {
+			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Account is not active"))
+			return
+		}
+
+		if !checkPass(body.OldPassword, ca.Password) {
+			utils.SendError(c, http.StatusUnauthorized, errors.New("Old password doesn't match"))
+			return
+		}
+
+		var hashedPassword []byte
+		hashedPassword, err = bcrypt.GenerateFromPassword([]byte(body.NewPassword), 14)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		var updateFields = map[string]any{
+			"password": string(hashedPassword),
+		}
+
+		var where = map[string]any{
+			"id": tenant_id,
+		}
+
+		_, err = models.UpdateCollegeAdminByFields(updateFields, where)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, errors.New("Something went wrong"))
+			return
+		}
+
+	default:
+		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("%s login not implemented yet", tenant_type)))
+		return
+	}
+
+	utils.SendResponse(c, map[string]any{
+		"message":     "Password changed successfully!",
+		"tenant_type": tenant_type,
+	})
 }
 
 // generate jwt using data provided as payload

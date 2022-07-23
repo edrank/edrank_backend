@@ -34,7 +34,8 @@ func JWTMiddleware() gin.HandlerFunc {
 		}
 
 		// store user data in this context
-		c.Set("User", user)
+		c.Set("TenantId", user.TenantId)
+		c.Set("TenantType", user.TenantType)
 		c.Next()
 	}
 }

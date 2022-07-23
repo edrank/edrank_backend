@@ -16,11 +16,12 @@ func InitRoutes(r *gin.Engine) {
 func InitPublicRoutes(r *gin.RouterGroup) {
 	// common APIs
 	r.POST("/login", controllers.LoginController)
-
-	// college admin APIs
 }
 
 func InitPrivateRoutes(r *gin.RouterGroup) {
 	// file routes
 	r.POST("/file-upload", controllers.FileUploadController)
+
+	// common APIS
+	r.POST("/change-password", controllers.ChangePasswordController)
 }

@@ -28,11 +28,11 @@
 ```
 
 ## API Docs
-### Login API
+### Login API (For all tenants)
 #### Request Headers
 ``` json
 {
-    "tenant_type":"COLLEGE_ADMIN"
+    "x-edrank-tenant-type":"COLLEGE_ADMIN"
 }
 ```
 #### Request Body
@@ -74,5 +74,27 @@
 ``` json
 {
     "filepath": "https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/{FILE_NAME}.{FILE_EXTENSION}"
+}
+```
+
+### Change Password API (For all tenants)
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Body (FORM DATA)
+``` json
+{
+   "old_password": "om123",
+   "new_password": "om1234"
+}
+```
+#### Response
+``` json
+{
+    "message": "Password changed successfully!",
+    "tenant_type": "COLLEGE_ADMIN"
 }
 ```
