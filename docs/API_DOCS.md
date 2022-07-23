@@ -26,7 +26,7 @@
 #### Request Headers
 ``` json
 {
-    "tenant_type":"STUDENT"|"TEACHER"|"PARENT"|"COLLEGE_ADMIN"|"SUPER_ADMIN"|"HEIA"
+    "tenant_type":"STUDENT" //|"TEACHER"|"PARENT"|"COLLEGE_ADMIN"|"SUPER_ADMIN"|"HEIA"
 }
 ```
 #### Request Body
