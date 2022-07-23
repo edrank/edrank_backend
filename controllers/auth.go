@@ -11,6 +11,7 @@ import (
 	"github.com/edrank/edrank_backend/types"
 	"github.com/edrank/edrank_backend/utils"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var signingMethod = jwt.SigningMethodHS256
@@ -89,6 +90,7 @@ func LoginController(c *gin.Context) {
 		"access_token": token,
 		"user":         user,
 	})
+	return
 }
 
 // generate jwt using data provided as payload
@@ -100,6 +102,7 @@ func GenerateTokenString(customClaims types.CustomClaims) (string, error) {
 	return token.SignedString(secretKey)
 }
 
-func checkPass(pass string, mainPass string) bool {
-	return pass == mainPass
+func checkPass(password string, hash string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
+	return err == nil
 }
