@@ -23,10 +23,8 @@ type (
 	}
 )
 
-var database *sql.DB
-
 func GetAllCollegeAdminsOfCollege(cid int) ([]CollegeAdminModel, error) {
-	database = db.GetDatabase()
+	database := db.GetDatabase()
 	rows, err := database.Query("select * from college_admin where cid = ?", cid)
 
 	if err != nil {
@@ -48,14 +46,14 @@ func GetAllCollegeAdminsOfCollege(cid int) ([]CollegeAdminModel, error) {
 }
 
 func GetAllCollegeAdminByField(fieldName string, fieldValue any) (CollegeAdminModel, error) {
-	database = db.GetDatabase()
+	database := db.GetDatabase()
 	rows, err := database.Query(fmt.Sprintf("select * from college_admin where %s = ?", fieldName), fieldValue)
 	if err == sql.ErrNoRows {
 		return CollegeAdminModel{}, errors.New("Cannot find college admin")
 	}
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
-		return CollegeAdminModel{}, errors.New("Something went wrong!")
+		return CollegeAdminModel{}, err
 	}
 
 	var college_admins []CollegeAdminModel
@@ -64,7 +62,7 @@ func GetAllCollegeAdminByField(fieldName string, fieldValue any) (CollegeAdminMo
 
 		if err := rows.Scan(&ca.Id, &ca.Cid, &ca.Name, &ca.Email, &ca.IsActive, &ca.Password, &ca.CreatedAt, &ca.UpdatedAt); err != nil {
 			utils.PrintToConsole(err.Error(), "red")
-			return CollegeAdminModel{}, errors.New("Something went wrong!")
+			return CollegeAdminModel{}, err
 		}
 		college_admins = append(college_admins, ca)
 	}
@@ -75,14 +73,14 @@ func GetAllCollegeAdminByField(fieldName string, fieldValue any) (CollegeAdminMo
 }
 
 func GetAllCollegeAdminsByField(fieldName string, fieldValue any) ([]CollegeAdminModel, error) {
-	database = db.GetDatabase()
+	database := db.GetDatabase()
 	rows, err := database.Query(fmt.Sprintf("select * from college_admin where %s = ?", fieldName), fieldValue)
 	if err == sql.ErrNoRows {
 		return nil, errors.New("Cannot find college admin")
 	}
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
-		return nil, errors.New("Something went wrong!")
+		return nil, err
 	}
 
 	var college_admins []CollegeAdminModel
@@ -91,7 +89,7 @@ func GetAllCollegeAdminsByField(fieldName string, fieldValue any) ([]CollegeAdmi
 
 		if err := rows.Scan(&ca.Id, &ca.Cid, &ca.Name, &ca.Email, &ca.IsActive, &ca.Password, &ca.CreatedAt, &ca.UpdatedAt); err != nil {
 			utils.PrintToConsole(err.Error(), "red")
-			return nil, errors.New("Something went wrong!")
+			return nil, err
 		}
 		college_admins = append(college_admins, ca)
 	}
@@ -102,7 +100,7 @@ func GetAllCollegeAdminsByField(fieldName string, fieldValue any) ([]CollegeAdmi
 }
 
 func UpdateCollegeAdminByFields(fieldValues map[string]any, whereValues map[string]any) (string, error) {
-	database = db.GetDatabase()
+	database := db.GetDatabase()
 	var query string = "update college_admin set "
 	var values []any
 	for field, value := range fieldValues {
@@ -121,14 +119,14 @@ func UpdateCollegeAdminByFields(fieldValues map[string]any, whereValues map[stri
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
-		return "", errors.New("Something went wrong!")
+		return "", err
 	}
 
 	_, err = result.RowsAffected()
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
-		return "", errors.New("Something went wrong!")
+		return "", err
 	}
 
 	return "Fields Updated", nil

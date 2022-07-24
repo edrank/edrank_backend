@@ -36,6 +36,11 @@ func JWTMiddleware() gin.HandlerFunc {
 		// store user data in this context
 		c.Set("TenantId", user.TenantId)
 		c.Set("TenantType", user.TenantType)
+
+		if utils.Find([]string{utils.TenantMap["STUDENT"], utils.TenantMap["TEACHER"], utils.TenantMap["COLLEGE_ADMIN"]}, c.GetString("TenantType")) != -1 {
+			fmt.Println(user.Cid)
+			c.Set("CollegeId", user.Cid)
+		}
 		c.Next()
 	}
 }
@@ -57,7 +62,7 @@ func ParseToken(tokenString string) (*types.CustomClaims, error) {
 	// extract claims
 	claims, ok := token.Claims.(*types.AuthCustomClaims)
 	if err == nil && ok && token.Valid {
-		user := types.CustomClaims{Email: claims.Email, TenantId: claims.TenantId, TenantType: claims.TenantType, IsActive: claims.IsActive}
+		user := types.CustomClaims{Email: claims.Email, TenantId: claims.TenantId, TenantType: claims.TenantType, IsActive: claims.IsActive, Cid: claims.Cid}
 		return &user, nil
 	}
 

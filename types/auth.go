@@ -9,6 +9,7 @@ type (
 		TenantType string `json:"tenant_type"`
 		IsActive bool `json:"is_active"`
 		Email string `json:"email"`
+		Cid int `json:"cid"`
 	}
 	AuthCustomClaims struct {
 		jwt.StandardClaims

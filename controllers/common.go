@@ -20,7 +20,7 @@ var secretKey = config.TOKEN_SECRET
 func LoginController(c *gin.Context) {
 	var body types.LoginBody
 	if err := c.BindJSON(&body); err != nil {
-		utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
+		utils.SendError(c, http.StatusBadRequest, err)
 		return
 	}
 
@@ -58,6 +58,7 @@ func LoginController(c *gin.Context) {
 			TenantType: tenant_type,
 			IsActive:   ca.IsActive,
 			Email:      ca.Email,
+			Cid:        ca.Cid,
 		}
 		user = struct {
 			Id       int    `json:"id"`
@@ -84,13 +85,12 @@ func LoginController(c *gin.Context) {
 		return
 	}
 
-	utils.SendResponse(c, map[string]any{
+	utils.SendResponse(c, "Logged In", map[string]any{
 		"tenant_type":  tenant_type,
 		"tenant_id":    tenant_id,
 		"access_token": token,
 		"user":         user,
 	})
-	return
 }
 
 func ForgetPasswordController(c *gin.Context) {
@@ -98,7 +98,7 @@ func ForgetPasswordController(c *gin.Context) {
 }
 
 func ChangePasswordController(c *gin.Context) {
-	var body types.ChangePasswordTypes
+	var body types.ChangePasswordBody
 	if err := c.BindJSON(&body); err != nil {
 		utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
 		return
@@ -147,7 +147,7 @@ func ChangePasswordController(c *gin.Context) {
 		_, err = models.UpdateCollegeAdminByFields(updateFields, where)
 
 		if err != nil {
-			utils.SendError(c, http.StatusInternalServerError, errors.New("Something went wrong"))
+			utils.SendError(c, http.StatusInternalServerError, err)
 			return
 		}
 
@@ -156,9 +156,29 @@ func ChangePasswordController(c *gin.Context) {
 		return
 	}
 
-	utils.SendResponse(c, map[string]any{
-		"message":     "Password changed successfully!",
+	utils.SendResponse(c, "Password changed successfully!", map[string]any{
 		"tenant_type": tenant_type,
+	})
+}
+
+func GetCollegeController(c *gin.Context) {
+	var college models.CollegeModel
+	college_id, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusUnprocessableEntity, errors.New("You are not linked to any college"))
+		return
+	}
+
+	fmt.Println(college_id)
+	college, err := models.GetCollegeByField("id", college_id)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+	utils.SendResponse(c, "Fetched College", map[string]any{
+		"college": college,
 	})
 }
 

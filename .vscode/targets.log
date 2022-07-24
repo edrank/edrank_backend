@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jul 23 18:05:30 2022
+# Make data base, printed on Sun Jul 24 18:43:30 2022
 
 # Variables
 
@@ -47,7 +47,7 @@ PWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-OLDPWD = /home/omgupta/Desktop/edrank
+OLDPWD = /home/omgupta
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -59,7 +59,7 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.9AUEP1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.TQXEP1
 # default
 .LOADED := 
 # default
@@ -101,13 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 44088
+VSCODE_PID = 3602
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2543,unix/om-bridgeup:/tmp/.ICE-unix/2543
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2675,unix/om-bridgeup:/tmp/.ICE-unix/2675
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/7e146197_5bc2_435e_ac9f_76a72dc3acbe
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/bab18da6_e847_4819_834a_e91eba96b5b7
 # environment
 MAKELEVEL := 0
 # default
@@ -183,7 +183,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := build
 # environment
-SYSTEMD_EXEC_PID = 2803
+SYSTEMD_EXEC_PID = 2931
 # environment
 DISPLAY = :0
 # environment
@@ -403,6 +403,6 @@ deps:
 # strcache performance: lookups = 78 / hit rate = 48%
 # hash-table stats:
 # Load=40/8192=0%, Rehash=0, Collisions=0/78=0%
-# Finished Make data base on Sat Jul 23 18:05:30 2022
+# Finished Make data base on Sun Jul 24 18:43:30 2022
 
  

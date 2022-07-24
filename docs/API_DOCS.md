@@ -29,6 +29,7 @@
 
 ## API Docs
 ### Login API (For all tenants)
+`POST /login`
 #### Request Headers
 ``` json
 {
@@ -45,19 +46,23 @@
 #### Response
 ``` json
 {
-    "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA",
-    "tenant_id": 1,
-    "tenant_type": "COLLEGE_ADMIN",
-    "user": {
-        "id": 1,
-        "cid": 1,
-        "name": "Om",
-        "email": "omgupta1608@gmail.com",
-        "is_active": true
-    }
+    "data": {
+        "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20iLCJjaWQiOjF9.SSgtr0KiyA3-Zm-UKkaq0HrjUAHrpxvFitvW67k5tvE",
+        "tenant_id": 1,
+        "tenant_type": "COLLEGE_ADMIN",
+        "user": {
+            "id": 1,
+            "cid": 1,
+            "name": "Om",
+            "email": "omgupta1608@gmail.com",
+            "is_active": true
+        }
+    },
+    "message": "Logged In"
 }
 ```
 ### File Upload API
+`POST /file-upload`
 #### Request Headers
 ``` json
 {
@@ -73,11 +78,15 @@
 #### Response
 ``` json
 {
-    "filepath": "https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/{FILE_NAME}.{FILE_EXTENSION}"
+    "data": {
+        "filepath": "https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/README.md"
+    },
+    "message": "File uploaded"
 }
 ```
 
 ### Change Password API (For all tenants)
+`POST /change-password`
 #### Request Headers
 ``` json
 {
@@ -94,7 +103,41 @@
 #### Response
 ``` json
 {
-    "message": "Password changed successfully!",
-    "tenant_type": "COLLEGE_ADMIN"
+    "data": {
+        "tenant_type": "COLLEGE_ADMIN"
+    },
+    "message": "Password changed successfully!"
+}
+```
+
+### Get my college API (For STUDENT, COLLEGE_ADMIN, TEACHER)
+`GET /college`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "college": {
+            "id": 1,
+            "name": "Maharaja Surajmal Institute",
+            "email": "contact@msijanakpuri.com",
+            "phone": "011-45656183",
+            "website_url": "https://www.msijanakpuri.com/",
+            "university_name": "Guru Gobind Singh Indraprastha University (GGSIPU)",
+            "college_type": "SEMI_GOVT",
+            "city": "New Delhi",
+            "state": "Delhi",
+            "onboarding_status": "ON_GOING",
+            "is_active": true,
+            "created_at": "2022-07-23T07:39:19Z",
+            "updated_at": "2022-07-23T07:39:19Z"
+        }
+    },
+    "message": "Fetched College"
 }
 ```

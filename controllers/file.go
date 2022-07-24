@@ -36,7 +36,8 @@ func FileUploadController(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
+
+	utils.SendResponse(c, "File uploaded", map[string]any{
 		"filepath": up.Location,
 	})
 }
