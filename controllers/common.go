@@ -170,7 +170,6 @@ func GetCollegeController(c *gin.Context) {
 		return
 	}
 
-	fmt.Println(college_id)
 	college, err := models.GetCollegeByField("id", college_id)
 
 	if err != nil {

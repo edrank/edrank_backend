@@ -29,4 +29,6 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	// college admin APIs
 	r.POST("/onboard-college", controllers.OnBoardCollegeController)
 
+	//
+
 }

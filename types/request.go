@@ -7,4 +7,7 @@ type (
 		NewPassword string `json:"new_password"`
 	}
 
+	GetLinkingDataBody struct {
+		
+	}
 )
