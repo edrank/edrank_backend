@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 
-	"github.com/edrank/edrank_backend/types"
-	"github.com/edrank/edrank_backend/utils"
+	"github.com/edrank/edrank_backend/apis/types"
+	"github.com/edrank/edrank_backend/apis/utils"
 )
 
 var TOKEN_SECRET []byte = []byte("gr8G5XhD8aJr3Ov8SXrWMwbgvgAgddDDyy4S9XLT")

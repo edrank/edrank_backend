@@ -1,3 +1,2 @@
 #!/bin/sh
-go version;
-go run main.go
+sudo docker-compose up -d --build;

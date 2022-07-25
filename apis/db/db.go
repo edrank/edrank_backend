@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/edrank/edrank_backend/types"
+	"github.com/edrank/edrank_backend/apis/types"
 	_ "github.com/go-sql-driver/mysql"
 )
 

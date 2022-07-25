@@ -1,5 +1,6 @@
 make --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/omgupta/Desktop/edrank/edrank_backend'
-go build -o edrank_backend
 make: Leaving directory '/home/omgupta/Desktop/edrank/edrank_backend'
  
+make: *** No targets specified and no makefile found.  Stop.
+

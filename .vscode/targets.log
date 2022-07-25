@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sun Jul 24 18:43:30 2022
+# Make data base, printed on Tue Jul 26 01:07:33 2022
 
 # Variables
 
@@ -15,13 +17,15 @@ GDK_BACKEND = x11
 # environment
 LC_ALL = C
 # environment
+NO_AT_BRIDGE = 1
+# environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
 SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend
+VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend/apis
 # environment
 NVM_DIR = /home/omgupta/.nvm
 # default
@@ -47,7 +51,7 @@ PWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-OLDPWD = /home/omgupta
+OLDPWD = /home/omgupta/Desktop/edrank/edrank_backend
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -59,13 +63,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.TQXEP1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.HJDEP1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.104
+GNOME_TERMINAL_SERVICE = :1.98
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -76,8 +80,6 @@ APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 LESSOPEN = | /usr/bin/lesspipe %s
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
-# makefile (from 'Makefile', line 2)
-VERSION = 0.0.1
 # environment
 MFLAGS = -pqrR
 # environment
@@ -94,20 +96,20 @@ XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
 +D = $(patsubst %/,%,$(dir $+))
 # environment
 XDG_SESSION_DESKTOP = ubuntu
-# makefile (from 'Makefile', line 1)
-MAKEFILE_LIST := Makefile
+# makefile
+MAKEFILE_LIST := 
 # environment
 SNAP_REEXEC = 
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 3602
+VSCODE_PID = 106273
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2675,unix/om-bridgeup:/tmp/.ICE-unix/2675
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/105409,unix/om-bridgeup:/tmp/.ICE-unix/105409
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +133,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/bab18da6_e847_4819_834a_e91eba96b5b7
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ea7e43a5_0383_4adb_80af_b794476d23f1
 # environment
 MAKELEVEL := 0
 # default
@@ -162,8 +164,6 @@ GNOME_SETUP_DISPLAY = :1
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # automatic
 ?F = $(notdir $?)
-# makefile (from 'Makefile', line 1)
-NAME = edrank_backend
 # environment
 XDG_CURRENT_DESKTOP = Unity
 # environment
@@ -181,9 +181,9 @@ LOGNAME = omgupta
 # environment
 SNAP_ARCH = amd64
 # makefile
-.DEFAULT_GOAL := build
+.DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2931
+SYSTEMD_EXEC_PID = 105670
 # environment
 DISPLAY = :0
 # environment
@@ -257,7 +257,7 @@ GDMSESSION = ubuntu
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=123/1024=12%, Rehash=0, Collisions=10/157=6%
+# Load=122/1024=12%, Rehash=0, Collisions=10/149=7%
 
 # Pattern-specific Variable Values
 
@@ -265,9 +265,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 66310, inode 1720857): 27 files, no impossibilities.
+# . (device 66310, inode 1720857): 12 files, no impossibilities.
 
-# 27 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -278,26 +278,10 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
+#  File does not exist.
  
-#  Last modified 2022-07-21 09:25:26.310328947
 #  File has been updated.
-#  Successfully updated.
-
-run-prod: build
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 17):
-	@./$(NAME) -e production
-
-clean:
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 22):
-	@rm -f $(NAME)
+#  Failed to be updated.
 
 # Not a target:
 .DEFAULT:
@@ -305,104 +289,41 @@ clean:
 #  Modification time never checked.
 #  File has not been updated.
 
-all: help
+# Not a target:
+all:
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/4=0%
-
-run: build
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  File does not exist.
 #  File has not been updated.
-#  recipe to execute (from 'Makefile', line 12):
-	@./$(NAME) -e development
-
-help: Makefile
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  Implicit/static pattern stem: ''
-#  File does not exist.
-#  File has been updated.
-#  Needs to be updated (-q is set).
-# automatic
-# @ := help
-# automatic
-# * := 
-# automatic
-# < := Makefile
-# automatic
-# + := Makefile
-# automatic
-# % := 
-# automatic
-# ^ := Makefile
-# automatic
-# ? := Makefile
-# automatic
-# | := 
-# variable set hash-table stats:
-# Load=8/32=25%, Rehash=0, Collisions=1/13=8%
-#  recipe to execute (from 'Makefile', line 38):
-	@echo
-	@echo " Choose a command to run in "$(APP_NAME)":"
-	@echo
-	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
-	@echo
-
-build:
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 7):
-	@go build -o $(NAME)
-
-test:
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 32):
-	@go test -v ./tests/*
-
-deps:
-#  Phony target (prerequisite of .PHONY).
-#  Implicit rule search has not been done.
-#  File does not exist.
-#  File has not been updated.
-#  recipe to execute (from 'Makefile', line 27):
-	@go mod download
 
 # Not a target:
-.SUFFIXES:
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+makefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
 
-.PHONY: build run run-prod clean deps test help
-#  Implicit rule search has not been done.
-#  Modification time never checked.
-#  File has not been updated.
+# Not a target:
+GNUmakefile:
+#  Implicit rule search has been done.
+#  File does not exist.
+#  File has been updated.
+#  Failed to be updated.
 
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=0/48=0%
+# Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
 # No 'vpath' search paths.
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 40 / storage = 305 B / avg = 7 B
-# current buf: size = 8162 B / used = 305 B / count = 40 / avg = 7 B
+# strcache buffers: 1 (0) / strings = 20 / storage = 179 B / avg = 8 B
+# current buf: size = 8162 B / used = 179 B / count = 20 / avg = 8 B
 
-# strcache performance: lookups = 78 / hit rate = 48%
+# strcache performance: lookups = 23 / hit rate = 13%
 # hash-table stats:
-# Load=40/8192=0%, Rehash=0, Collisions=0/78=0%
-# Finished Make data base on Sun Jul 24 18:43:30 2022
+# Load=20/8192=0%, Rehash=0, Collisions=0/23=0%
+# Finished Make data base on Tue Jul 26 01:07:33 2022
 
  

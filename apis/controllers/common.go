@@ -6,10 +6,10 @@ import (
 	"net/http"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/edrank/edrank_backend/config"
-	"github.com/edrank/edrank_backend/models"
-	"github.com/edrank/edrank_backend/types"
-	"github.com/edrank/edrank_backend/utils"
+	"github.com/edrank/edrank_backend/apis/config"
+	"github.com/edrank/edrank_backend/apis/models"
+	"github.com/edrank/edrank_backend/apis/types"
+	"github.com/edrank/edrank_backend/apis/utils"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
 )

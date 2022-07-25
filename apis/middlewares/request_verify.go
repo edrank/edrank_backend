@@ -5,9 +5,9 @@ import (
 	"fmt"
 
 	jwt "github.com/dgrijalva/jwt-go"
-	config "github.com/edrank/edrank_backend/config"
-	"github.com/edrank/edrank_backend/types"
-	"github.com/edrank/edrank_backend/utils"
+	config "github.com/edrank/edrank_backend/apis/config"
+	"github.com/edrank/edrank_backend/apis/types"
+	"github.com/edrank/edrank_backend/apis/utils"
 	"github.com/gin-gonic/gin"
 )
 

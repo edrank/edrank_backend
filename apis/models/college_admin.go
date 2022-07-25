@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/edrank/edrank_backend/db"
-	"github.com/edrank/edrank_backend/utils"
+	"github.com/edrank/edrank_backend/apis/db"
+	"github.com/edrank/edrank_backend/apis/utils"
 )
 
 type (
@@ -113,7 +113,7 @@ func UpdateCollegeAdminByFields(fieldValues map[string]any, whereValues map[stri
 		query += fmt.Sprintf("%s = ?, ", field)
 		values = append(values, value)
 	}
-	query = query[:len(query)-2] + ";";
+	query = query[:len(query)-2] + ";"
 
 	result, err := database.Exec(query, values...)
 

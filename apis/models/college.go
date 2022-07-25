@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/edrank/edrank_backend/db"
-	"github.com/edrank/edrank_backend/utils"
+	"github.com/edrank/edrank_backend/apis/db"
+	"github.com/edrank/edrank_backend/apis/utils"
 )
 
 type (

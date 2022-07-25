@@ -1,3 +1,2 @@
 @echo off
-go version
-go run main.go
+docker-compose up -d --build

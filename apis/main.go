@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/edrank/edrank_backend/config"
-	"github.com/edrank/edrank_backend/db"
-	"github.com/edrank/edrank_backend/middlewares"
-	"github.com/edrank/edrank_backend/routes"
-	"github.com/edrank/edrank_backend/services"
-	"github.com/edrank/edrank_backend/utils"
+	"github.com/edrank/edrank_backend/apis/config"
+	"github.com/edrank/edrank_backend/apis/db"
+	"github.com/edrank/edrank_backend/apis/middlewares"
+	"github.com/edrank/edrank_backend/apis/routes"
+	"github.com/edrank/edrank_backend/apis/services"
+	"github.com/edrank/edrank_backend/apis/utils"
 	"github.com/gin-gonic/gin"
 )
 

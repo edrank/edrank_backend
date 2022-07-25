@@ -6,10 +6,11 @@
 ## Setting up locally
 
 - Clone the repo
-- Install go from [here](https://go.dev/dl/)
-- Check go installation - `go version`
+- Install Docker and Docker Compose from [here](https://docs.docker.com/compose/install/)
+- Check installation - `docker ps`, `docker images`, `docker-compose -v`
 - Move to root directory of the project
 - On windows
-    - `spin.bat` OR `go run main.go`
+    - `spin.bat`
 - On Linux
-    - `bash spin.sh` OR `go run main.go`
+    - `bash spin.sh`
+- To stop the backend - `docker-compose down`
