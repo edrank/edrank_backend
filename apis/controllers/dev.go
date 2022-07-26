@@ -2,7 +2,9 @@ package controllers
 
 import (
 	"errors"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -11,7 +13,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func FileUploadController(c *gin.Context) {
+func SetOnBoardingFileController(c *gin.Context) {
+	devAuth := c.GetHeader("x-edrank-dev-auth")
+	if devAuth != utils.GetEnvWithKey("DEV_TOKEN") {
+		utils.SendError(c, http.StatusUnauthorized, errors.New("Invalid Dev Token."))
+		return
+	}
+
 	sess := c.MustGet("sess").(*session.Session)
 	uploader := s3manager.NewUploader(sess)
 	bucket := utils.GetEnvWithKey("BUCKET_NAME")
@@ -23,12 +31,22 @@ func FileUploadController(c *gin.Context) {
 		return
 	}
 
-	filename := header.Filename
+	// get the file extentsion
+	fileE := strings.Split(header.Filename, ".")
+	fileExt := fileE[len(fileE) - 1]
+
+	fmt.Println(header, fileE, fileExt)
+
+	if fileExt != "xlsx" {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Invalid file format. Please upload only .xlsx file"))
+		return
+	}
+
 	//upload to the s3 bucket
 	up, err := uploader.Upload(&s3manager.UploadInput{
 		Bucket: aws.String(bucket),
 		ACL:    aws.String("public-read"),
-		Key:    aws.String("edrank/" + filename),
+		Key:    aws.String("edrank/constants/EDRANK_ONBOARDING.xlsx"),
 		Body:   file,
 	})
 	if err != nil {
@@ -36,7 +54,7 @@ func FileUploadController(c *gin.Context) {
 		return
 	}
 
-	utils.SendResponse(c, "File uploaded", map[string]any{
+	utils.SendResponse(c, "File set", map[string]any{
 		"filepath": up.Location,
 	})
 }

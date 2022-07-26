@@ -9,8 +9,14 @@ import (
 	"github.com/xuri/excelize/v2"
 )
 
+// get file
+// store it locally
+// validate
+// manipulate
+// insert in db
+// delete the file
+
 func OnBoardCollegeController(c *gin.Context) {
-	// single file
 	file, _ := c.FormFile("file")
 	log.Println(file.Filename)
 
@@ -23,7 +29,18 @@ func OnBoardCollegeController(c *gin.Context) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	cols, err := f.GetRows("Sheet1")
+
+	sheetList := f.GetSheetList()
+
+	if len(sheetList) != 2 {
+		// error - invalid sheet count - require 2 sheets
+		return
+	}
+
+	const studentsSheet string = "Students"
+	const teachersSheet string = "Teachers"
+
+	cols, err := f.GetRows(studentsSheet)
 
 	if err != nil {
 		log.Fatal(err)

@@ -16,6 +16,8 @@ func InitRoutes(r *gin.Engine) {
 func InitPublicRoutes(r *gin.RouterGroup) {
 	// common APIs
 	r.POST("/login", controllers.LoginController)
+
+	r.POST("/set-onboarding-files", controllers.SetOnBoardingFileController)
 }
 
 func InitPrivateRoutes(r *gin.RouterGroup) {
@@ -28,7 +30,5 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 
 	// college admin APIs
 	r.POST("/onboard-college", controllers.OnBoardCollegeController)
-
-	//
 
 }

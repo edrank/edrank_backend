@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Jul 26 01:07:33 2022
+# Make data base, printed on Tue Jul 26 21:04:25 2022
 
 # Variables
 
@@ -17,15 +17,13 @@ GDK_BACKEND = x11
 # environment
 LC_ALL = C
 # environment
-NO_AT_BRIDGE = 1
-# environment
 GNOME_SHELL_SESSION_MODE = ubuntu
 # environment
 SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend/apis
+VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 NVM_DIR = /home/omgupta/.nvm
 # default
@@ -51,7 +49,7 @@ PWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-OLDPWD = /home/omgupta/Desktop/edrank/edrank_backend
+OLDPWD = /home/omgupta/Desktop/edrank
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -63,13 +61,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.HJDEP1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.2MQ7P1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.98
+GNOME_TERMINAL_SERVICE = :1.94
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -103,13 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 106273
+VSCODE_PID = 191188
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/105409,unix/om-bridgeup:/tmp/.ICE-unix/105409
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/188970,unix/om-bridgeup:/tmp/.ICE-unix/188970
 # automatic
 *F = $(notdir $*)
 # environment
@@ -133,9 +131,11 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ea7e43a5_0383_4adb_80af_b794476d23f1
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/fa4db9f9_4be9_40b2_a84f_5667ef8f61e8
 # environment
 MAKELEVEL := 0
+# environment
+IM_CONFIG_CHECK_ENV = 1
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
@@ -183,7 +183,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 105670
+SYSTEMD_EXEC_PID = 189165
 # environment
 DISPLAY = :0
 # environment
@@ -265,9 +265,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 66310, inode 1720857): 12 files, no impossibilities.
+# . (device 66310, inode 1720857): 14 files, no impossibilities.
 
-# 12 files, no impossibilities in 1 directories.
+# 14 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -279,7 +279,6 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 Makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
- 
 #  File has been updated.
 #  Failed to be updated.
 
@@ -294,6 +293,7 @@ all:
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
+ 
 #  File has not been updated.
 
 # Not a target:
@@ -318,12 +318,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 20 / storage = 179 B / avg = 8 B
-# current buf: size = 8162 B / used = 179 B / count = 20 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 22 / storage = 196 B / avg = 8 B
+# current buf: size = 8162 B / used = 196 B / count = 22 / avg = 8 B
 
-# strcache performance: lookups = 23 / hit rate = 13%
+# strcache performance: lookups = 25 / hit rate = 12%
 # hash-table stats:
-# Load=20/8192=0%, Rehash=0, Collisions=0/23=0%
-# Finished Make data base on Tue Jul 26 01:07:33 2022
+# Load=22/8192=0%, Rehash=0, Collisions=0/25=0%
+# Finished Make data base on Tue Jul 26 21:04:25 2022
 
  

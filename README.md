@@ -2,6 +2,7 @@
 
 
 [API DOCS](https://github.com/edrank/edrank_backend/blob/master/docs/API_DOCS.md)
+[DEV API DOCS](https://github.com/edrank/edrank_backend/blob/master/docs/DEV_API_DOCS.md)
 
 ## Setting up locally
 
