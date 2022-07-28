@@ -6,7 +6,7 @@
     - `SUPER_ADMIN`
     - `PARENT`
     - `HIEA`
-- Onboarding File URL - [https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/constants/EDRANK_ONBOARDING.xlsx]
+- Onboarding File URL - https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/constants/EDRANK_ONBOARDING.xlsx
 ## Test Credentials
 ### College Admin
 ``` json

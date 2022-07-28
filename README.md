@@ -1,8 +1,8 @@
 # EdRank Backend
 
 
-[API DOCS](https://github.com/edrank/edrank_backend/blob/master/docs/API_DOCS.md)
-[DEV API DOCS](https://github.com/edrank/edrank_backend/blob/master/docs/DEV_API_DOCS.md)
+- [API DOCS](https://github.com/edrank/edrank_backend/blob/master/docs/API_DOCS.md)
+- [DEV API DOCS](https://github.com/edrank/edrank_backend/blob/master/docs/DEV_API_DOCS.md)
 
 ## Setting up locally
 
@@ -16,11 +16,11 @@
         - `scripts/spin.bat --build` (rebuild image)
     - On Linux
         - `bash spin.sh`
-    - To stop the backend
-        - On windows
-            - `scripts/down.bat`
-        - On Linux
-            - `bash down.sh`
+- To stop the backend
+    - On windows
+        - `scripts/down.bat`
+    - On Linux
+        - `bash down.sh`
 
 ### Version Control 
 - Take a pull from master branch - `git pull`
