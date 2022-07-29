@@ -73,14 +73,16 @@
 #### Request Body (FORM DATA)
 ``` json
 {
-   "file": "FILE TO UPLOAD"
+   "file": "FILE TO UPLOAD",
+   "file_type": "COLLEGE_ONBOARDING"
 }
 ```
 #### Response
 ``` json
 {
     "data": {
-        "filepath": "https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/README.md"
+        "filepath": "https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/README.md",
+        "file_registry_id": 2
     },
     "message": "File uploaded"
 }

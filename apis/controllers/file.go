@@ -7,6 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
+	"github.com/edrank/edrank_backend/apis/models"
 	"github.com/edrank/edrank_backend/apis/utils"
 	"github.com/gin-gonic/gin"
 )
@@ -17,6 +18,7 @@ func FileUploadController(c *gin.Context) {
 	bucket := utils.GetEnvWithKey("BUCKET_NAME")
 	// region := utils.GetEnvWithKey("AWS_REGION")
 	file, header, err := c.Request.FormFile("file")
+	file_type := c.Request.FormValue("file_type")
 
 	if err != nil {
 		utils.SendError(c, http.StatusBadRequest, err)
@@ -32,11 +34,28 @@ func FileUploadController(c *gin.Context) {
 		Body:   file,
 	})
 	if err != nil {
-		utils.SendError(c, http.StatusInternalServerError, errors.New("Failed to upload file : " + err.Error()))
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Failed to upload file : "+err.Error()))
+		return
+	}
+	cid := c.GetInt("CollegeId")
+	file_registry := models.FileRegistryModel{
+		Cid:      cid,
+		Location: "S3",
+		Url:      up.Location,
+		Type:     file_type,
+	}
+
+	frId, err := models.CreateFileRegistry(file_registry)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusInternalServerError, errors.New("File registry creation failed : "+err.Error()))
 		return
 	}
 
 	utils.SendResponse(c, "File uploaded", map[string]any{
-		"filepath": up.Location,
+		"filepath":         up.Location,
+		"file_registry_id": frId,
 	})
 }
