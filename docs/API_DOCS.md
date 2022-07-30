@@ -176,3 +176,30 @@
     "message": "College Admin Created!"
 }
 ```
+
+### Get my profile API
+`GET /my-profile`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "profile": {
+            "id": 1,
+            "cid": 1,
+            "name": "Om",
+            "email": "omgupta1608@gmail.com",
+            "is_active": true,
+            "password": "$2a$14$MfY9CQYjnG7JS8Y8BYKOj.xiBm0DABfROWoYmh489sv8ifNTYqiJW",
+            "created_at": "2022-07-23T06:42:01Z",
+            "updated_at": "2022-07-24T15:45:52Z"
+        }
+    },
+    "message": "My Profile fetched!"
+}
+```

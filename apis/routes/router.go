@@ -27,6 +27,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	// common APIS
 	r.POST("/change-password", controllers.ChangePasswordController)
 	r.GET("/college", controllers.GetCollegeController)
+	r.GET("/my-profile", controllers.GetMyProfile)
 
 	// college admin APIs
 	r.POST("/onboard-college", controllers.OnBoardCollegeController)

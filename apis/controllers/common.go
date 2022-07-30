@@ -48,11 +48,6 @@ func LoginController(c *gin.Context) {
 			return
 		}
 
-		if !ca.IsActive {
-			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Account is not active"))
-			return
-		}
-
 		if !checkPass(body.Password, ca.Password) {
 			utils.SendError(c, http.StatusUnauthorized, errors.New("Invalid Credentials"))
 			return
@@ -83,11 +78,6 @@ func LoginController(c *gin.Context) {
 
 		if err != nil {
 			utils.SendError(c, http.StatusBadRequest, err)
-			return
-		}
-
-		if !st.IsActive {
-			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Account is not active"))
 			return
 		}
 
@@ -185,11 +175,6 @@ func ChangePasswordController(c *gin.Context) {
 			return
 		}
 
-		if !ca.IsActive {
-			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Account is not active"))
-			return
-		}
-
 		if !checkPass(body.OldPassword, ca.Password) {
 			utils.SendError(c, http.StatusUnauthorized, errors.New("Old password doesn't match"))
 			return
@@ -223,11 +208,6 @@ func ChangePasswordController(c *gin.Context) {
 
 		if err != nil {
 			utils.SendError(c, http.StatusBadRequest, err)
-			return
-		}
-
-		if !st.IsActive {
-			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Account is not active"))
 			return
 		}
 
@@ -286,6 +266,39 @@ func GetCollegeController(c *gin.Context) {
 	utils.SendResponse(c, "Fetched College", map[string]any{
 		"college": college,
 	})
+}
+
+func GetMyProfile(c *gin.Context) {
+	tenant_type := c.GetString("TenantType")
+	tenant_id := c.GetInt("TenantId")
+
+	switch tenant_type {
+	case utils.TenantMap["COLLEGE_ADMIN"]:
+		var ca models.CollegeAdminModel
+
+		ca, err := models.GetCollegeAdminByField("id", tenant_id)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+		utils.SendResponse(c, "My Profile fetched!", map[string]any{
+			"profile": ca,
+		})
+	case utils.TenantMap["STUDENT"]:
+		st, err := models.GetStudentByField("id", tenant_id)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+		utils.SendResponse(c, "My Profile fetched!", map[string]any{
+			"profile": st,
+		})
+	default:
+		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("my profile for %s is not implemented yet", tenant_type)))
+		return
+	}
 }
 
 // generate jwt using data provided as payload

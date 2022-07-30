@@ -33,6 +33,11 @@ func JWTMiddleware() gin.HandlerFunc {
 			return
 		}
 
+		if !user.IsActive {
+			utils.SendResponse(c, "Account not active", map[string]any{})
+			return
+		}
+
 		// store user data in this context
 		c.Set("TenantId", user.TenantId)
 		c.Set("TenantType", user.TenantType)
