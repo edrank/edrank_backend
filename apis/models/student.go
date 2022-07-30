@@ -63,3 +63,36 @@ func GetStudentByField(fieldName string, fieldValue any) (StudentModel, error) {
 	}
 	return students[0], nil
 }
+
+func UpdateStudentByFields(fieldValues map[string]any, whereValues map[string]any) (string, error) {
+	database := db.GetDatabase()
+	var query string = "update student set "
+	var values []any
+	for field, value := range fieldValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + " where "
+
+	for field, value := range whereValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + ";"
+
+	result, err := database.Exec(query, values...)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	_, err = result.RowsAffected()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	return "Fields Updated", nil
+}

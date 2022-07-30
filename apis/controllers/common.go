@@ -218,6 +218,46 @@ func ChangePasswordController(c *gin.Context) {
 			return
 		}
 
+	case utils.TenantMap["STUDENT"]:
+		st, err := models.GetStudentByField("id", tenant_id)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+
+		if !st.IsActive {
+			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Account is not active"))
+			return
+		}
+
+		if !checkPass(body.OldPassword, st.Password) {
+			utils.SendError(c, http.StatusUnauthorized, errors.New("Old password doesn't match"))
+			return
+		}
+
+		var hashedPassword []byte
+		hashedPassword, err = bcrypt.GenerateFromPassword([]byte(body.NewPassword), 14)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		var updateFields = map[string]any{
+			"password": string(hashedPassword),
+		}
+
+		var where = map[string]any{
+			"id": tenant_id,
+		}
+
+		_, err = models.UpdateStudentByFields(updateFields, where)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
 	default:
 		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("%s login not implemented yet", tenant_type)))
 		return
