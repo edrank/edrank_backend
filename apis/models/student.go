@@ -1,6 +1,14 @@
 package models
 
-import "time"
+import (
+	"database/sql"
+	"errors"
+	"fmt"
+	"time"
+
+	"github.com/edrank/edrank_backend/apis/db"
+	"github.com/edrank/edrank_backend/apis/utils"
+)
 
 type (
 	StudentModel struct {
@@ -28,4 +36,30 @@ type (
 
 func CreateBulkStudents(students []StudentModel) {
 
+}
+
+func GetStudentByField(fieldName string, fieldValue any) (StudentModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query(fmt.Sprintf("select * from students where %s = ?", fieldName), fieldValue)
+	if err == sql.ErrNoRows {
+		return StudentModel{}, errors.New("Cannot find student")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return StudentModel{}, err
+	}
+
+	var students []StudentModel
+	for rows.Next() {
+		var st StudentModel
+		if err := rows.Scan(&st.Id, &st.ParentId, &st.Cid, &st.Name, &st.Email, &st.Phone, &st.CourseId, &st.Year, &st.Batch, &st.Password, &st.EnrollmentNumber, &st.Dob, &st.FathersName, &st.MotherName, &st.GuardianEmail, &st.GuardianPhone, &st.IsActive, &st.CreatedAt, &st.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return StudentModel{}, err
+		}
+		students = append(students, st)
+	}
+	if len(students) == 0 {
+		return StudentModel{}, errors.New("Cannot find student")
+	}
+	return students[0], nil
 }

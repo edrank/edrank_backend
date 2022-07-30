@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/edrank/edrank_backend/apis/config"
@@ -24,6 +25,12 @@ func LoginController(c *gin.Context) {
 		return
 	}
 
+	// bytes, err := bcrypt.GenerateFromPassword([]byte(body.Email), 14)
+	// utils.SendResponse(c, "", map[string]any{
+	// 	"a": string(bytes),
+	// })
+	// return
+
 	tenant_type := c.GetHeader("x-edrank-tenant-type")
 	var tenant_id int
 	if utils.Find(utils.ValidTentantTypes[:], tenant_type) == -1 {
@@ -34,8 +41,6 @@ func LoginController(c *gin.Context) {
 	var user any
 	switch tenant_type {
 	case utils.TenantMap["COLLEGE_ADMIN"]:
-		var ca models.CollegeAdminModel
-
 		ca, err := models.GetCollegeAdminByField("email", body.Email)
 
 		if err != nil {
@@ -72,6 +77,68 @@ func LoginController(c *gin.Context) {
 			Name:     ca.Name,
 			Email:    ca.Email,
 			IsActive: ca.IsActive,
+		}
+	case utils.TenantMap["STUDENT"]:
+		st, err := models.GetStudentByField("email", body.Email)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+
+		if !st.IsActive {
+			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Account is not active"))
+			return
+		}
+
+		if !checkPass(body.Password, st.Password) {
+			utils.SendError(c, http.StatusUnauthorized, errors.New("Invalid Credentials"))
+			return
+		}
+		tenant_id = st.Id
+		cc = types.CustomClaims{
+			TenantId:   st.Id,
+			TenantType: tenant_type,
+			IsActive:   st.IsActive,
+			Email:      st.Email,
+			Cid:        st.Cid,
+		}
+		user = struct {
+			Id               int       `json:"id"`
+			ParentId         int       `json:"parent_id"`
+			Cid              int       `json:"cid"`
+			Name             string    `json:"name"`
+			Email            string    `json:"email"`
+			Phone            string    `json:"phone"`
+			CourseId         int       `json:"course_id"`
+			Year             int       `json:"year"`
+			Batch            string    `json:"batch"`
+			Password         string    `json:"password"`
+			EnrollmentNumber string    `json:"enrollment"`
+			Dob              time.Time `json:"dob"`
+			FathersName      string    `json:"fathers_name"`
+			MotherName       string    `json:"mother_name"`
+			GuardianEmail    string    `json:"guardian_email"`
+			GuardianPhone    string    `json:"guardian_phone"`
+			IsActive         bool      `json:"is_active"`
+		}{
+			Id:               st.Id,
+			Cid:              st.Cid,
+			ParentId:         st.ParentId,
+			Name:             st.Name,
+			Email:            st.Email,
+			Phone:            st.Phone,
+			CourseId:         st.CourseId,
+			Year:             st.Year,
+			Batch:            st.Batch,
+			Password:         st.Password,
+			EnrollmentNumber: st.EnrollmentNumber,
+			Dob:              st.Dob,
+			FathersName:      st.FathersName,
+			MotherName:       st.MotherName,
+			GuardianEmail:    st.GuardianEmail,
+			GuardianPhone:    st.GuardianPhone,
+			IsActive:         st.IsActive,
 		}
 	default:
 		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("%s login not implemented yet", tenant_type)))
