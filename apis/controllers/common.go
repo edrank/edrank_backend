@@ -36,7 +36,7 @@ func LoginController(c *gin.Context) {
 	case utils.TenantMap["COLLEGE_ADMIN"]:
 		var ca models.CollegeAdminModel
 
-		ca, err := models.GetAllCollegeAdminByField("email", body.Email)
+		ca, err := models.GetCollegeAdminByField("email", body.Email)
 
 		if err != nil {
 			utils.SendError(c, http.StatusBadRequest, err)
@@ -111,7 +111,7 @@ func ChangePasswordController(c *gin.Context) {
 	case utils.TenantMap["COLLEGE_ADMIN"]:
 		var ca models.CollegeAdminModel
 
-		ca, err := models.GetAllCollegeAdminByField("id", tenant_id)
+		ca, err := models.GetCollegeAdminByField("id", tenant_id)
 
 		if err != nil {
 			utils.SendError(c, http.StatusBadRequest, err)

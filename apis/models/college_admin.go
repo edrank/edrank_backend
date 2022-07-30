@@ -45,7 +45,7 @@ func GetAllCollegeAdminsOfCollege(cid int) ([]CollegeAdminModel, error) {
 	return college_admins, nil
 }
 
-func GetAllCollegeAdminByField(fieldName string, fieldValue any) (CollegeAdminModel, error) {
+func GetCollegeAdminByField(fieldName string, fieldValue any) (CollegeAdminModel, error) {
 	database := db.GetDatabase()
 	rows, err := database.Query(fmt.Sprintf("select * from college_admin where %s = ?", fieldName), fieldValue)
 	if err == sql.ErrNoRows {
@@ -72,7 +72,7 @@ func GetAllCollegeAdminByField(fieldName string, fieldValue any) (CollegeAdminMo
 	return college_admins[0], nil
 }
 
-func GetAllCollegeAdminsByField(fieldName string, fieldValue any) ([]CollegeAdminModel, error) {
+func GetCollegeAdminsByField(fieldName string, fieldValue any) ([]CollegeAdminModel, error) {
 	database := db.GetDatabase()
 	rows, err := database.Query(fmt.Sprintf("select * from college_admin where %s = ?", fieldName), fieldValue)
 	if err == sql.ErrNoRows {
@@ -130,4 +130,32 @@ func UpdateCollegeAdminByFields(fieldValues map[string]any, whereValues map[stri
 	}
 
 	return "Fields Updated", nil
+}
+
+func CreateCollegeAdmin(college_admin CollegeAdminModel) (int, error) {
+	database := db.GetDatabase()
+	query := "insert into college_admin (cid, name, email, is_active, password) values (?,?,?,?,?);"
+
+	stmt, err := database.Prepare(query)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	resp, err := stmt.Exec(college_admin.Cid, college_admin.Name, college_admin.Email, college_admin.IsActive, college_admin.Password)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	id, err := resp.LastInsertId()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	return int(id), nil
 }

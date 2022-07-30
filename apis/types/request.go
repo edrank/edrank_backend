@@ -29,4 +29,9 @@ type (
 		} `json:"college"`
 		Courses []string `json:"courses"`
 	}
+
+	CreateNewCollegeAdminBody struct {
+		Name      string    `json:"name"`
+		Email     string    `json:"email"`
+	}
 )

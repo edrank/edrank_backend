@@ -78,7 +78,7 @@ func GetFileRegistryByField(fieldName string, fieldValue any) (FileRegistryModel
 
 func CreateFileRegistry(fr FileRegistryModel) (int, error) {
 	database := db.GetDatabase()
-	query := "insert into file_registry values ($1, $2, $3, $4);"
+	query := "insert into file_registry values (?, ?, ?, ?);"
 
 	stmt, err := database.Prepare(query)
 

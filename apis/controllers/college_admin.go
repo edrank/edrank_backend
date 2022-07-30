@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/edrank/edrank_backend/apis/models"
 	"github.com/edrank/edrank_backend/apis/services"
@@ -13,6 +14,7 @@ import (
 	"github.com/edrank/edrank_backend/apis/utils"
 	"github.com/gin-gonic/gin"
 	"github.com/xuri/excelize/v2"
+	"golang.org/x/crypto/bcrypt"
 )
 
 var StudentSheetColumns []string = []string{"Name", "Email", "Phone", "Year", "Batch", "Section", "Enrollment Number", "Date of Birth", "Fathers Name", "Mothers Name", "Guardian Email", "Guardian Phone"}
@@ -210,4 +212,61 @@ func OnBoardCollegeController(c *gin.Context) {
 
 	// remove the downloaded file
 	os.Remove("tmp/" + fr.Location)
+}
+
+func CreateNewCollgeAdminController(c *gin.Context) {
+	var body types.CreateNewCollegeAdminBody
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	// check if college admin with similar email exists
+	ca, err := models.GetCollegeAdminByField("email", body.Email)
+
+	if err != nil && err.Error() != "Cannot find college admin" {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+	if ca.Email == body.Email {
+		utils.SendResponse(c, "College Admin Already Exists with this email", map[string]any{})
+		return
+	}
+
+	college_id := c.GetInt("CollegeId")
+	name := body.Name
+
+	if len(strings.Split(name, " ")) > 0 {
+		name = strings.Split(body.Name, " ")[0]
+	}
+	password := "admin@" + name
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	college_admin := models.CollegeAdminModel{
+		Cid:      college_id,
+		Name:     body.Name,
+		Email:    body.Email,
+		IsActive: true,
+		Password: string(bytes),
+	}
+
+	caId, err := models.CreateCollegeAdmin(college_admin)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	// TODO: send mail to new college admin
+
+	utils.SendResponse(c, "College Admin Created!", map[string]any{
+		"college_admin_id": caId,
+	})
 }
