@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 29 20:56:09 2022
+# Make data base, printed on Sat Jul 30 20:47:41 2022
 
 # Variables
 
@@ -67,7 +67,7 @@ XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.OSDHQ1
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.98
+GNOME_TERMINAL_SERVICE = :1.1913
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -101,7 +101,7 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 61783
+VSCODE_PID = 133953
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
@@ -131,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/046e5210_fc28_4b86_82d1_0ff4505de223
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/4c886618_41f5_48ca_9240_25d659ca3451
 # environment
 MAKELEVEL := 0
 # default
@@ -279,6 +279,7 @@ Makefile:
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
+ 
 
 # Not a target:
 .DEFAULT:
@@ -308,7 +309,6 @@ GNUmakefile:
 #  Failed to be updated.
 
 # files hash-table stats:
- 
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Fri Jul 29 20:56:09 2022
+# Finished Make data base on Sat Jul 30 20:47:41 2022
 
  

@@ -11,6 +11,12 @@ type (
 	}
 
 	OnBoardCollegeBody struct {
+		OnboardingFile string `json:"onboarding_file"`
+		FileRegistryId string `json:"file_registry_id"`
+		Courses []string `json:"courses"`
+	}
+
+	GetOnboardingSheetBody struct {
 		College struct {
 			Name             string `json:"name"`
 			Email            string `json:"email"`
@@ -20,9 +26,7 @@ type (
 			CollegeType      string `json:"collge_type"`
 			City             string `json:"city"`
 			State            string `json:"state"`
-			OnBoardingStatus string `json:"onboarding_status"`
 		} `json:"college"`
-		OnboardingFile string `json:"onboarding_file"`
-		FileRegistryId string `json:"file_registry_id"`
+		Courses []string `json:"courses"`
 	}
 )

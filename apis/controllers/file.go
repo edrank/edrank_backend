@@ -26,12 +26,12 @@ func FileUploadController(c *gin.Context) {
 	}
 
 	filename := header.Filename
-	filKey := "edrank/" + filename
+	fileKey := "edrank/" + filename
 	//upload to the s3 bucket
 	up, err := uploader.Upload(&s3manager.UploadInput{
 		Bucket: aws.String(bucket),
 		ACL:    aws.String("public-read"),
-		Key:    aws.String(filKey),
+		Key:    aws.String(fileKey),
 		Body:   file,
 	})
 	if err != nil {
@@ -42,7 +42,7 @@ func FileUploadController(c *gin.Context) {
 	cid := c.GetInt("CollegeId")
 	file_registry := models.FileRegistryModel{
 		Cid:      cid,
-		Location: filKey,
+		Location: fileKey,
 		Url:      up.Location,
 		Type:     file_type,
 	}

@@ -29,3 +29,12 @@ func Find(arr []string, val string) int {
 	}
 	return -1
 }
+
+func AreEqualArray(a []string, b []string) bool {
+	for i, _ := range a {
+		if a[i] != b[i] {
+			return false
+		}
+	}
+	return true
+}

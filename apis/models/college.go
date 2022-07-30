@@ -30,7 +30,7 @@ type (
 
 func GetCollegeByField(fieldName string, fieldValue any) (CollegeModel, error) {
 	database := db.GetDatabase()
-	rows, err := database.Query(fmt.Sprintf("select * from colleges where %s = ?", fieldName), fieldValue)
+	rows, err := database.Query(fmt.Sprintf("select * collegeom colleges where %s = ?", fieldName), fieldValue)
 	if err == sql.ErrNoRows {
 		return CollegeModel{}, errors.New("Cannot find college")
 	}
@@ -53,4 +53,32 @@ func GetCollegeByField(fieldName string, fieldValue any) (CollegeModel, error) {
 		return CollegeModel{}, errors.New("Cannot find college")
 	}
 	return colleges[0], nil
+}
+
+func CreateCollege(college CollegeModel) (int,  error) {
+	database := db.GetDatabase()
+	query := "insert into college values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);"
+
+	stmt, err := database.Prepare(query)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	resp, err := stmt.Exec(&college.Name, &college.Email, &college.Phone, &college.WebsiteUrl, &college.UniversityName, &college.City, &college.State, &college.CollegeType, &college.OnboardingStatus, &college.IsActive)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	id, err := resp.LastInsertId()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	return int(id), nil
 }
