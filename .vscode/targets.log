@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jul 29 09:35:32 2022
+# Make data base, printed on Fri Jul 29 20:56:09 2022
 
 # Variables
 
@@ -61,13 +61,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.F4ZAQ1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.OSDHQ1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.119
+GNOME_TERMINAL_SERVICE = :1.98
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -101,13 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 4509
+VSCODE_PID = 61783
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2537,unix/om-bridgeup:/tmp/.ICE-unix/2537
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/60902,unix/om-bridgeup:/tmp/.ICE-unix/60902
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/02a30e0c_188d_42a6_9926_9f3dcfaf0583
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/046e5210_fc28_4b86_82d1_0ff4505de223
 # environment
 MAKELEVEL := 0
 # default
@@ -181,7 +181,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2793
+SYSTEMD_EXEC_PID = 61196
 # environment
 DISPLAY = :0
 # environment
@@ -289,7 +289,6 @@ Makefile:
 # Not a target:
 all:
 #  Command line target.
- 
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has not been updated.
@@ -309,6 +308,7 @@ GNUmakefile:
 #  Failed to be updated.
 
 # files hash-table stats:
+ 
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Fri Jul 29 09:35:32 2022
+# Finished Make data base on Fri Jul 29 20:56:09 2022
 
  

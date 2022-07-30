@@ -8,6 +8,21 @@ type (
 	}
 
 	GetLinkingDataBody struct {
-		
+	}
+
+	OnBoardCollegeBody struct {
+		College struct {
+			Name             string `json:"name"`
+			Email            string `json:"email"`
+			Phone            string `json:"phone" `
+			Website          string `json:"website "`
+			UniversityName   string `json:"university_name"`
+			CollegeType      string `json:"collge_type"`
+			City             string `json:"city"`
+			State            string `json:"state"`
+			OnBoardingStatus string `json:"onboarding_status"`
+		} `json:"college"`
+		OnboardingFile string `json:"onboarding_file"`
+		FileRegistryId string `json:"file_registry_id"`
 	}
 )
