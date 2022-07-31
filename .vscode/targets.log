@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Jul 30 20:47:41 2022
+# Make data base, printed on Mon Aug  1 00:04:23 2022
 
 # Variables
 
@@ -49,7 +49,7 @@ PWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-OLDPWD = /home/omgupta
+OLDPWD = /home/omgupta/Desktop/edrank
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -61,13 +61,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.OSDHQ1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.H8M2P1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.1913
+GNOME_TERMINAL_SERVICE = :1.98
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -101,13 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 133953
+VSCODE_PID = 27273
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/60902,unix/om-bridgeup:/tmp/.ICE-unix/60902
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/23795,unix/om-bridgeup:/tmp/.ICE-unix/23795
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/4c886618_41f5_48ca_9240_25d659ca3451
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/3a57a68d_2619_4afa_8dfd_e4dcec8aca73
 # environment
 MAKELEVEL := 0
 # default
@@ -157,7 +157,7 @@ SNAP_REAL_HOME = /home/omgupta
 # environment
 USERNAME = omgupta
 # environment
-GNOME_SETUP_DISPLAY = :1
+GNOME_SETUP_DISPLAY = :3
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # automatic
@@ -181,9 +181,9 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 61196
+SYSTEMD_EXEC_PID = 24097
 # environment
-DISPLAY = :0
+DISPLAY = :2
 # environment
 USER = omgupta
 # environment
@@ -279,7 +279,6 @@ Makefile:
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
- 
 
 # Not a target:
 .DEFAULT:
@@ -288,6 +287,7 @@ Makefile:
 #  File has not been updated.
 
 # Not a target:
+ 
 all:
 #  Command line target.
 #  Implicit rule search has been done.
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Sat Jul 30 20:47:41 2022
+# Finished Make data base on Mon Aug  1 00:04:23 2022
 
  
