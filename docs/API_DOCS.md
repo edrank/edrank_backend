@@ -9,7 +9,7 @@
 - Onboarding File URL - https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/constants/EDRANK_ONBOARDING.xlsx
 ## Test Credentials
 
-- Find Test Credentials (here)[https://github.com/edrank/edrank_backend/blob/master/docs/CREDENTIALS.md]
+- Find Test Credentials [here](https://github.com/edrank/edrank_backend/blob/master/docs/CREDENTIALS.md)
 
 ## API Docs
 ### Login API (For all tenants)
