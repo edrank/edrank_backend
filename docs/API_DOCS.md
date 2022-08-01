@@ -8,32 +8,8 @@
     - `HIEA`
 - Onboarding File URL - https://omgupta-bucket.s3.ap-south-1.amazonaws.com/edrank/constants/EDRANK_ONBOARDING.xlsx
 ## Test Credentials
-### College Admin
-``` json
-{
-    "email":"omgupta1608@gmail.com",
-    "password":"om123"
-}
-```
-``` json
-{
-    "email":"samridhikots@gmail.com",
-    "password":"sam123"
-}
-```
-``` json
-{
-    "email":"rishidholkheria2001@gmail.com",
-    "password":"rishirishi"
-}
-```
-### Student
-``` json
-{
-    "email":"test+1@gmail.com",
-    "password":"test123"
-}
-```
+
+- Find Test Credentials (here)[https://github.com/edrank/edrank_backend/blob/master/docs/CREDENTIALS.md]
 
 ## API Docs
 ### Login API (For all tenants)
@@ -201,5 +177,51 @@
         }
     },
     "message": "My Profile fetched!"
+}
+```
+
+### Get Top 3 Teachers API
+`POST /top-3-teachers`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Body (FORM DATA)
+``` json
+{
+    "request_type": "COLLEGE",
+    "cid": 1,
+    "city": "",
+    "state": ""
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "teachers": [
+            {
+                "id": 3,
+                "name": "Virat Kohli",
+                "score": 91.08,
+                "rank": 1
+            },
+            {
+                "id": 2,
+                "name": "Rishi Dholkheria",
+                "score": 83.98,
+                "rank": 2
+            },
+            {
+                "id": 1,
+                "name": "Kavita Pabreja",
+                "score": 61.23,
+                "rank": 3
+            }
+        ]
+    },
+    "message": "Top 3 Teachers"
 }
 ```
