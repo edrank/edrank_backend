@@ -22,17 +22,9 @@ func Top3TeachersController(c *gin.Context) {
 		return
 	}
 
-	var top3 []models.Top3TeachersResponse
-	var err error
-	switch body.RequestType {
-	case "COLLEGE":
-		top3, err = models.GetTop3TeachersByType(body)
-		if err != nil {
-			utils.SendError(c, http.StatusInternalServerError, err)
-			return
-		}
-	default:
-		utils.SendResponse(c, body.RequestType+" Leaderboards not available yet", map[string]any{})
+	top3, err := models.GetTop3TeachersByType(body)
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
 		return
 	}
 

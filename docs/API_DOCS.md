@@ -189,6 +189,10 @@
 }
 ```
 #### Request Body
+- In case of `COLLEGE`, `cid` is important (other keys must be present)
+- In case of `NATIONAL`, no other fields are required (keys must be present)
+- In case of `REGIONAL`, `city` is important (other keys must be present)
+- In case of `STATE`, `state` is important (other keys must be present)
 ``` json
 {
     "request_type": "COLLEGE",

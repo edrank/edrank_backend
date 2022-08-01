@@ -1,6 +1,7 @@
 package models
 
 import (
+	"database/sql"
 	"time"
 
 	"github.com/edrank/edrank_backend/apis/db"
@@ -35,13 +36,24 @@ type (
 
 func GetTop3TeachersByType(params types.Top3TeachersBody) ([]Top3TeachersResponse, error) {
 	var query string
+	var rows *sql.Rows
+	var err error
+	database := db.GetDatabase()
+
 	switch params.RequestType {
 	case "COLLEGE":
 		query = "select id, name, score from teachers where cid = ? AND is_active = 1 ORDER BY score DESC LIMIT 3"
+		rows, err = database.Query(query, params.Cid)
+	case "STATE":
+		query = "SELECT teachers.id, teachers.name, teachers.score FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.state = ? ORDER BY score DESC LIMIT 3;"
+		rows, err = database.Query(query, params.State)
+	case "REGIONAL":
+		query = "SELECT teachers.id, teachers.name, teachers.score FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.city = ? ORDER BY score DESC LIMIT 3;"
+		rows, err = database.Query(query, params.City)
+	case "NATIONAL":
+		query = "select teachers.id, teachers.name, teachers.score from teachers where is_active = 1 ORDER BY score DESC LIMIT 3"
+		rows, err = database.Query(query)
 	}
-	database := db.GetDatabase()
-
-	rows, err := database.Query(query, params.Cid)
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
@@ -58,7 +70,7 @@ func GetTop3TeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 			return nil, err
 		}
 		teacher.Rank = rank
-		rank++;
+		rank++
 		teachers = append(teachers, teacher)
 	}
 
