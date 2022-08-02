@@ -66,7 +66,7 @@ func GetStudentByField(fieldName string, fieldValue any) (StudentModel, error) {
 
 func UpdateStudentByFields(fieldValues map[string]any, whereValues map[string]any) (string, error) {
 	database := db.GetDatabase()
-	var query string = "update student set "
+	var query string = "update students set "
 	var values []any
 	for field, value := range fieldValues {
 		query += fmt.Sprintf("%s = ?, ", field)
