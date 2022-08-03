@@ -229,3 +229,137 @@
     "message": "Top 3 Teachers"
 }
 ```
+
+### Get College admins of my college API
+`GET /my-college-college-admins`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "college_admins": [
+            {
+                "id": 1,
+                "cid": 1,
+                "name": "Om",
+                "email": "omgupta1608@gmail.com",
+                "is_active": true,
+                "password": "$2a$14$MfY9CQYjnG7JS8Y8BYKOj.xiBm0DABfROWoYmh489sv8ifNTYqiJW",
+                "created_at": "2022-07-23T06:42:01Z",
+                "updated_at": "2022-07-24T15:45:52Z"
+            }
+        ]
+    },
+    "message": "College Admins of your College!"
+}
+```
+
+### Get teachers of my college API
+`GET /my-college-teachers?page=1&size=2`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Query params
+``` json
+{
+    "page":"1",
+    "size":"2"
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "teachers": [
+            {
+                "id": 1,
+                "cid": 1,
+                "name": "Kavita Pabreja",
+                "email": "omgupta1608+2@gmail.com",
+                "alt_email": "omgupta1608+3@gmail.com",
+                "department": "Computer Science",
+                "course_id": 1,
+                "designation": "Assistant Professor",
+                "score": 61.23,
+                "password": "$2a$14$YVHvpWB.FP2SG2qCl/JcXem6QeZD2v79Qkd4b3KMBAkUUYnkkk.XO",
+                "is_active": true,
+                "created_at": "2022-07-31T19:06:59Z",
+                "updated_at": "2022-07-31T19:06:59Z"
+            },
+            {
+                "id": 2,
+                "cid": 1,
+                "name": "Rishi Dholkheria",
+                "email": "omgupta1608+3@gmail.com",
+                "alt_email": "omgupta1608+4@gmail.com",
+                "department": "Computer Applications",
+                "course_id": 1,
+                "designation": "Professor",
+                "score": 83.98,
+                "password": "$2a$14$x8BbpWEU.Vm8Kdypjq/HRu9QZr10AM9RCodg4ERCayflH.gLdnkXm",
+                "is_active": true,
+                "created_at": "2022-07-31T19:06:59Z",
+                "updated_at": "2022-07-31T19:06:59Z"
+            }
+        ]
+    },
+    "message": "College Admins of your College!"
+}
+```
+
+
+### Get students of my college API
+`GET /my-college-students?page=1&size=1`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Query params
+``` json
+{
+    "page":"1",
+    "size":"1"
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "students": [
+            {
+                "id": 1,
+                "parent_id": 1,
+                "cid": 1,
+                "name": "Test Student",
+                "email": "test+1@gmail.com",
+                "phone": "9643959973",
+                "course_id": 1,
+                "year": 3,
+                "batch": "2019-22",
+                "password": "$2a$14$WUc6kfmTOuxK8YWF/SUZ.OFy1/Xcy4T1Zb.2VmGvansv188kr8LHG",
+                "enrollment": "04214902019",
+                "dob": "2001-08-16T00:29:56Z",
+                "fathers_name": "Adam Gilchrist",
+                "mother_name": "Kareena Kapoor",
+                "guardian_email": "adam@gmail.com",
+                "guardian_phone": "9872827722",
+                "is_active": true,
+                "created_at": "2022-07-30T19:03:55Z",
+                "updated_at": "2022-08-02T15:56:52Z"
+            }
+        ]
+    },
+    "message": "Students of your College!"
+}
+```
+

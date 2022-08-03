@@ -261,7 +261,7 @@ func CreateNewCollgeAdminController(c *gin.Context) {
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
-		utils.SendError(c, http.StatusBadRequest, err)
+		utils.SendError(c, http.StatusInternalServerError, err)
 		return
 	}
 
@@ -269,5 +269,116 @@ func CreateNewCollgeAdminController(c *gin.Context) {
 
 	utils.SendResponse(c, "College Admin Created!", map[string]any{
 		"college_admin_id": caId,
+	})
+}
+
+// paginated
+func GetTeachersOfMyCollegeController(c *gin.Context) {
+	cid, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	size, exists := c.GetQuery("size")
+
+	if !exists {
+		size = "10"
+	}
+
+	page, exists := c.GetQuery("page")
+
+	if !exists {
+		page = "1"
+	}
+
+	// pagination opts
+	limit, offset, err := utils.GetPaginationOpts(size, page)
+
+	if err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	teachers, err := models.GetAllTeachersOfMyCollege(cid.(int), limit, offset)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "Teachers of your College!", map[string]any{
+		"teachers": teachers,
+	})
+}
+
+// paginated
+func GetStudentsOfMyCollegeController(c *gin.Context) {
+	cid, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	size, exists := c.GetQuery("size")
+
+	if !exists {
+		size = "10"
+	}
+
+	page, exists := c.GetQuery("page")
+
+	if !exists {
+		page = "1"
+	}
+
+	// pagination opts
+	limit, offset, err := utils.GetPaginationOpts(size, page)
+
+	if err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	students, err := models.GetAllStudentsOfMyCollege(cid.(int), limit, offset)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "Students of your College!", map[string]any{
+		"students": students,
+	})
+}
+
+// paginated
+func GetParentsOfMyCollegeController(c *gin.Context) {
+
+}
+
+func GetAdminsOfMyCollegeController(c *gin.Context) {
+
+	cid, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	college_admins, err := models.GetAllCollegeAdminsOfCollege(cid.(int))
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "College Admins of your College!", map[string]any{
+		"college_admins": college_admins,
 	})
 }

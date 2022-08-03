@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug  1 08:36:32 2022
+# Make data base, printed on Wed Aug  3 08:33:52 2022
 
 # Variables
 
@@ -59,13 +61,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.H8M2P1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.LZKBQ1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.509
+GNOME_TERMINAL_SERVICE = :1.104
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -99,13 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 38749
+VSCODE_PID = 3432
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/23795,unix/om-bridgeup:/tmp/.ICE-unix/23795
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2520,unix/om-bridgeup:/tmp/.ICE-unix/2520
 # automatic
 *F = $(notdir $*)
 # environment
@@ -129,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/5f5c64b7_70b1_4d1d_9000_319cebceed09
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/486c925c_5a09_4610_b8ff_5391e911d72c
 # environment
 MAKELEVEL := 0
 # default
@@ -155,7 +157,7 @@ SNAP_REAL_HOME = /home/omgupta
 # environment
 USERNAME = omgupta
 # environment
-GNOME_SETUP_DISPLAY = :3
+GNOME_SETUP_DISPLAY = :1
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # automatic
@@ -179,9 +181,9 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 24097
+SYSTEMD_EXEC_PID = 2774
 # environment
-DISPLAY = :2
+DISPLAY = :0
 # environment
 USER = omgupta
 # environment
@@ -277,9 +279,6 @@ Makefile:
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # Not a target:
 .DEFAULT:
@@ -311,6 +310,7 @@ GNUmakefile:
 # files hash-table stats:
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
+ 
 
 # No 'vpath' search paths.
 
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Mon Aug  1 08:36:32 2022
+# Finished Make data base on Wed Aug  3 08:33:52 2022
 
  

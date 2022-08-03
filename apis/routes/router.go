@@ -2,6 +2,7 @@ package routes
 
 import (
 	"github.com/edrank/edrank_backend/apis/controllers"
+	"github.com/edrank/edrank_backend/apis/middlewares"
 	"github.com/gin-gonic/gin"
 )
 
@@ -31,7 +32,10 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.POST("/top-3-teachers", controllers.Top3TeachersController)
 
 	// college admin APIs
-	r.POST("/onboard-college", controllers.OnBoardCollegeController)
-	r.POST("/create-college-admin", controllers.CreateNewCollgeAdminController)
-
+	r.POST("/onboard-college", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.OnBoardCollegeController)
+	r.POST("/create-college-admin", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.CreateNewCollgeAdminController)
+	r.GET("/my-college-teachers", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetTeachersOfMyCollegeController)
+	r.GET("/my-college-parents", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetParentsOfMyCollegeController)
+	r.GET("/my-college-students", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetStudentsOfMyCollegeController)
+	r.GET("/my-college-college-admins", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetAdminsOfMyCollegeController)
 }

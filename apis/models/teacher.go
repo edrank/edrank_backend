@@ -76,3 +76,24 @@ func GetTop3TeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 
 	return teachers, nil
 }
+
+func GetAllTeachersOfMyCollege(cid int, limit int, offset int) ([]TeacherModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query("select * from teachers where cid = ? limit ? offset ?", cid, limit, offset)
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var teachers []TeacherModel
+	for rows.Next() {
+		var teacher TeacherModel
+
+		if err := rows.Scan(&teacher.Id, &teacher.Cid, &teacher.Name, &teacher.OfficialEmail, &teacher.AlternateEmail, &teacher.Department, &teacher.CourseId, &teacher.Designation, &teacher.Score, &teacher.Password, &teacher.IsActive, &teacher.CreatedAt, &teacher.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		teachers = append(teachers, teacher)
+	}
+	return teachers, nil
+}

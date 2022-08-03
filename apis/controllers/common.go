@@ -164,6 +164,11 @@ func ChangePasswordController(c *gin.Context) {
 	tenant_type := c.GetString("TenantType")
 	tenant_id := c.GetInt("TenantId")
 
+	if body.NewPassword == body.OldPassword {
+		utils.SendError(c, http.StatusBadRequest, errors.New("New password cannot be same as old password"))
+		return
+	}
+	
 	switch tenant_type {
 	case utils.TenantMap["COLLEGE_ADMIN"]:
 		var ca models.CollegeAdminModel

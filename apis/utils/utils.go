@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"strconv"
+
 	"github.com/fatih/color"
 )
 
@@ -37,4 +39,20 @@ func AreEqualArray(a []string, b []string) bool {
 		}
 	}
 	return true
+}
+
+func GetPaginationOpts(size string, page string) (int, int, error) {
+	limit, err := strconv.Atoi(size)
+
+	if err != nil {
+		return -1, -1, err
+	}
+
+	offset, err := strconv.Atoi(page)
+
+	if err != nil {
+		return -1, -1, err
+	}
+
+	return limit, (offset - 1) * limit, nil
 }
