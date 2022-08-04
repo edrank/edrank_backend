@@ -210,19 +210,22 @@
                 "id": 3,
                 "name": "Virat Kohli",
                 "score": 91.08,
-                "rank": 1
+                "rank": 1,
+                "college_name": "Maharaja Surajmal Institute"
             },
             {
                 "id": 2,
                 "name": "Rishi Dholkheria",
                 "score": 83.98,
-                "rank": 2
+                "rank": 2,
+                "college_name": "Maharaja Surajmal Institute"
             },
             {
                 "id": 1,
                 "name": "Kavita Pabreja",
                 "score": 61.23,
-                "rank": 3
+                "rank": 3,
+                "college_name": "Maharaja Surajmal Institute"
             }
         ]
     },

@@ -27,10 +27,11 @@ type (
 	}
 
 	Top3TeachersResponse struct {
-		Id    int     `json:"id"`
-		Name  string  `json:"name"`
-		Score float32 `json:"score"`
-		Rank  int     `json:"rank"`
+		Id          int     `json:"id"`
+		Name        string  `json:"name"`
+		Score       float32 `json:"score"`
+		Rank        int     `json:"rank"`
+		CollegeName string  `json:"college_name"`
 	}
 )
 
@@ -42,16 +43,16 @@ func GetTop3TeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 
 	switch params.RequestType {
 	case "COLLEGE":
-		query = "select id, name, score from teachers where cid = ? AND is_active = 1 ORDER BY score DESC LIMIT 3"
+		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where cid = ? AND teachers.is_active = 1 ORDER BY score DESC LIMIT 3;"
 		rows, err = database.Query(query, params.Cid)
 	case "STATE":
-		query = "SELECT teachers.id, teachers.name, teachers.score FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.state = ? ORDER BY score DESC LIMIT 3;"
+		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.state = ? ORDER BY score DESC LIMIT 3;"
 		rows, err = database.Query(query, params.State)
 	case "REGIONAL":
-		query = "SELECT teachers.id, teachers.name, teachers.score FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.city = ? ORDER BY score DESC LIMIT 3;"
+		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.city = ? ORDER BY score DESC LIMIT 3;"
 		rows, err = database.Query(query, params.City)
 	case "NATIONAL":
-		query = "select teachers.id, teachers.name, teachers.score from teachers where is_active = 1 ORDER BY score DESC LIMIT 3"
+		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where teachers.is_active = 1 ORDER BY score DESC LIMIT 3;"
 		rows, err = database.Query(query)
 	}
 
@@ -65,7 +66,7 @@ func GetTop3TeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 	for rows.Next() {
 		var teacher Top3TeachersResponse
 
-		if err := rows.Scan(&teacher.Id, &teacher.Name, &teacher.Score); err != nil {
+		if err := rows.Scan(&teacher.Id, &teacher.Name, &teacher.Score, &teacher.CollegeName); err != nil {
 			utils.PrintToConsole(err.Error(), "red")
 			return nil, err
 		}
