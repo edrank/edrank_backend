@@ -1,6 +1,6 @@
 {
-    "db_name": "edrank_db",
-    "db_host": "edrank-db.ct54xcrnx4ny.ap-south-1.rds.amazonaws.com",
-    "db_user": "root",
-    "db_pass": "edrank#root"
+    "db_name": "u341279852_edrank_db",
+    "db_host": "185.210.145.52",
+    "db_user": "u341279852_edrank_dev",
+    "db_pass": "#Edrank@SIH22#"
 }

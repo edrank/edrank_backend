@@ -1,0 +1,6 @@
+{
+    "db_name": "edrank_db",
+    "db_host": "edrank-db.ct54xcrnx4ny.ap-south-1.rds.amazonaws.com",
+    "db_user": "root",
+    "db_pass": "edrank#root"
+}
