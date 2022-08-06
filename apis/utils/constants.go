@@ -11,3 +11,7 @@ var (
 		"HEIA":          "HEIA",
 	}
 )
+
+const (
+	ONE_MILLION int = 1000000
+)

@@ -35,7 +35,7 @@ type (
 	}
 )
 
-func GetTop3TeachersByType(params types.Top3TeachersBody) ([]Top3TeachersResponse, error) {
+func GetTopNTeachersByType(params types.Top3TeachersBody) ([]Top3TeachersResponse, error) {
 	var query string
 	var rows *sql.Rows
 	var err error
@@ -43,17 +43,17 @@ func GetTop3TeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 
 	switch params.RequestType {
 	case "COLLEGE":
-		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where cid = ? AND teachers.is_active = 1 ORDER BY score DESC LIMIT 3;"
-		rows, err = database.Query(query, params.Cid)
+		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where cid = ? AND teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
+		rows, err = database.Query(query, params.Cid, params.N)
 	case "STATE":
-		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.state = ? ORDER BY score DESC LIMIT 3;"
-		rows, err = database.Query(query, params.State)
+		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.state = ? ORDER BY score DESC LIMIT ?;"
+		rows, err = database.Query(query, params.State, params.N)
 	case "REGIONAL":
-		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.city = ? ORDER BY score DESC LIMIT 3;"
-		rows, err = database.Query(query, params.City)
+		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.city = ? ORDER BY score DESC LIMIT ?;"
+		rows, err = database.Query(query, params.City, params.N)
 	case "NATIONAL":
-		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where teachers.is_active = 1 ORDER BY score DESC LIMIT 3;"
-		rows, err = database.Query(query)
+		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
+		rows, err = database.Query(query, params.N)
 	}
 
 	if err != nil {

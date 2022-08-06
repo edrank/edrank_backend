@@ -215,9 +215,9 @@
 
 <details>
 
-<summary style="font-size:20px">Get Top 3 Teachers API</summary>
+<summary style="font-size:20px">Get Top N Teachers API</summary>
 
-`POST /top-3-teachers`
+`POST /top-n-teachers`
 #### Request Headers
 ``` json
 {
@@ -229,12 +229,14 @@
 - In case of `NATIONAL`, no other fields are required (keys must be present)
 - In case of `REGIONAL`, `city` is important (other keys must be present)
 - In case of `STATE`, `state` is important (other keys must be present)
+- Send "n" = -1 for getting all the data
 ``` json
 {
     "request_type": "COLLEGE",
     "cid": 1,
     "city": "",
-    "state": ""
+    "state": "",
+    "n": 3
 }
 ```
 #### Response
@@ -274,15 +276,18 @@
 
 <details>
 
-<summary style="font-size:20px">Get College admins of my college API</summary>
+<summary style="font-size:20px">Get College Entity of my college API</summary>
 
-`GET /my-college-college-admins`
+`GET /my-college-entity/:entity?page=1&size=2`
 #### Request Headers
 ``` json
 {
     "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
 }
 ```
+#### Request Query Params
+- Send `page` and `size` according to pagination
+- Entity should be one of `teachers`, `parents`, `students`, `college_admins`
 #### Response
 ``` json
 {

@@ -45,14 +45,15 @@ func GetPaginationOpts(size string, page string) (int, int, error) {
 	limit, err := strconv.Atoi(size)
 
 	if err != nil {
-		return -1, -1, err
+		return ONE_MILLION, 0, err
 	}
 
 	offset, err := strconv.Atoi(page)
 
 	if err != nil {
-		return -1, -1, err
+		return ONE_MILLION, 0, err
 	}
 
+	
 	return limit, (offset - 1) * limit, nil
 }

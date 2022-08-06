@@ -40,5 +40,6 @@ type (
 		Cid         int    `json:"cid"`
 		City        string `json:"city"`
 		State       string `json:"state"`
+		N           int    `json:"n"`
 	}
 )

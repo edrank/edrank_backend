@@ -10,7 +10,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Top3TeachersController(c *gin.Context) {
+func TopNTeachersController(c *gin.Context) {
 	var body types.Top3TeachersBody
 	if err := c.BindJSON(&body); err != nil {
 		utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
@@ -22,7 +22,10 @@ func Top3TeachersController(c *gin.Context) {
 		return
 	}
 
-	top3, err := models.GetTop3TeachersByType(body)
+	if body.N == -1 {
+		body.N = utils.ONE_MILLION
+	}
+	top3, err := models.GetTopNTeachersByType(body)
 	if err != nil {
 		utils.SendError(c, http.StatusInternalServerError, err)
 		return

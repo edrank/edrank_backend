@@ -23,9 +23,9 @@ type (
 	}
 )
 
-func GetAllCollegeAdminsOfCollege(cid int) ([]CollegeAdminModel, error) {
+func GetAllCollegeAdminsOfCollege(cid int, limit int, offset int) ([]CollegeAdminModel, error) {
 	database := db.GetDatabase()
-	rows, err := database.Query("select * from college_admin where cid = ?", cid)
+	rows, err := database.Query("select * from college_admin where cid = ? limit ? offset ?", cid)
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")

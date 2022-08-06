@@ -12,6 +12,11 @@ func InitRoutes(r *gin.Engine) {
 			"Status": "OK",
 		})
 	})
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(200, gin.H{
+			"Service": "Edrank Backend APIs v1.0",
+		})
+	})
 }
 
 func InitPublicRoutes(r *gin.RouterGroup) {
@@ -31,13 +36,10 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.POST("/change-password", controllers.ChangePasswordController)
 	r.GET("/college", controllers.GetCollegeController)
 	r.GET("/my-profile", controllers.GetMyProfile)
-	r.POST("/top-3-teachers", controllers.Top3TeachersController)
+	r.POST("/top-n-teachers", controllers.TopNTeachersController)
 
 	// college admin APIs
 	r.POST("/onboard-college", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.OnBoardCollegeController)
 	r.POST("/create-college-admin", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.CreateNewCollgeAdminController)
-	r.GET("/my-college-teachers", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetTeachersOfMyCollegeController)
-	r.GET("/my-college-parents", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetParentsOfMyCollegeController)
-	r.GET("/my-college-students", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetStudentsOfMyCollegeController)
-	r.GET("/my-college-college-admins", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetAdminsOfMyCollegeController)
+	r.GET("/my-college-entity/:entity", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetEntitiesOfMyCollegeController)
 }
