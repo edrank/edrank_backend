@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Aug  3 21:48:25 2022
+# Make data base, printed on Fri Aug  5 22:55:59 2022
 
 # Variables
 
@@ -37,7 +37,7 @@ GOPATH = /home/omgupta/go
 # environment
 SNAP_INSTANCE_NAME = code
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/102/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/103/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -57,17 +57,17 @@ OLDPWD = /home/omgupta
 # environment
 NVM_INC = /home/omgupta/.nvm/versions/node/v16.15.1/include/node
 # environment
-VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/3b889b090b5ad5793f524b5d1d39fda662b96a2a
+VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/da76f93349a72022ca4670c1b84860304616aaa2
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.0EJ7P1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.3DH3P1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.98
+GNOME_TERMINAL_SERVICE = :1.119
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -101,13 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 97766
+VSCODE_PID = 4956
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/96842,unix/om-bridgeup:/tmp/.ICE-unix/96842
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/3155,unix/om-bridgeup:/tmp/.ICE-unix/3155
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +131,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/22369841_5802_454a_a5f2_4baba51979eb
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/aa628e88_3a1c_4863_9bc8_a97119c1bbe4
 # environment
 MAKELEVEL := 0
 # default
@@ -149,9 +149,9 @@ LANGUAGE = en_IN:en
 # environment
 SNAP_USER_COMMON = /home/omgupta/snap/code/common
 # environment
-SNAP = /snap/code/102
+SNAP = /snap/code/103
 # environment
-SNAP_REVISION = 102
+SNAP_REVISION = 103
 # environment
 SNAP_REAL_HOME = /home/omgupta
 # environment
@@ -181,7 +181,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 97136
+SYSTEMD_EXEC_PID = 3418
 # environment
 DISPLAY = :0
 # environment
@@ -193,7 +193,7 @@ MAKE_VERSION := 4.3
 # environment
 DISABLE_WAYLAND = 1
 # environment
-SNAP_DATA = /var/snap/code/102
+SNAP_DATA = /var/snap/code/103
 # environment
 SNAP_CONTEXT = 22M4K3_9UoaxmXLBDZGQH2Q8H9Jq9dHBqVQ-CDNU0vyJMGFJH4SS
 # environment
@@ -217,13 +217,13 @@ QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1001/vscode-0e2b80d2-1.69.2-main.sock
+VSCODE_IPC_HOOK = /run/user/1001/vscode-0e2b80d2-1.70.0-main.sock
 # environment
 TERM = xterm-256color
 # environment
 SNAP_NAME = code
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/102/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/103/usr/share/glib-2.0/schemas
 # environment
 IM_CONFIG_PHASE = 1
 # environment
@@ -233,7 +233,7 @@ GOPROXY = https://proxy.golang.org,direct
 # automatic
 <F = $(notdir $<)
 # environment
-SNAP_VERSION = 3b889b09
+SNAP_VERSION = da76f933
 # default
 SUFFIXES := 
 # environment
@@ -247,7 +247,7 @@ SNAP_COMMON = /var/snap/code/common
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
 # environment
-SNAP_USER_DATA = /home/omgupta/snap/code/102
+SNAP_USER_DATA = /home/omgupta/snap/code/103
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -285,7 +285,6 @@ Makefile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
 
 # Not a target:
 all:
@@ -298,6 +297,7 @@ all:
 makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
+ 
 #  File has been updated.
 #  Failed to be updated.
 
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 22 / hit rate = 13%
 # hash-table stats:
 # Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Wed Aug  3 21:48:25 2022
+# Finished Make data base on Fri Aug  5 22:55:59 2022
 
  

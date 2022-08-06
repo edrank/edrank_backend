@@ -1,6 +1,23 @@
 version: "3.6"
+
+networks:
+  app-network:
+    driver: bridge
+
 services:
   apis:
     build: ./apis
     ports:
       - "5000:5000"
+  datastore:
+    image: 'bitnami/redis:latest'
+    volumes:
+    - ./datastore/data:/bitnami/redis/data
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+    networks:
+      - app-network
+    ports:
+      - "5001:6379"
+    

@@ -11,6 +11,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3/s3manager"
 	"github.com/edrank/edrank_backend/apis/utils"
 	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func SetOnBoardingFileController(c *gin.Context) {
@@ -33,7 +34,7 @@ func SetOnBoardingFileController(c *gin.Context) {
 
 	// get the file extentsion
 	fileE := strings.Split(header.Filename, ".")
-	fileExt := fileE[len(fileE) - 1]
+	fileExt := fileE[len(fileE)-1]
 
 	fmt.Println(header, fileE, fileExt)
 
@@ -50,11 +51,26 @@ func SetOnBoardingFileController(c *gin.Context) {
 		Body:   file,
 	})
 	if err != nil {
-		utils.SendError(c, http.StatusInternalServerError, errors.New("Failed to upload file : " + err.Error()))
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Failed to upload file : "+err.Error()))
 		return
 	}
 
 	utils.SendResponse(c, "File set", map[string]any{
 		"filepath": up.Location,
+	})
+}
+
+func GenPasswordHash(c *gin.Context) {
+	var body struct {
+		Password string `json:"password"`
+	}
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	bytes, _ := bcrypt.GenerateFromPassword([]byte(body.Password), 14)
+	utils.SendResponse(c, "", map[string]any{
+		"a": string(bytes),
 	})
 }
