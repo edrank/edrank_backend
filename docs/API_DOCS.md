@@ -12,7 +12,10 @@
 - Find Test Credentials [here](https://github.com/edrank/edrank_backend/blob/master/docs/CREDENTIALS.md)
 
 ## API Docs
-### Login API (For all tenants)
+<details>
+
+<summary style="font-size:20px">Login API</summary>
+
 `POST /login`
 #### Request Headers
 ``` json
@@ -45,7 +48,13 @@
     "message": "Logged In"
 }
 ```
-### File Upload API
+</details>
+
+
+<details>
+
+<summary style="font-size:20px">File Upload API</summary>
+
 `POST /file-upload`
 #### Request Headers
 ``` json
@@ -71,7 +80,12 @@
 }
 ```
 
-### Change Password API (For all tenants)
+</details>
+
+<details>
+
+<summary style="font-size:20px">Change Password API (For all tenants)</summary>
+
 `POST /change-password`
 #### Request Headers
 ``` json
@@ -96,7 +110,13 @@
 }
 ```
 
-### Get my college API (For STUDENT, COLLEGE_ADMIN, TEACHER)
+</details>
+
+
+<details>
+
+<summary style="font-size:20px">Get my college API (For STUDENT, COLLEGE_ADMIN, TEACHER)</summary>
+
 `GET /college`
 #### Request Headers
 ``` json
@@ -128,7 +148,12 @@
 }
 ```
 
-### Create new College admin API
+</details>
+
+<details>
+
+<summary style="font-size:20px">Create new College admin API</summary>
+
 `POST /create-college-admin`
 #### Request Headers
 ``` json
@@ -153,7 +178,12 @@
 }
 ```
 
-### Get my profile API
+</details>
+
+<details>
+
+<summary style="font-size:20px">Get my profile API</summary>
+
 `GET /my-profile`
 #### Request Headers
 ``` json
@@ -180,7 +210,13 @@
 }
 ```
 
-### Get Top 3 Teachers API
+</details>
+
+
+<details>
+
+<summary style="font-size:20px">Get Top 3 Teachers API</summary>
+
 `POST /top-3-teachers`
 #### Request Headers
 ``` json
@@ -233,7 +269,13 @@
 }
 ```
 
-### Get College admins of my college API
+</details>
+
+
+<details>
+
+<summary style="font-size:20px">Get College admins of my college API</summary>
+
 `GET /my-college-college-admins`
 #### Request Headers
 ``` json
@@ -262,7 +304,12 @@
 }
 ```
 
-### Get teachers of my college API
+</details>
+
+<details>
+
+<summary style="font-size:20px">Get teachers of my college API</summary>
+
 `GET /my-college-teachers?page=1&size=2`
 #### Request Headers
 ``` json
@@ -317,9 +364,13 @@
     "message": "College Admins of your College!"
 }
 ```
+</details>
 
 
-### Get students of my college API
+<details>
+
+<summary style="font-size:20px">Get students of my college API</summary>
+
 `GET /my-college-students?page=1&size=1`
 #### Request Headers
 ``` json
@@ -366,3 +417,4 @@
 }
 ```
 
+</details>
