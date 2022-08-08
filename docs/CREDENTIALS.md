@@ -44,3 +44,11 @@
     "password":"virat123"
 }
 ```
+
+## Parent
+```json
+{
+    "email":"adam@gmail.com",
+    "password":"adam123"
+}
+```

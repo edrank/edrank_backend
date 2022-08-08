@@ -1,0 +1,51 @@
+package models
+
+import (
+	"database/sql"
+	"errors"
+	"fmt"
+	"time"
+
+	"github.com/edrank/edrank_backend/apis/db"
+	"github.com/edrank/edrank_backend/apis/utils"
+)
+
+type (
+	ParentModel struct {
+		Id        int       `json:"id"`
+		Name      string    `json:"name"`
+		Email     string    `json:"email"`
+		Phone     string    `json:"phone"`
+		Password  string    `json:"password"`
+		IsActive  bool      `json:"is_active"`
+		CreatedAt time.Time `json:"created_at"`
+		UpdatedAt time.Time `json:"updated_at"`
+	}
+)
+
+func GetParentByField(fieldName string, fieldValue any) (ParentModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query(fmt.Sprintf("select * from parents where %s = ?", fieldName), fieldValue)
+	if err == sql.ErrNoRows {
+		return ParentModel{}, errors.New("cannot find parent")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return ParentModel{}, err
+	}
+
+	var college_admins []ParentModel
+	for rows.Next() {
+		var p ParentModel
+
+		if err := rows.Scan(&p.Id, &p.Name, &p.Email, &p.Phone, &p.Password, &p.IsActive, &p.CreatedAt, &p.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return ParentModel{}, err
+		}
+		college_admins = append(college_admins, p)
+	}
+	if len(college_admins) == 0 {
+		return ParentModel{}, errors.New("Cannot find parent")
+	}
+	return college_admins[0], nil
+}
