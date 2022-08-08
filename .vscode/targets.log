@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Mon Aug  8 07:50:01 2022
+# Make data base, printed on Mon Aug  8 22:23:19 2022
 
 # Variables
 
@@ -59,13 +59,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/da76f93349a72022c
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.924JQ1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.WFSXQ1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.119
+GNOME_TERMINAL_SERVICE = :1.122
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -99,13 +99,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 4392
+VSCODE_PID = 98738
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2477,unix/om-bridgeup:/tmp/.ICE-unix/2477
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/96726,unix/om-bridgeup:/tmp/.ICE-unix/96726
 # automatic
 *F = $(notdir $*)
 # environment
@@ -129,7 +129,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/d944574a_e5cb_449a_91a6_bee0aa9f2d58
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/029d3c4e_9f39_4355_bdb8_e3a78a9ba788
 # environment
 MAKELEVEL := 0
 # default
@@ -179,7 +179,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2729
+SYSTEMD_EXEC_PID = 96759
 # environment
 DISPLAY = :0
 # environment
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Mon Aug  8 07:50:01 2022
+# Finished Make data base on Mon Aug  8 22:23:19 2022
 
  

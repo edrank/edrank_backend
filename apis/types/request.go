@@ -42,4 +42,26 @@ type (
 		State       string `json:"state"`
 		N           int    `json:"n"`
 	}
+
+	STSubmitFeedBackBody struct {
+		FeedBacks []struct {
+			TeacherId struct {
+				QuestionId int `json:"question_id"`
+				AnswerId   int `json:"answer_id"`
+			} `json:"teacher_id"`
+		} `json:"feedbacks"`
+	}
+
+	SCSubmitFeedBackBody struct {
+		Feedbacks []struct {
+			QuestionId int `json:"question_id"`
+			AnswerId   int `json:"answer_id"`
+		} `json:"feedbacks"`
+	}
+
+	PCSubmitFeedBackBody struct {
+	}
+
+	HCSubmitFeedBackBody struct {
+	}
 )

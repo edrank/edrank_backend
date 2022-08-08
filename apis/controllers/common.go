@@ -383,7 +383,7 @@ func ChangePasswordController(c *gin.Context) {
 			return
 		}
 	default:
-		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("%s login not implemented yet", tenant_type)))
+		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("%s change password not implemented yet", tenant_type)))
 		return
 	}
 
@@ -438,6 +438,16 @@ func GetMyProfile(c *gin.Context) {
 		}
 		utils.SendResponse(c, "My Profile fetched!", map[string]any{
 			"profile": st,
+		})
+	case utils.TenantMap["TEACHER"]:
+		t, err := models.GetTeacherByField("id", tenant_id)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+		utils.SendResponse(c, "My Profuile fetched!", map[string]any{
+			"profile": t,
 		})
 	default:
 		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("my profile for %s is not implemented yet", tenant_type)))
@@ -501,4 +511,52 @@ func GetFeedbackQuestionsController(c *gin.Context) {
 		"questions": questions,
 		"type":      ff_type,
 	})
+}
+
+func SubmitFeedbackController(c *gin.Context) {
+	tenant_type, exists := c.Get("TenantType")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	ff_type := c.Param("type")
+
+	if ff_type == "" || (utils.Find(utils.ValidFeedbackFormTypes[:], ff_type) == -1) {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	if tenant_type == utils.TenantMap["PARENT"] && ff_type != "PC" {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	if tenant_type == utils.TenantMap["STUDENT"] && (utils.Find([]string{"ST", "SC"}, ff_type) == -1) {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	if tenant_type == utils.TenantMap["HEI"] && ff_type != "HC" {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	switch fmt.Sprintf("%s|%s", tenant_type, ff_type) {
+	case "STUDENT|ST":
+
+	case "STUDENT|SC":
+		utils.SendResponse(c, "Feedback submission not implemented yet", map[string]any{})
+		return
+	case "PARENT|PC":
+		utils.SendResponse(c, "Feedback submission not implemented yet", map[string]any{})
+		return
+	case "HEI|HC":
+		utils.SendResponse(c, "Feedback submission not implemented yet", map[string]any{})
+		return
+	default:
+		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("No such feedback form type of %s for tenant %s", ff_type, tenant_type)))
+		return
+	}
 }

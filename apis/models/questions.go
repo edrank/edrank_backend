@@ -15,7 +15,7 @@ type (
 		Option2   string    `json:"option_2"`
 		Option3   string    `json:"option_3"`
 		Option4   string    `json:"option_4"`
-		Option5   string    `json:"option_5`
+		Option5   string    `json:"option_5"`
 		Type      string    `json:"type"`
 		IsActive  string    `json:"is_active"`
 		CreatedAt time.Time `json:"created_at"`
