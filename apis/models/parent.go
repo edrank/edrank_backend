@@ -34,7 +34,7 @@ func GetParentByField(fieldName string, fieldValue any) (ParentModel, error) {
 		return ParentModel{}, err
 	}
 
-	var college_admins []ParentModel
+	var parents []ParentModel
 	for rows.Next() {
 		var p ParentModel
 
@@ -42,12 +42,12 @@ func GetParentByField(fieldName string, fieldValue any) (ParentModel, error) {
 			utils.PrintToConsole(err.Error(), "red")
 			return ParentModel{}, err
 		}
-		college_admins = append(college_admins, p)
+		parents = append(parents, p)
 	}
-	if len(college_admins) == 0 {
+	if len(parents) == 0 {
 		return ParentModel{}, errors.New("Cannot find parent")
 	}
-	return college_admins[0], nil
+	return parents[0], nil
 }
 
 func UpdateParentByFields(fieldValues map[string]any, whereValues map[string]any) (string, error) {

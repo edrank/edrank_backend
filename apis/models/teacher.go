@@ -2,11 +2,12 @@ package models
 
 import (
 	"database/sql"
-	"time"
-
+	"errors"
+	"fmt"
 	"github.com/edrank/edrank_backend/apis/db"
 	"github.com/edrank/edrank_backend/apis/types"
 	"github.com/edrank/edrank_backend/apis/utils"
+	"time"
 )
 
 type (
@@ -97,4 +98,64 @@ func GetAllTeachersOfMyCollege(cid int, limit int, offset int) ([]TeacherModel, 
 		teachers = append(teachers, teacher)
 	}
 	return teachers, nil
+}
+
+func UpdateTeacherByFields(fieldValues map[string]any, whereValues map[string]any) (string, error) {
+	database := db.GetDatabase()
+	var query string = "update teachers set "
+	var values []any
+	for field, value := range fieldValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + " where "
+
+	for field, value := range whereValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + ";"
+
+	result, err := database.Exec(query, values...)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	_, err = result.RowsAffected()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	return "Fields Updated", nil
+}
+
+func GetTeacherByField(fieldName string, fieldValue any) (TeacherModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query(fmt.Sprintf("select * from teachers where %s = ?", fieldName), fieldValue)
+	if err == sql.ErrNoRows {
+		return TeacherModel{}, errors.New("cannot find teacher")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return TeacherModel{}, err
+	}
+
+	var teachers []TeacherModel
+	for rows.Next() {
+		var t TeacherModel
+
+		if err := rows.Scan(&t.Id, &t.Cid, &t.Name, &t.OfficialEmail, &t.AlternateEmail, &t.Department, &t.CourseId, &t.Designation, &t.Score, &t.Password, &t.IsActive, &t.CreatedAt, &t.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return TeacherModel{}, err
+		}
+		teachers = append(teachers, t)
+	}
+	if len(teachers) == 0 {
+		return TeacherModel{}, errors.New("Cannot find teacher")
+	}
+	return teachers[0], nil
 }

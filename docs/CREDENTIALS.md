@@ -28,19 +28,19 @@
 ## Teacher
 ``` json
 {
-    "email":"omgupta1608+3@gmail.com",
+    "email":"omgupta1608+2@gmail.com",
     "password":"kavita123"
 }
 ```
 ``` json
 {
-    "email":"omgupta1608+4@gmail.com",
+    "email":"omgupta1608+3@gmail.com",
     "password":"rishi123"
 }
 ```
 ``` json
 {
-    "email":"omgupta1608+6@gmail.com",
+    "email":"omgupta1608+7@gmail.com",
     "password":"virat123"
 }
 ```

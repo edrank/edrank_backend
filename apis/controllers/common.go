@@ -67,6 +67,49 @@ func LoginController(c *gin.Context) {
 			Email:    ca.Email,
 			IsActive: ca.IsActive,
 		}
+	case utils.TenantMap["TEACHER"]:
+		ca, err := models.GetTeacherByField("email", body.Email)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+
+		if !checkPass(body.Password, ca.Password) {
+			utils.SendError(c, http.StatusUnauthorized, errors.New("Invalid Credentials"))
+			return
+		}
+		tenant_id = ca.Id
+		cc = types.CustomClaims{
+			TenantId:   ca.Id,
+			TenantType: tenant_type,
+			IsActive:   ca.IsActive,
+			Email:      ca.OfficialEmail,
+			Cid:        ca.Cid,
+		}
+		user = struct {
+			Id             int     `json:"id"`
+			Cid            int     `json:"cid"`
+			Name           string  `json:"name"`
+			Email          string  `json:"email"`
+			AlternateEmail string  `json:"alt_email"`
+			IsActive       bool    `json:"is_active"`
+			Department     string  `json:"department"`
+			CourseId       int     `json:"course_id"`
+			Designation    string  `json:"designation"`
+			Score          float32 `json:"score"`
+		}{
+			Id:             ca.Id,
+			Cid:            ca.Cid,
+			Name:           ca.Name,
+			Email:          ca.OfficialEmail,
+			AlternateEmail: ca.AlternateEmail,
+			IsActive:       ca.IsActive,
+			Department:     ca.Department,
+			Designation:    ca.Designation,
+			Score:          ca.Score,
+			CourseId:       ca.CourseId,
+		}
 	case utils.TenantMap["PARENT"]:
 		p, err := models.GetParentByField("email", body.Email)
 
@@ -299,6 +342,41 @@ func ChangePasswordController(c *gin.Context) {
 		}
 
 		_, err = models.UpdateParentByFields(updateFields, where)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+	case utils.TenantMap["TEACHER"]:
+		st, err := models.GetTeacherByField("id", tenant_id)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+
+		if !checkPass(body.OldPassword, st.Password) {
+			utils.SendError(c, http.StatusUnauthorized, errors.New("Old password doesn't match"))
+			return
+		}
+
+		var hashedPassword []byte
+		hashedPassword, err = bcrypt.GenerateFromPassword([]byte(body.NewPassword), 14)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		var updateFields = map[string]any{
+			"password": string(hashedPassword),
+		}
+
+		var where = map[string]any{
+			"id": tenant_id,
+		}
+
+		_, err = models.UpdateTeacherByFields(updateFields, where)
 
 		if err != nil {
 			utils.SendError(c, http.StatusInternalServerError, err)
