@@ -49,3 +49,36 @@ func GetParentByField(fieldName string, fieldValue any) (ParentModel, error) {
 	}
 	return college_admins[0], nil
 }
+
+func UpdateParentByFields(fieldValues map[string]any, whereValues map[string]any) (string, error) {
+	database := db.GetDatabase()
+	var query string = "update parents set "
+	var values []any
+	for field, value := range fieldValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + " where "
+
+	for field, value := range whereValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + ";"
+
+	result, err := database.Exec(query, values...)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	_, err = result.RowsAffected()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	return "Fields Updated", nil
+}
