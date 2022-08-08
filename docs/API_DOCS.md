@@ -317,3 +317,59 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">Get Feedback Questions API</summary>
+
+`GET /feedback-questions/:type`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Params
+- Type should be one of `ST`, `SC`, `PC`, `HC`
+
+
+#### Response
+``` json
+{
+    "data": {
+        "questions": [
+            {
+                "id": 1,
+                "title": "How was the teacher's subject knowledge?",
+                "option_1": "Excellent",
+                "option_2": "Very Good",
+                "option_3": "Fair",
+                "option_4": "Poor",
+                "Option5": "Very Poor",
+                "type": "ST",
+                "is_active": "1",
+                "created_at": "2022-08-06T19:29:40Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+            },
+            {
+                "id": 2,
+                "title": "How was the teacher's communication skills?",
+                "option_1": "Excellent",
+                "option_2": "Good",
+                "option_3": "Satisfactory",
+                "option_4": "Bad",
+                "Option5": "Very Bad",
+                "type": "ST",
+                "is_active": "1",
+                "created_at": "2022-08-06T19:29:40Z",
+                "updated_at": "0001-01-01T00:00:00Z"
+            }
+        ],
+        "type": "ST"
+    },
+    "message": "Feedback Questions"
+}
+```
+
+</details>

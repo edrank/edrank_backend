@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Aug  5 22:55:59 2022
+# Make data base, printed on Mon Aug  8 07:50:01 2022
 
 # Variables
 
@@ -61,7 +59,7 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/da76f93349a72022c
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.3DH3P1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.924JQ1
 # default
 .LOADED := 
 # default
@@ -101,13 +99,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 4956
+VSCODE_PID = 4392
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/3155,unix/om-bridgeup:/tmp/.ICE-unix/3155
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2477,unix/om-bridgeup:/tmp/.ICE-unix/2477
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +129,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/aa628e88_3a1c_4863_9bc8_a97119c1bbe4
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/d944574a_e5cb_449a_91a6_bee0aa9f2d58
 # environment
 MAKELEVEL := 0
 # default
@@ -181,7 +179,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 3418
+SYSTEMD_EXEC_PID = 2729
 # environment
 DISPLAY = :0
 # environment
@@ -263,9 +261,9 @@ SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd
 
 # Directories
 
-# . (device 66310, inode 1720857): 11 files, no impossibilities.
+# . (device 66310, inode 1720857): 13 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -279,6 +277,9 @@ Makefile:
 #  File does not exist.
 #  File has been updated.
 #  Failed to be updated.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 
 # Not a target:
 .DEFAULT:
@@ -297,7 +298,6 @@ all:
 makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
- 
 #  File has been updated.
 #  Failed to be updated.
 
@@ -316,12 +316,12 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 19 / storage = 170 B / avg = 8 B
-# current buf: size = 8162 B / used = 170 B / count = 19 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 21 / storage = 195 B / avg = 9 B
+# current buf: size = 8162 B / used = 195 B / count = 21 / avg = 9 B
 
-# strcache performance: lookups = 22 / hit rate = 13%
+# strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
-# Load=19/8192=0%, Rehash=0, Collisions=0/22=0%
-# Finished Make data base on Fri Aug  5 22:55:59 2022
+# Load=21/8192=0%, Rehash=0, Collisions=0/24=0%
+# Finished Make data base on Mon Aug  8 07:50:01 2022
 
  

@@ -43,7 +43,6 @@ func JWTMiddleware() gin.HandlerFunc {
 		c.Set("TenantType", user.TenantType)
 
 		if utils.Find([]string{utils.TenantMap["STUDENT"], utils.TenantMap["TEACHER"], utils.TenantMap["COLLEGE_ADMIN"]}, c.GetString("TenantType")) != -1 {
-			fmt.Println(user.Cid)
 			c.Set("CollegeId", user.Cid)
 		}
 		c.Next()

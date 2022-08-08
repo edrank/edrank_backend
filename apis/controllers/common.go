@@ -25,12 +25,6 @@ func LoginController(c *gin.Context) {
 		return
 	}
 
-	// bytes, err := bcrypt.GenerateFromPassword([]byte(body.Email), 14)
-	// utils.SendResponse(c, "", map[string]any{
-	// 	"a": string(bytes),
-	// })
-	// return
-
 	tenant_type := c.GetHeader("x-edrank-tenant-type")
 	var tenant_id int
 	if utils.Find(utils.ValidTentantTypes[:], tenant_type) == -1 {
@@ -168,7 +162,7 @@ func ChangePasswordController(c *gin.Context) {
 		utils.SendError(c, http.StatusBadRequest, errors.New("New password cannot be same as old password"))
 		return
 	}
-	
+
 	switch tenant_type {
 	case utils.TenantMap["COLLEGE_ADMIN"]:
 		var ca models.CollegeAdminModel
@@ -320,7 +314,46 @@ func checkPass(password string, hash string) bool {
 	return err == nil
 }
 
-
 func GetFeedbackQuestionsController(c *gin.Context) {
-	
+	tenant_type, exists := c.Get("TenantType")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	ff_type := c.Param("type")
+
+	if ff_type == "" || (utils.Find(utils.ValidFeedbackFormTypes[:], ff_type) == -1) {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	if tenant_type == utils.TenantMap["PARENT"] && ff_type != "PC" {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	if tenant_type == utils.TenantMap["STUDENT"] && (utils.Find([]string{"ST", "SC"}, ff_type) == -1) {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	if tenant_type == utils.TenantMap["HEI"] && ff_type != "HC" {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	questions, err := models.GetAllQuestionsByType(ff_type)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "Feedback Questions", map[string]any{
+		"questions": questions,
+		"type":      ff_type,
+	})
 }

@@ -10,6 +10,7 @@ var (
 		"SUPER_ADMIN":   "SUPER_ADMIN",
 		"HEIA":          "HEIA",
 	}
+	ValidFeedbackFormTypes = [...]string{"ST", "SC", "PC", "HC"}
 )
 
 const (
