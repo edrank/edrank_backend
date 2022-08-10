@@ -43,15 +43,22 @@ type (
 		N           int    `json:"n"`
 	}
 
-	STSubmitFeedBackBody struct {
-		FeedBacks []struct {
-			TeacherId struct {
-				QuestionId int `json:"question_id"`
-				AnswerId   int `json:"answer_id"`
-			} `json:"teacher_id"`
-		} `json:"feedbacks"`
+	GetFeedbackTeachersBody struct {
+		CourseId int `json:"course_id"`
+		Year     int `json:"year"`
 	}
 
+	STSubmitFeedBackBody struct {
+		DriveId   int `json:"drive_id"`
+		Feedbacks []struct {
+			TeacherID int `json:"teacher_id"`
+			Mcq       []struct {
+				QuestionId int `json:"question_id"`
+				AnswerId   int `json:"answer_id"`
+			} `json:"mcq"`
+			TextFeedback string `json:"text_feedback"`
+		} `json:"feedbacks"`
+	}
 	SCSubmitFeedBackBody struct {
 		Feedbacks []struct {
 			QuestionId int `json:"question_id"`

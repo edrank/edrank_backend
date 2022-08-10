@@ -373,3 +373,113 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">Submit ST Feedback Form API</summary>
+
+`POST /submit-feedback/ST`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Params
+- Type should be one of `ST`, `SC`, `PC`, `HC`
+
+
+#### Request Body
+```json 
+{
+  "drive_id": 1,
+  "feedbacks": [
+    {
+      "teacher_id": 1,
+      "mcq": [
+        {
+          "question_id": 2,
+          "answer_id": 4
+        },
+        {
+          "question_id": 1,
+          "answer_id": 3
+        }
+      ],
+      "text_feedback": "Nice teaching."
+    },
+    {
+      "teacher_id": 2,
+      "mcq": [
+        {
+          "question_id": 1,
+          "answer_id": 3
+        }
+      ],
+      "text_feedback": "Poor teaching."
+    }
+  ]
+}
+```
+
+#### Response
+``` json
+{
+    "data": {},
+    "message": "Feedback submitted!"
+}
+```
+
+</details>
+
+
+
+
+<details>
+
+<summary style="font-size:20px">Get teachers for feedback API</summary>
+
+`POST /get-feedback-teachers`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Request Body
+```json 
+{
+    "course_id":1,
+    "year": 3
+}
+```
+
+#### Response
+``` json
+{
+    "data": {
+        "teachers": [
+            {
+                "id": 1,
+                "cid": 1,
+                "name": "Kavita Pabreja",
+                "email": "omgupta1608+2@gmail.com",
+                "alt_email": "omgupta1608+3@gmail.com",
+                "department": "Computer Science",
+                "course_id": 1,
+                "designation": "Assistant Professor",
+                "score": 61.23,
+                "password": "$2a$14$/L8ug6Gb3Wh8G6/LT5AGYeuS.72Tmb6cLjUAot9T02DvGkt2R0miS",
+                "is_active": true,
+                "created_at": "2022-07-31T19:06:59Z",
+                "updated_at": "2022-08-08T04:20:30Z"
+            }
+        ]
+    },
+    "message": "Teachers"
+}
+```
+
+</details>

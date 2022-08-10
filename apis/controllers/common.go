@@ -9,6 +9,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/edrank/edrank_backend/apis/config"
 	"github.com/edrank/edrank_backend/apis/models"
+	"github.com/edrank/edrank_backend/apis/services"
 	"github.com/edrank/edrank_backend/apis/types"
 	"github.com/edrank/edrank_backend/apis/utils"
 	"github.com/gin-gonic/gin"
@@ -521,6 +522,13 @@ func SubmitFeedbackController(c *gin.Context) {
 		return
 	}
 
+	tenant_id, exists := c.Get("TenantId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
 	ff_type := c.Param("type")
 
 	if ff_type == "" || (utils.Find(utils.ValidFeedbackFormTypes[:], ff_type) == -1) {
@@ -545,7 +553,88 @@ func SubmitFeedbackController(c *gin.Context) {
 
 	switch fmt.Sprintf("%s|%s", tenant_type, ff_type) {
 	case "STUDENT|ST":
+		var body types.STSubmitFeedBackBody
+		if err := c.BindJSON(&body); err != nil {
+			utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
+			return
+		}
 
+		if len(body.Feedbacks) == 0 {
+			// no feedbacks
+			utils.SendError(c, http.StatusBadRequest, errors.New("No feedbacks provided"))
+			return
+		}
+
+		/*
+			- every feedback is processed by the scoring engine to produce a score (0-100) (avg for now maybe)
+			- then feedback will be inserted in the feedback table
+			- then responses will be inserted in responses table (in a way that it can be used to re-evaluate the feedback and generate a score (just in case))
+			- after feedback score generation...the score will again be fed to scoring engine (or can be done when first generated too) and processed along with existing score to generate final teacher/college score
+			- then the updated score with be updated in scores table (and leaderboard gets updated)
+		*/
+		var responses []models.ResponsesModel
+		var teacher_ingestion_data_map map[int]types.FeedBacksForIngestion = make(map[int]types.FeedBacksForIngestion)
+		var teacher_text_feedback_map map[int]string = make(map[int]string)
+		var fb_score float32
+		var err error
+
+		for _, feedback := range body.Feedbacks {
+			// for teacher_id, teacher_feedback := range feedback {
+			for _, feedback_response := range feedback.Mcq {
+				teacher_ingestion_data_map[feedback.TeacherID] = append(teacher_ingestion_data_map[feedback.TeacherID], struct {
+					QuestionId int "json:\"question_id\""
+					AnswerId   int "json:\"answer_id\""
+				}{
+					QuestionId: feedback_response.QuestionId,
+					AnswerId:   feedback_response.AnswerId,
+				})
+			}
+			teacher_text_feedback_map[feedback.TeacherID] = feedback.TextFeedback
+		}
+
+		for teacher_id, ingestion_data := range teacher_ingestion_data_map {
+			fb_score, err = services.GetFeedbackScore(ingestion_data, teacher_id)
+			if err != nil {
+				utils.PrintToConsole("Error processing feedback. Aborted", err.Error())
+				utils.SendError(c, http.StatusInternalServerError, err)
+				return
+			}
+
+			feedbackOpts := models.FeedbackModel{
+				TenantId:      tenant_id.(int),
+				TenantType:    tenant_type.(string),
+				TextFeedback:  teacher_text_feedback_map[teacher_id],
+				FeedbackScore: fb_score, //score from scoring engine
+				IsActive:      true,
+				VictimId:      teacher_id,
+			}
+			// insert feedback to db to get ID
+
+			feedback_id, err := models.CreateNewFeedback(feedbackOpts)
+
+			if err != nil {
+				utils.SendError(c, http.StatusInternalServerError, err)
+				return
+			}
+
+			for _, _iData := range ingestion_data {
+				responses = append(responses, models.ResponsesModel{
+					FeedbackId: feedback_id,
+					QuestionId: _iData.QuestionId,
+					Answer:     _iData.AnswerId,
+					IsActive:   true,
+				})
+			}
+		}
+
+		err = models.BulkCreateResponses(responses)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		utils.SendResponse(c, "Feedback submitted!", map[string]any{})
 	case "STUDENT|SC":
 		utils.SendResponse(c, "Feedback submission not implemented yet", map[string]any{})
 		return
@@ -559,4 +648,36 @@ func SubmitFeedbackController(c *gin.Context) {
 		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("No such feedback form type of %s for tenant %s", ff_type, tenant_type)))
 		return
 	}
+}
+
+func GetFeedbackTeachersController(c *gin.Context) {
+	college_id, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	links, err := models.GetTeacherLinksByField("college_id", college_id)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	var ids []int = make([]int, len(links))
+
+	for i, link := range links {
+		ids[i] = link.Id
+	}
+	teachers, err := models.GetTeachersByTeacherIds(ids)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "Teachers", map[string]any{
+		"teachers": teachers,
+	})
 }

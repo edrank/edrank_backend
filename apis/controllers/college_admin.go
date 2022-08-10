@@ -350,3 +350,14 @@ func GetEntitiesOfMyCollegeController(c *gin.Context) {
 		})
 	}
 }
+
+func ToggleFeedbackDriveController(c *gin.Context) {
+	_, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	// drive
+}

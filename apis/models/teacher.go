@@ -4,10 +4,12 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strings"
+	"time"
+
 	"github.com/edrank/edrank_backend/apis/db"
 	"github.com/edrank/edrank_backend/apis/types"
 	"github.com/edrank/edrank_backend/apis/utils"
-	"time"
 )
 
 type (
@@ -158,4 +160,32 @@ func GetTeacherByField(fieldName string, fieldValue any) (TeacherModel, error) {
 		return TeacherModel{}, errors.New("Cannot find teacher")
 	}
 	return teachers[0], nil
+}
+
+func GetTeachersByTeacherIds(ids []int) ([]TeacherModel, error) {
+	database := db.GetDatabase()
+
+	args := make([]interface{}, len(ids))
+	for i, id := range ids {
+		args[i] = id
+	}
+
+	stmt := `SELECT * from teachers where id in (?` + strings.Repeat(",?", len(args)-1) + `)`
+	rows, err := database.Query(stmt, args...)
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var teachers []TeacherModel
+	for rows.Next() {
+		var teacher TeacherModel
+
+		if err := rows.Scan(&teacher.Id, &teacher.Cid, &teacher.Name, &teacher.OfficialEmail, &teacher.AlternateEmail, &teacher.Department, &teacher.CourseId, &teacher.Designation, &teacher.Score, &teacher.Password, &teacher.IsActive, &teacher.CreatedAt, &teacher.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		teachers = append(teachers, teacher)
+	}
+	return teachers, nil
 }
