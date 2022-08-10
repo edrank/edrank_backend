@@ -20,4 +20,7 @@ services:
       - app-network
     ports:
       - "5001:6379"
-    
+  ml_engine:
+    build: ./ml_engine
+    ports:
+      - "5002:5002"
