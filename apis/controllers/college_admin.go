@@ -322,7 +322,17 @@ func GetEntitiesOfMyCollegeController(c *gin.Context) {
 			"students": students,
 		})
 	case "parents":
-		utils.SendResponse(c, "API not ready", map[string]any{})
+		parents, err := models.GetParentsOfCollege(cid.(int), limit, offset)
+
+		if err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		utils.SendResponse(c, "Parents of your College!", map[string]any{
+			"parents": parents,
+		})
 
 	case "teachers":
 		teachers, err := models.GetAllTeachersOfMyCollege(cid.(int), limit, offset)

@@ -82,3 +82,24 @@ func UpdateParentByFields(fieldValues map[string]any, whereValues map[string]any
 
 	return "Fields Updated", nil
 }
+
+func GetParentsOfCollege(cid int, limit int, offset int) ([]ParentModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query("select parents.id,parents.name,parents.email,parents.phone,parents.password,parents.is_active,parents.created_at,parents.updated_at from parents left join students on students.parent_id = parents.id AND students.cid = ? group by parents.id limit ? offset ?", cid, limit, offset)
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var parents []ParentModel
+	for rows.Next() {
+		var parent ParentModel
+
+		if err := rows.Scan(&parent.Id, &parent.Name, &parent.Email, &parent.Phone, &parent.Password, &parent.IsActive, &parent.CreatedAt, &parent.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		parents = append(parents, parent)
+	}
+	return parents, nil
+}
