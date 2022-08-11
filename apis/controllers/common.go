@@ -447,8 +447,18 @@ func GetMyProfile(c *gin.Context) {
 			utils.SendError(c, http.StatusBadRequest, err)
 			return
 		}
-		utils.SendResponse(c, "My Profuile fetched!", map[string]any{
+		utils.SendResponse(c, "My Profile fetched!", map[string]any{
 			"profile": t,
+		})
+	case utils.TenantMap["PARENT"]:
+		p, err := models.GetParentByField("id", tenant_id)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+		utils.SendResponse(c, "My Profile fetched!", map[string]any{
+			"profile": p,
 		})
 	default:
 		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("my profile for %s is not implemented yet", tenant_type)))
