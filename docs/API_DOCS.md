@@ -483,3 +483,42 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">Get my college's rank API</summary>
+
+`POST /get-my-colleges-rank`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Request Body
+- In case of `NATIONAL`, no other fields are required (keys must be present)
+- In case of `REGIONAL`, `city` is important (other keys must be present)
+- In case of `STATE`, `state` is important (other keys must be present)
+```json 
+{
+    "request_type": "REGIONAL",
+    "cid": 2,
+    "city": "New Delhi",
+    "state": ""
+}
+```
+
+#### Response
+- if returned `-1` or `any errors` , check if input is correct, or else show can't get rank
+``` json
+{
+    "data": {
+        "rank": 1
+    },
+    "message": "My college rank"
+}
+```
+
+</details>

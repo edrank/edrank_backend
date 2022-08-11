@@ -683,3 +683,28 @@ func GetFeedbackTeachersController(c *gin.Context) {
 		"teachers": teachers,
 	})
 }
+
+func GetMyCollegesRankController(c *gin.Context) {
+	var body types.Top3TeachersBody
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
+		return
+	}
+
+	if utils.Find([]string{"COLLEGE", "REGIONAL", "STATE", "NATIONAL"}, body.RequestType) == -1 {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Invalid Request Type"))
+		return
+	}
+
+	rank, err := models.GetRankOfCollegeByType(body.RequestType, body.City, body.State, body.Cid)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "My college rank", map[string]any{
+		"rank": rank,
+	})
+
+}

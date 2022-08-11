@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 11 10:10:22 2022
+# Make data base, printed on Thu Aug 11 20:57:38 2022
 
 # Variables
 
@@ -21,9 +23,7 @@ SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-GJS_DEBUG_OUTPUT = stderr
-# environment
-VSCODE_CWD = /home/omgupta
+VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 NVM_DIR = /home/omgupta/.nvm
 # default
@@ -48,6 +48,8 @@ PWD = /home/omgupta/Desktop/edrank/edrank_backend
 %D = $(patsubst %/,%,$(dir $%))
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
+# environment
+OLDPWD = /home/omgupta
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -59,11 +61,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/6d9b74a70ca9c7733
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.LKZXQ1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.5550Q1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
+# environment
+GNOME_TERMINAL_SERVICE = :1.98
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -97,15 +101,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 4527
+VSCODE_PID = 49529
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-BAMF_DESKTOP_FILE_HINT = /var/lib/snapd/desktop/applications/code_code.desktop
-# environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2482,unix/om-bridgeup:/tmp/.ICE-unix/2482
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/48646,unix/om-bridgeup:/tmp/.ICE-unix/48646
 # automatic
 *F = $(notdir $*)
 # environment
@@ -127,13 +129,11 @@ MAKECMDGOALS := all
 # environment
 XMODIFIERS = @im=ibus
 # environment
-GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+SHLVL = 1
 # environment
-SHLVL = 0
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/e9a68038_801f_4bd1_aabd_9a72236de4df
 # environment
 MAKELEVEL := 0
-# environment
-IM_CONFIG_CHECK_ENV = 1
 # default
 MAKE = $(MAKE_COMMAND)
 # environment
@@ -151,8 +151,6 @@ SNAP_USER_COMMON = /home/omgupta/snap/code/common
 # environment
 SNAP = /snap/code/104
 # environment
-INVOCATION_ID = fd9a24801c5e42d0a7a3315441b3a5e8
-# environment
 SNAP_REVISION = 104
 # environment
 SNAP_REAL_HOME = /home/omgupta
@@ -167,7 +165,7 @@ LESSCLOSE = /usr/bin/lesspipe %s %s
 # environment
 XDG_CURRENT_DESKTOP = Unity
 # environment
-LS_COLORS = 
+LS_COLORS = rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
 # automatic
 +F = $(notdir $+)
 # environment
@@ -179,13 +177,11 @@ GNUMAKEFLAGS :=
 # environment
 LOGNAME = omgupta
 # environment
-GIO_LAUNCHED_DESKTOP_FILE = /var/lib/snapd/desktop/applications/code_code.desktop
-# environment
 SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2516
+SYSTEMD_EXEC_PID = 48944
 # environment
 DISPLAY = :0
 # environment
@@ -201,19 +197,13 @@ SNAP_DATA = /var/snap/code/104
 # environment
 SNAP_CONTEXT = 22M4K3_9UoaxmXLBDZGQH2Q8H9Jq9dHBqVQ-CDNU0vyJMGFJH4SS
 # environment
-MANAGERPID = 2289
-# environment
-GIO_LAUNCHED_DESKTOP_FILE_PID = 4476
-# environment
-_ = /snap/code/104/usr/share/code/code
-# environment
 XDG_RUNTIME_DIR = /run/user/1001
+# environment
+COLORTERM = truecolor
 # environment
 GDK_PIXBUF_MODULE_FILE = /home/omgupta/snap/code/common/.cache/gdk-pixbuf-loaders.cache
 # environment
 NVM_CD_FLAGS = 
-# environment
-JOURNAL_STREAM = 8:39991
 # environment
 GOMODCACHE = /home/omgupta/go/pkg/mod
 # environment
@@ -228,6 +218,8 @@ QT_IM_MODULE = ibus
 ELECTRON_RUN_AS_NODE = 1
 # environment
 VSCODE_IPC_HOOK = /run/user/1001/vscode-0e2b80d2-1.70.1-main.sock
+# environment
+TERM = xterm-256color
 # environment
 SNAP_NAME = code
 # environment
@@ -249,6 +241,8 @@ VSCODE_CLI = 1
 # environment
 ELECTRON_NO_ATTACH_CONSOLE = 1
 # environment
+VTE_VERSION = 6800
+# environment
 SNAP_COMMON = /var/snap/code/common
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
@@ -261,7 +255,7 @@ GDMSESSION = ubuntu
 # environment
 SNAP_LIBRARY_PATH = /var/lib/snapd/lib/gl:/var/lib/snapd/lib/gl32:/var/lib/snapd/void
 # variable set hash-table stats:
-# Load=125/1024=12%, Rehash=0, Collisions=4/152=3%
+# Load=121/1024=12%, Rehash=0, Collisions=10/148=7%
 
 # Pattern-specific Variable Values
 
@@ -292,6 +286,7 @@ Makefile:
 #  Modification time never checked.
 #  File has not been updated.
 
+ 
 # Not a target:
 all:
 #  Command line target.
@@ -300,9 +295,6 @@ all:
 #  File has not been updated.
 
 # Not a target:
- 
-make: *** No rule to make target 'all'.  Stop.
-
 makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -330,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Thu Aug 11 10:10:22 2022
+# Finished Make data base on Thu Aug 11 20:57:38 2022
 
  

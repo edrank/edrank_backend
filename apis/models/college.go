@@ -31,7 +31,7 @@ type (
 
 func GetCollegeByField(fieldName string, fieldValue any) (CollegeModel, error) {
 	database := db.GetDatabase()
-	rows, err := database.Query(fmt.Sprintf("select * collegeom colleges where %s = ?", fieldName), fieldValue)
+	rows, err := database.Query(fmt.Sprintf("select * from colleges where %s = ?", fieldName), fieldValue)
 	if err == sql.ErrNoRows {
 		return CollegeModel{}, errors.New("Cannot find college")
 	}
@@ -82,4 +82,52 @@ func CreateCollege(college CollegeModel) (int, error) {
 	}
 
 	return int(id), nil
+}
+
+func GetRankOfCollegeByType(rank_type string, city string, state string, cid int) (int, error) {
+	var query string
+	var rows *sql.Rows
+	var err error
+	database := db.GetDatabase()
+
+	switch rank_type {
+	case "NATIONAL":
+		query = "select college_id from college_scores order by score DESC;"
+		rows, err = database.Query(query)
+	case "STATE":
+		query = "select college_id from college_scores inner join `colleges` on colleges.id = college_scores.college_id AND colleges.state = ? order by college_scores.score DESC;"
+		rows, err = database.Query(query,state)
+	case "REGIONAL":
+		query = "select college_id from college_scores inner join `colleges` on colleges.id = college_scores.college_id AND colleges.city = ? order by college_scores.score DESC;"
+		rows, err = database.Query(query, city)
+	}
+
+	if err == sql.ErrNoRows {
+		return -1, errors.New("Cannot find colleges")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	var college_scores []CollegeScoresModel
+	for rows.Next() {
+		var cs CollegeScoresModel
+
+		if err := rows.Scan(&cs.CollegeId); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return -1, err
+		}
+		college_scores = append(college_scores, cs)
+	}
+	if len(college_scores) == 0 {
+		return -1, errors.New("Cannot find college score")
+	}
+
+	for i, college_sc := range college_scores {
+		if college_sc.CollegeId == cid {
+			return i + 1, nil
+		}
+	}
+	return -1, nil
 }
