@@ -64,6 +64,32 @@ func GetStudentByField(fieldName string, fieldValue any) (StudentModel, error) {
 	return students[0], nil
 }
 
+func GetStudentsByField(fieldName string, fieldValue any) ([]StudentModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query(fmt.Sprintf("select * from students where %s = ?", fieldName), fieldValue)
+	if err == sql.ErrNoRows {
+		return nil, errors.New("Cannot find student")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var students []StudentModel
+	for rows.Next() {
+		var st StudentModel
+		if err := rows.Scan(&st.Id, &st.ParentId, &st.Cid, &st.Name, &st.Email, &st.Phone, &st.CourseId, &st.Year, &st.Batch, &st.Password, &st.EnrollmentNumber, &st.Dob, &st.FathersName, &st.MotherName, &st.GuardianEmail, &st.GuardianPhone, &st.IsActive, &st.CreatedAt, &st.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		students = append(students, st)
+	}
+	if len(students) == 0 {
+		return nil, errors.New("Cannot find student")
+	}
+	return students, nil
+}
+
 func UpdateStudentByFields(fieldValues map[string]any, whereValues map[string]any) (string, error) {
 	database := db.GetDatabase()
 	var query string = "update students set "
