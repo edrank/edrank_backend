@@ -54,6 +54,7 @@ type (
 		VictimId      int       `json:"victim_id"`
 		TextFeedback  string    `json:"text_feedback"`
 		FeedbackScore float32   `json:"feedback_score"`
+		SAScore float32   `json:"sa_score"`
 		IsActive      bool      `json:"is_active"`
 		CreatedAt     time.Time `json:"created_at"`
 		UpdatedAt     time.Time `json:"updated_at"`

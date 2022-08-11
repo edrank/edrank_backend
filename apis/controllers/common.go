@@ -576,6 +576,7 @@ func SubmitFeedbackController(c *gin.Context) {
 		var teacher_ingestion_data_map map[int]types.FeedBacksForIngestion = make(map[int]types.FeedBacksForIngestion)
 		var teacher_text_feedback_map map[int]string = make(map[int]string)
 		var fb_score float32
+		var sa_score float32
 		var err error
 
 		for _, feedback := range body.Feedbacks {
@@ -593,7 +594,7 @@ func SubmitFeedbackController(c *gin.Context) {
 		}
 
 		for teacher_id, ingestion_data := range teacher_ingestion_data_map {
-			fb_score, err = services.GetFeedbackScore(ingestion_data, teacher_id)
+			fb_score, sa_score, err = services.GetFeedbackScore(ingestion_data, teacher_id)
 			if err != nil {
 				utils.PrintToConsole("Error processing feedback. Aborted", err.Error())
 				utils.SendError(c, http.StatusInternalServerError, err)
@@ -607,6 +608,7 @@ func SubmitFeedbackController(c *gin.Context) {
 				FeedbackScore: fb_score, //score from scoring engine
 				IsActive:      true,
 				VictimId:      teacher_id,
+				SAScore:       sa_score,
 			}
 			// insert feedback to db to get ID
 
