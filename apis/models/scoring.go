@@ -54,7 +54,7 @@ type (
 		VictimId      int       `json:"victim_id"`
 		TextFeedback  string    `json:"text_feedback"`
 		FeedbackScore float32   `json:"feedback_score"`
-		SAScore float32   `json:"sa_score"`
+		SAScore       float32   `json:"sa_score"`
 		IsActive      bool      `json:"is_active"`
 		CreatedAt     time.Time `json:"created_at"`
 		UpdatedAt     time.Time `json:"updated_at"`
@@ -138,4 +138,40 @@ func GetFeedbackDriveByField(fieldName string, fieldValue any) (FeedbackDrivesMo
 		return FeedbackDrivesModel{}, errors.New("Cannot find drive")
 	}
 	return drives[0], nil
+}
+
+func GetTextFeedbacksOfTeacher(tid int) ([]struct {
+	Feedback string `json:"text_feedback"`
+	Score    string `json:"sa_score"`
+}, error) {
+	database := db.GetDatabase()
+
+	rows, err := database.Query("select text_feedback, sa_score from feedbacks where victim_id = ?", tid)
+
+	if err == sql.ErrNoRows {
+		return nil, errors.New("Cannot find fb")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var fbs []struct {
+		Feedback string `json:"text_feedback"`
+		Score    string `json:"sa_score"`
+	}
+
+	for rows.Next() {
+		var fb struct {
+			Feedback string `json:"text_feedback"`
+			Score    string `json:"sa_score"`
+		}
+
+		if err := rows.Scan(&fb.Feedback, &fb.Score); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		fbs = append(fbs, fb)
+	}
+	return fbs, nil
 }

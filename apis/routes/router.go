@@ -50,4 +50,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 
 	// parent APIs
 	r.GET("/get-my-students", middlewares.VerifyTenants([]string{"PARENT"}), controllers.GetStudentsOfParent)
+
+	// teacher APIs
+	r.GET("/get-my-text-feedbacks", middlewares.VerifyTenants([]string{"TEACHER"}), controllers.GetMyTextFeedbacksController)
 }

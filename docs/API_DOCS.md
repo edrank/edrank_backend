@@ -558,3 +558,33 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">Get my text feedbacks API</summary>
+
+`GET /get-my-text-feedbacks`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Response
+``` json
+{
+    "data": {
+        "feedbacks": [
+            {
+                "text_feedback": "Very good teaching. Excellent teacher.",
+                "sa_score": "88"
+            }
+        ]
+    },
+    "message": "Your feeedbacks"
+}
+```
+
+</details>

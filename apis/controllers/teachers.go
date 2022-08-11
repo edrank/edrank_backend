@@ -35,3 +35,23 @@ func TopNTeachersController(c *gin.Context) {
 		"teachers": top3,
 	})
 }
+
+func GetMyTextFeedbacksController(c *gin.Context) {
+	tenant_id, exists := c.Get("TenantId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	fbs, err := models.GetTextFeedbacksOfTeacher(tenant_id.(int))
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "Your feeedbacks", map[string]any{
+		"feedbacks": fbs,
+	})
+}
