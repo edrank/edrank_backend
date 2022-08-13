@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
@@ -604,13 +605,13 @@ func SubmitFeedbackController(c *gin.Context) {
 		}
 
 		for teacher_id, ingestion_data := range teacher_ingestion_data_map {
-			fb_score, sa_score, err = services.GetFeedbackScore(ingestion_data, teacher_id)
+			fb_score, sa_score, err = services.GetFeedbackScore(ingestion_data, teacher_text_feedback_map[teacher_id], teacher_id)
 			if err != nil {
 				utils.PrintToConsole("Error processing feedback. Aborted", err.Error())
 				utils.SendError(c, http.StatusInternalServerError, err)
 				return
 			}
-
+			services.UpdateEntityScore("teacher", teacher_id, fb_score, sa_score)
 			feedbackOpts := models.FeedbackModel{
 				TenantId:      tenant_id.(int),
 				TenantType:    tenant_type.(string),
@@ -717,4 +718,31 @@ func GetMyCollegesRankController(c *gin.Context) {
 		"rank": rank,
 	})
 
+}
+
+func GetCourse(c *gin.Context) {
+	course_id := c.Param("id")
+
+	if course_id == "" {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Invalid course id"))
+		return
+	}
+
+	cid, err := strconv.Atoi(course_id)
+
+	if err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	course, err := models.GetCourseById(cid)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	utils.SendResponse(c, "Course", map[string]any{
+		"course": course,
+	})
 }

@@ -1,6 +1,4 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
-make: *** No rule to make target 'all'.  Stop.
-
 # GNU Make 4.3
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
@@ -8,7 +6,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 11 20:57:38 2022
+# Make data base, printed on Sat Aug 13 12:09:26 2022
 
 # Variables
 
@@ -61,13 +59,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/6d9b74a70ca9c7733
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.5550Q1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.A2XNQ1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.98
+GNOME_TERMINAL_SERVICE = :1.193
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -101,13 +99,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 49529
+VSCODE_PID = 9211
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/48646,unix/om-bridgeup:/tmp/.ICE-unix/48646
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2482,unix/om-bridgeup:/tmp/.ICE-unix/2482
 # automatic
 *F = $(notdir $*)
 # environment
@@ -131,7 +129,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/e9a68038_801f_4bd1_aabd_9a72236de4df
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/746dc1ea_5d5e_4ec1_807f_c6a08cb87e49
 # environment
 MAKELEVEL := 0
 # default
@@ -181,7 +179,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 48944
+SYSTEMD_EXEC_PID = 2515
 # environment
 DISPLAY = :0
 # environment
@@ -285,8 +283,10 @@ Makefile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
-
  
+make: *** No rule to make target 'all'.  Stop.
+
+
 # Not a target:
 all:
 #  Command line target.
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Thu Aug 11 20:57:38 2022
+# Finished Make data base on Sat Aug 13 12:09:26 2022
 
  

@@ -15,4 +15,5 @@ var (
 
 const (
 	ONE_MILLION int = 1000000
+	ML_ENGINE_URL string = "http://localhost:5000"
 )

@@ -15,6 +15,7 @@ type (
 		Id        int       `json:"id"`
 		TeacherId int       `json:"teacher_id"`
 		Score     float32   `json:"score"`
+		FbCount   int       `json:"fb_count"`
 		IsActive  bool      `json:"is_active"`
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
@@ -24,6 +25,7 @@ type (
 		Id        int       `json:"id"`
 		CollegeId int       `json:"college_id"`
 		Score     float32   `json:"score"`
+		FbCount   int       `json:"fb_count"`
 		IsActive  bool      `json:"is_active"`
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
@@ -174,4 +176,102 @@ func GetTextFeedbacksOfTeacher(tid int) ([]struct {
 		fbs = append(fbs, fb)
 	}
 	return fbs, nil
+}
+
+func GetScoreByTypeAndId(score_type string, id int) (float32, int, error) {
+	database := db.GetDatabase()
+	var query string
+	switch score_type {
+	case "teacher":
+		query = "select score, fb_count from teacher_scores where teacher_id = ?"
+		rows, err := database.Query(query, id)
+		if err == sql.ErrNoRows {
+			return -1, -1, errors.New("cannot find score")
+		}
+		if err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return -1, -1, err
+		}
+
+		var scores []TeacherScoresModel
+		for rows.Next() {
+			var t TeacherScoresModel
+
+			if err := rows.Scan(&t.Score, &t.FbCount); err != nil {
+				utils.PrintToConsole(err.Error(), "red")
+				return -1, -1, err
+			}
+			scores = append(scores, t)
+		}
+		if len(scores) == 0 {
+			return -1, -1, errors.New("Cannot find score")
+		}
+		return scores[0].Score, scores[0].FbCount, nil
+	case "college":
+		query = "select score, fb_count from college_scores where college_id = ?"
+		rows, err := database.Query(query, id)
+		if err == sql.ErrNoRows {
+			return -1, -1, errors.New("cannot find score")
+		}
+		if err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return -1, -1, err
+		}
+
+		var scores []CollegeScoresModel
+		for rows.Next() {
+			var t CollegeScoresModel
+
+			if err := rows.Scan(&t.Score, &t.FbCount); err != nil {
+				utils.PrintToConsole(err.Error(), "red")
+				return -1, -1, err
+			}
+			scores = append(scores, t)
+		}
+		if len(scores) == 0 {
+			return -1, -1, errors.New("Cannot find score")
+		}
+		return scores[0].Score, scores[0].FbCount, nil
+	default:
+		return 0, -1, errors.New("Invalid score type")
+	}
+}
+
+func UpdateScoreByType(score_type string, fieldValues map[string]any, whereValues map[string]any) (string, error) {
+	database := db.GetDatabase()
+	var query string
+	switch score_type {
+	case "teacher":
+		query = "update teacher_scores set "
+	case "college":
+		query = "update college_scores set "
+	}
+	var values []any
+	for field, value := range fieldValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + " where "
+
+	for field, value := range whereValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + ";"
+
+	result, err := database.Exec(query, values...)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	_, err = result.RowsAffected()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	return "Fields Updated", nil
 }

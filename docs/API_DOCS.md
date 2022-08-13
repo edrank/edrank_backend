@@ -588,3 +588,36 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">Get course info API</summary>
+
+`GET /get-course/1`
+
+### Query params
+- `course id` in params
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Response
+``` json
+{
+    "data": {
+        "course": {
+            "id": 1,
+            "name": "Bachelors of Computer Applications",
+            "abbreviation": "BCA",
+            "duration_in_years": 3
+        }
+    },
+    "message": "Course"
+}
+```
+
+</details>
