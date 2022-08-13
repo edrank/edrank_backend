@@ -55,7 +55,7 @@ func GetTopNTeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.city = ? ORDER BY score DESC LIMIT ?;"
 		rows, err = database.Query(query, params.City, params.N)
 	case "NATIONAL":
-		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
+		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers join colleges on teachers.cid = colleges.id and teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
 		rows, err = database.Query(query, params.N)
 	}
 
