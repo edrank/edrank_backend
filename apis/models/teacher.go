@@ -46,7 +46,7 @@ func GetTopNTeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 
 	switch params.RequestType {
 	case "COLLEGE":
-		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers, colleges where cid = ? AND teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
+		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers join colleges on teachers.cid = colleges.id and teachers.cid = ? AND teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
 		rows, err = database.Query(query, params.Cid, params.N)
 	case "STATE":
 		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.state = ? ORDER BY score DESC LIMIT ?;"
