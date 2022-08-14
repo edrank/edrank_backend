@@ -44,6 +44,7 @@ type (
 	FeedbackDrivesModel struct {
 		Id        int       `json:"id"`
 		CollegeId int       `json:"cid"`
+		Type      string    `json:"type"`
 		IsActive  bool      `json:"is_active"`
 		CreatedAt time.Time `json:"created_at"`
 		UpdatedAt time.Time `json:"updated_at"`
@@ -54,6 +55,7 @@ type (
 		TenantId      int       `json:"tenant_id"`
 		TenantType    string    `json:"tenant_type"`
 		VictimId      int       `json:"victim_id"`
+		VictimType    string    `json:"victim_type"`
 		TextFeedback  string    `json:"text_feedback"`
 		FeedbackScore float32   `json:"feedback_score"`
 		SAScore       float32   `json:"sa_score"`
@@ -65,7 +67,7 @@ type (
 
 func CreateNewFeedback(feedback FeedbackModel) (int, error) {
 	database := db.GetDatabase()
-	query := "insert into feedbacks (tenant_id, tenant_type, victim_id, text_feedback, feedback_score, is_active) values (?,?,?,?,?,?);"
+	query := "insert into feedbacks (tenant_id, tenant_type, victim_id, victim_type, text_feedback, feedback_score, is_active) values (?,?,?,?,?,?,?);"
 
 	stmt, err := database.Prepare(query)
 
@@ -74,7 +76,7 @@ func CreateNewFeedback(feedback FeedbackModel) (int, error) {
 		return -1, err
 	}
 
-	resp, err := stmt.Exec(feedback.TenantId, feedback.TenantType, feedback.VictimId, feedback.TextFeedback, feedback.FeedbackScore, feedback.IsActive)
+	resp, err := stmt.Exec(feedback.TenantId, feedback.TenantType, feedback.VictimId, feedback.VictimType, feedback.TextFeedback, feedback.FeedbackScore, feedback.IsActive)
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
