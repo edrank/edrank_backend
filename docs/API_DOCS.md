@@ -627,7 +627,7 @@
 
 <summary style="font-size:20px">Get Top N Colleges API</summary>
 
-`POST /top-n-teachers`
+`POST /top-n-colleges`
 #### Request Headers
 ``` json
 {
