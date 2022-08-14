@@ -162,7 +162,7 @@ func GetTeacherByField(fieldName string, fieldValue any) (TeacherModel, error) {
 	return teachers[0], nil
 }
 
-func GetTeachersByTeacherIds(ids []int) ([]TeacherModel, error) {
+func GetTeachersByTeacherIds(ids []int, course_id int) ([]TeacherModel, error) {
 	database := db.GetDatabase()
 
 	args := make([]interface{}, len(ids))
@@ -170,7 +170,7 @@ func GetTeachersByTeacherIds(ids []int) ([]TeacherModel, error) {
 		args[i] = id
 	}
 
-	stmt := `SELECT * from teachers where id in (?` + strings.Repeat(",?", len(args)-1) + `)`
+	stmt := `SELECT * from teachers where id in (?` + strings.Repeat(",?", len(args)-1) + `)` + fmt.Sprintf(" AND course_id = %d", course_id)
 	rows, err := database.Query(stmt, args...)
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")

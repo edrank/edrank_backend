@@ -683,7 +683,17 @@ func GetFeedbackTeachersController(c *gin.Context) {
 	for i, link := range links {
 		ids[i] = link.Id
 	}
-	teachers, err := models.GetTeachersByTeacherIds(ids)
+
+	var body struct {
+		CourseId int `json:"course_id"`
+	}
+
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
+		return
+	}
+
+	teachers, err := models.GetTeachersByTeacherIds(ids, body.CourseId)
 
 	if err != nil {
 		utils.SendError(c, http.StatusInternalServerError, err)

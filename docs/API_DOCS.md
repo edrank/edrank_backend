@@ -451,8 +451,7 @@
 #### Request Body
 ```json 
 {
-    "course_id":1,
-    "year": 3
+    "course_id":1
 }
 ```
 

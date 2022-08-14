@@ -40,7 +40,6 @@ func GetOnboardingSheet(c *gin.Context) {
 		City:             body.College.City,
 		State:            body.College.State,
 		CollegeType:      body.College.CollegeType,
-		Score:            0.0,
 		OnboardingStatus: "ON_GOING",
 		IsActive:         true,
 	}
