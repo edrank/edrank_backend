@@ -46,16 +46,16 @@ func GetTopNTeachersByType(params types.Top3TeachersBody) ([]Top3TeachersRespons
 
 	switch params.RequestType {
 	case "COLLEGE":
-		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers join colleges on teachers.cid = colleges.id and teachers.cid = ? AND teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
+		query = "select teachers.id as id, teachers.name as name,teacher_scores.score as score, colleges.name as college_name from teacher_scores join teachers on teachers.id = teacher_scores.teacher_id inner join colleges on colleges.id = teachers.cid AND colleges.id = ? ORDER BY teacher_scores.score DESC LIMIT ?;"
 		rows, err = database.Query(query, params.Cid, params.N)
 	case "STATE":
-		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.state = ? ORDER BY score DESC LIMIT ?;"
+		query = "select teachers.id as id, teachers.name as name,teacher_scores.score as score, colleges.name as college_name from teacher_scores join teachers on teachers.id = teacher_scores.teacher_id inner join colleges on colleges.id = teachers.cid AND colleges.state = ? ORDER BY teacher_scores.score DESC LIMIT ?;"
 		rows, err = database.Query(query, params.State, params.N)
 	case "REGIONAL":
-		query = "SELECT teachers.id, teachers.name, teachers.score, colleges.name as college_name FROM `teachers` inner join `colleges` on colleges.id = teachers.cid AND colleges.city = ? ORDER BY score DESC LIMIT ?;"
+		query = "select teachers.id as id, teachers.name as name,teacher_scores.score as score, colleges.name as college_name from teacher_scores join teachers on teachers.id = teacher_scores.teacher_id inner join colleges on colleges.id = teachers.cid AND colleges.city = ? ORDER BY teacher_scores.score DESC LIMIT ?;"
 		rows, err = database.Query(query, params.City, params.N)
 	case "NATIONAL":
-		query = "select teachers.id, teachers.name, teachers.score, colleges.name as college_name from teachers join colleges on teachers.cid = colleges.id and teachers.is_active = 1 ORDER BY score DESC LIMIT ?;"
+		query = "select teachers.id as id, teachers.name as name,teacher_scores.score as score, colleges.name as college_name from teacher_scores join teachers on teachers.id = teacher_scores.teacher_id inner join colleges on colleges.id = teachers.cid ORDER BY teacher_scores.score DESC LIMIT ?;"
 		rows, err = database.Query(query, params.N)
 	}
 

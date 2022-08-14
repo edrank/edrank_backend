@@ -9,17 +9,17 @@ services:
     build: ./apis
     ports:
       - "5000:5000"
-  datastore:
-    image: 'bitnami/redis:latest'
-    volumes:
-    - ./datastore/data:/bitnami/redis/data
-    environment:
-      - ALLOW_EMPTY_PASSWORD=yes
-      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
-    networks:
-      - app-network
-    ports:
-      - "5001:6379"
+  # datastore:
+  #   image: 'bitnami/redis:latest'
+  #   volumes:
+  #   - ./datastore/data:/bitnami/redis/data
+  #   environment:
+  #     - ALLOW_EMPTY_PASSWORD=yes
+  #     - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL,CONFIG
+  #   networks:
+  #     - app-network
+  #   ports:
+  #     - "5001:6379"
   ml_engine:
     build: ./ml_engine
     ports:
