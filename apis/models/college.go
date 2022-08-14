@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/edrank/edrank_backend/apis/db"
+	"github.com/edrank/edrank_backend/apis/types"
 	"github.com/edrank/edrank_backend/apis/utils"
 )
 
@@ -26,6 +27,14 @@ type (
 		IsActive         bool      `json:"is_active"`
 		CreatedAt        time.Time `json:"created_at"`
 		UpdatedAt        time.Time `json:"updated_at"`
+	}
+	Top3CollegesResponse struct {
+		Id    int     `json:"id"`
+		Score float32 `json:"score"`
+		Name  string  `json:"name"`
+		City  string  `json:"city"`
+		State string  `json:"state"`
+		Rank  int     `json:"rank"`
 	}
 )
 
@@ -96,7 +105,7 @@ func GetRankOfCollegeByType(rank_type string, city string, state string, cid int
 		rows, err = database.Query(query)
 	case "STATE":
 		query = "select college_id from college_scores inner join `colleges` on colleges.id = college_scores.college_id AND colleges.state = ? order by college_scores.score DESC;"
-		rows, err = database.Query(query,state)
+		rows, err = database.Query(query, state)
 	case "REGIONAL":
 		query = "select college_id from college_scores inner join `colleges` on colleges.id = college_scores.college_id AND colleges.city = ? order by college_scores.score DESC;"
 		rows, err = database.Query(query, city)
@@ -130,4 +139,44 @@ func GetRankOfCollegeByType(rank_type string, city string, state string, cid int
 		}
 	}
 	return -1, nil
+}
+
+func GetTopNCollegesByType(params types.Top3TeachersBody) ([]Top3CollegesResponse, error) {
+	var query string
+	var rows *sql.Rows
+	var err error
+	database := db.GetDatabase()
+
+	switch params.RequestType {
+	case "STATE":
+		query = "select college_scores.id as id, college_scores.score as score, colleges.name as name, colleges.state as state, colleges.city as city from college_scores join colleges on colleges.id = college_scores.college_id AND colleges.state = ? ORDER BY college_scores.score DESC LIMIT ?;"
+		rows, err = database.Query(query, params.State, params.N)
+	case "REGIONAL":
+		query = "select college_scores.id as id, college_scores.score as score, colleges.name as name, colleges.state as state, colleges.city as city from college_scores join colleges on colleges.id = college_scores.college_id AND colleges.city = ? ORDER BY college_scores.score DESC LIMIT ?;"
+		rows, err = database.Query(query, params.City, params.N)
+	case "NATIONAL":
+		query = "select college_scores.id as id, college_scores.score as score, colleges.name as name, colleges.state as state, colleges.city as city from college_scores join colleges on colleges.id = college_scores.college_id ORDER BY college_scores.score DESC LIMIT ?;"
+		rows, err = database.Query(query, params.N)
+	}
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var colleges []Top3CollegesResponse
+	var rank int = 1
+	for rows.Next() {
+		var college Top3CollegesResponse
+
+		if err := rows.Scan(&college.Id, &college.Score, &college.Name, &college.State, &college.City); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		college.Rank = rank
+		rank++
+		colleges = append(colleges, college)
+	}
+
+	return colleges, nil
 }

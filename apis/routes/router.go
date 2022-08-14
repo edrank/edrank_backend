@@ -37,6 +37,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.GET("/college", controllers.GetCollegeController)
 	r.GET("/my-profile", controllers.GetMyProfile)
 	r.POST("/top-n-teachers", controllers.TopNTeachersController)
+	r.POST("/top-n-colleges", controllers.TopNCollegesController)
 	r.GET("/feedback-questions/:type", middlewares.VerifyTenants([]string{"PARENT", "STUDENT", "HEI"}), controllers.GetFeedbackQuestionsController)
 	r.POST("/submit-feedback/:type", middlewares.VerifyTenants([]string{"STUDENT", "PARENT", "HEI"}), controllers.SubmitFeedbackController)
 	r.POST("/get-feedback-teachers", middlewares.VerifyTenants([]string{"STUDENT"}), controllers.GetFeedbackTeachersController)

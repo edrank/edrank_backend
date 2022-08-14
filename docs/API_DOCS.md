@@ -620,3 +620,66 @@
 ```
 
 </details>
+
+
+
+<details>
+
+<summary style="font-size:20px">Get Top N Colleges API</summary>
+
+`POST /top-n-teachers`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Body
+- In case of `NATIONAL`, no other fields are required (keys must be present)
+- In case of `REGIONAL`, `city` is important (other keys must be present)
+- In case of `STATE`, `state` is important (other keys must be present)
+- Send "n" = -1 for getting all the data
+``` json
+{
+    "request_type": "NATIONAL",
+    "city": "",
+    "state": "",
+    "n": 3
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "colleges": [
+            {
+                "id": 3,
+                "score": 99.01,
+                "name": "Sona College of Technology",
+                "city": "Salem",
+                "state": "Tamil Nadu",
+                "rank": 1
+            },
+            {
+                "id": 5,
+                "score": 96.11,
+                "name": "Indian Institute of Technology Delhi",
+                "city": "New Delhi",
+                "state": "Delhi",
+                "rank": 2
+            },
+            {
+                "id": 2,
+                "score": 83.98,
+                "name": "Testing College of Engineering",
+                "city": "Indore",
+                "state": "Madhya Pradesh",
+                "rank": 3
+            }
+        ]
+    },
+    "message": "Top 3 Colleges"
+}
+```
+
+</details>
