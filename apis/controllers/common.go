@@ -489,6 +489,19 @@ func GetFeedbackQuestionsController(c *gin.Context) {
 		return
 	}
 
+	college_id, exists := c.Get("CollegeId")
+
+	if !exists {
+		var body struct {
+			Cid int `json:"cid"`
+		}
+		if err := c.BindJSON(&body); err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+		college_id = body.Cid
+	}
+
 	ff_type := c.Param("type")
 
 	if ff_type == "" || (utils.Find(utils.ValidFeedbackFormTypes[:], ff_type) == -1) {
@@ -508,6 +521,31 @@ func GetFeedbackQuestionsController(c *gin.Context) {
 
 	if tenant_type == utils.TenantMap["HEI"] && ff_type != "HC" {
 		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Feedback Form Type"))
+		return
+	}
+
+	feedbackTypeToDriveTypeMap := map[string]string{
+		"SC": "college",
+		"HC": "college",
+		"PC": "college",
+		"ST": "teacher",
+	}
+
+	drives, err := models.GetCollegeFeedbackDrives(college_id.(int), feedbackTypeToDriveTypeMap[ff_type])
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+	driveActive := false
+	for _, dr := range drives {
+		if dr.IsActive {
+			driveActive = true
+		}
+	}
+
+	if !driveActive {
+		utils.SendError(c, http.StatusUnprocessableEntity, errors.New("No active feedback drive going on"))
 		return
 	}
 
@@ -613,6 +651,7 @@ func SubmitFeedbackController(c *gin.Context) {
 			}
 			services.UpdateEntityScore("teacher", teacher_id, fb_score, sa_score)
 			feedbackOpts := models.FeedbackModel{
+				DriveId:       body.DriveId,
 				TenantId:      tenant_id.(int),
 				TenantType:    tenant_type.(string),
 				TextFeedback:  teacher_text_feedback_map[teacher_id],
@@ -686,6 +725,7 @@ func SubmitFeedbackController(c *gin.Context) {
 		services.UpdateEntityScore("teacher", college_id.(int), fb_score, sa_score)
 
 		feedbackOpts := models.FeedbackModel{
+			DriveId:       body.DriveId,
 			TenantId:      tenant_id.(int),
 			TenantType:    tenant_type.(string),
 			TextFeedback:  body.Feedback.TextFeedback,

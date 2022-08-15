@@ -7,6 +7,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/edrank/edrank_backend/apis/models"
 	"github.com/edrank/edrank_backend/apis/services"
@@ -361,14 +362,130 @@ func GetEntitiesOfMyCollegeController(c *gin.Context) {
 }
 
 func ToggleFeedbackDriveController(c *gin.Context) {
-	_, exists := c.Get("CollegeId")
+	college_id, exists := c.Get("CollegeId")
 
 	if !exists {
 		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
 		return
 	}
 
-	// drive
+	var body struct {
+		Type    string `json:"drive_type"`
+		Toggle  string `json:"toggle"`
+		DriveId int    `json:"drive_id"`
+	}
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	if body.Type == "" || (utils.Find([]string{"college", "teacher"}, body.Type) == -1) {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Drive Type"))
+		return
+	}
+
+	if body.Toggle == "" || (utils.Find([]string{"enable", "disable"}, body.Toggle) == -1) {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Toggle Type"))
+		return
+	}
+
+	drives, err := models.GetCollegeFeedbackDrives(college_id.(int), body.Type)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	switch body.Toggle {
+	case "enable":
+
+		if len(drives) == 0 {
+			fb_drive := models.FeedbackDrivesModel{
+				CollegeId: college_id.(int),
+				Type:      body.Type,
+				IsActive:  true,
+			}
+
+			drive_id, err := models.CreateNewFeedbackDrive(fb_drive)
+
+			if err != nil {
+				utils.SendError(c, http.StatusInternalServerError, err)
+				return
+			}
+
+			utils.SendResponse(c, "Drive Created!", map[string]any{
+				"drive_id": drive_id,
+			})
+			return
+		}
+
+		var lastDrive models.FeedbackDrivesModel
+
+		for _, drive := range drives {
+			if drive.IsActive {
+				lastDrive = drive
+				break
+			}
+		}
+
+		lastDriveDiff := lastDrive.CreatedAt.Sub(time.Now())
+
+		if lastDriveDiff.Hours() > -2190 {
+			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Difference between two drives should be at least 3 months"))
+			return
+		}
+
+		// create new drive
+		fb_drive := models.FeedbackDrivesModel{
+			CollegeId: college_id.(int),
+			Type:      body.Type,
+			IsActive:  true,
+		}
+
+		drive_id, err := models.CreateNewFeedbackDrive(fb_drive)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		utils.SendResponse(c, "Drive Created!", map[string]any{
+			"drive_id": drive_id,
+		})
+		return
+
+	case "disable":
+		var found bool = false
+		for _, drive := range drives {
+			if drive.Id == body.DriveId {
+				found = true
+				break
+			}
+		}
+
+		if !found {
+			utils.SendError(c, http.StatusNotFound, errors.New("Drive not Found"))
+			return
+		}
+
+		updateFields := map[string]any{
+			"is_active": false,
+		}
+
+		where := map[string]any{
+			"id": body.DriveId,
+		}
+
+		_, err := models.UpdateFeedbackDriveByType(updateFields, where)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		utils.SendResponse(c, "Drive Disabled!", map[string]any{})
+		return
+	}
 }
 
 func GetDashboardMetricsController(c *gin.Context) {

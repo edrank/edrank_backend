@@ -52,6 +52,7 @@ type (
 
 	FeedbackModel struct {
 		Id            int       `json:"id"`
+		DriveId       int       `json:"drive_id"`
 		TenantId      int       `json:"tenant_id"`
 		TenantType    string    `json:"tenant_type"`
 		VictimId      int       `json:"victim_id"`
@@ -67,7 +68,7 @@ type (
 
 func CreateNewFeedback(feedback FeedbackModel) (int, error) {
 	database := db.GetDatabase()
-	query := "insert into feedbacks (tenant_id, tenant_type, victim_id, victim_type, text_feedback, feedback_score, is_active) values (?,?,?,?,?,?,?);"
+	query := "insert into feedbacks (drive_id, tenant_id, tenant_type, victim_id, victim_type, text_feedback, feedback_score, is_active) values (?,?,?,?,?,?,?,?);"
 
 	stmt, err := database.Prepare(query)
 
@@ -76,7 +77,36 @@ func CreateNewFeedback(feedback FeedbackModel) (int, error) {
 		return -1, err
 	}
 
-	resp, err := stmt.Exec(feedback.TenantId, feedback.TenantType, feedback.VictimId, feedback.VictimType, feedback.TextFeedback, feedback.FeedbackScore, feedback.IsActive)
+	resp, err := stmt.Exec(feedback.DriveId, feedback.TenantId, feedback.TenantType, feedback.VictimId, feedback.VictimType, feedback.TextFeedback, feedback.FeedbackScore, feedback.IsActive)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	id, err := resp.LastInsertId()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	return int(id), nil
+}
+
+
+func CreateNewFeedbackDrive(feedback FeedbackDrivesModel) (int, error) {
+	database := db.GetDatabase()
+	query := "insert into feedback_drives (cid, type, is_active) values (?,?,?);"
+
+	stmt, err := database.Prepare(query)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	resp, err := stmt.Exec(feedback.CollegeId, feedback.Type, feedback.IsActive)
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
@@ -248,6 +278,67 @@ func UpdateScoreByType(score_type string, fieldValues map[string]any, whereValue
 	case "college":
 		query = "update college_scores set "
 	}
+	var values []any
+	for field, value := range fieldValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + " where "
+
+	for field, value := range whereValues {
+		query += fmt.Sprintf("%s = ?, ", field)
+		values = append(values, value)
+	}
+	query = query[:len(query)-2] + ";"
+
+	result, err := database.Exec(query, values...)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	_, err = result.RowsAffected()
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return "", err
+	}
+
+	return "Fields Updated", nil
+}
+
+func GetCollegeFeedbackDrives(cid int, drive_type string) ([]FeedbackDrivesModel, error) {
+	database := db.GetDatabase()
+
+	rows, err := database.Query("select * from feedback_drives where cid = ? AND type = ? ORDER BY created_at DESC", cid, drive_type)
+
+	if err == sql.ErrNoRows {
+		return nil, errors.New("Cannot find fb drive")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var fbs []FeedbackDrivesModel
+
+	for rows.Next() {
+		var fb FeedbackDrivesModel
+
+		if err := rows.Scan(&fb.Id, &fb.CollegeId, &fb.Type, &fb.IsActive, &fb.CreatedAt, &fb.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		fbs = append(fbs, fb)
+	}
+	return fbs, nil
+}
+
+
+func UpdateFeedbackDriveByType(fieldValues map[string]any, whereValues map[string]any) (string, error) {
+	database := db.GetDatabase()
+	var query string = "update feedback_drives set "
 	var values []any
 	for field, value := range fieldValues {
 		query += fmt.Sprintf("%s = ?, ", field)

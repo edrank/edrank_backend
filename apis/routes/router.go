@@ -38,7 +38,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.GET("/my-profile", controllers.GetMyProfile)
 	r.POST("/top-n-teachers", controllers.TopNTeachersController)
 	r.POST("/top-n-colleges", controllers.TopNCollegesController)
-	r.GET("/feedback-questions/:type", middlewares.VerifyTenants([]string{"PARENT", "STUDENT", "HEI"}), controllers.GetFeedbackQuestionsController)
+	r.POST("/feedback-questions/:type", middlewares.VerifyTenants([]string{"PARENT", "STUDENT", "HEI"}), controllers.GetFeedbackQuestionsController)
 	r.POST("/submit-feedback/:type", middlewares.VerifyTenants([]string{"STUDENT", "PARENT", "HEI"}), controllers.SubmitFeedbackController)
 	r.POST("/get-feedback-teachers", middlewares.VerifyTenants([]string{"STUDENT"}), controllers.GetFeedbackTeachersController)
 	r.POST("/get-my-colleges-rank", middlewares.VerifyTenants([]string{"STUDENT", "TEACHER", "PARENT"}), controllers.GetMyCollegesRankController)
@@ -48,7 +48,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.POST("/onboard-college", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.OnBoardCollegeController)
 	r.POST("/create-college-admin", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.CreateNewCollgeAdminController)
 	r.GET("/my-college-entity/:entity", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetEntitiesOfMyCollegeController)
-	r.GET("/toggle-feedback-drive", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.ToggleFeedbackDriveController)
+	r.POST("/toggle-feedback-drive", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.ToggleFeedbackDriveController)
 	r.GET("/dashboard-metrics", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetDashboardMetricsController)
 
 	// parent APIs

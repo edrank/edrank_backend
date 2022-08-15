@@ -323,7 +323,7 @@
 
 <summary style="font-size:20px">Get Feedback Questions API</summary>
 
-`GET /feedback-questions/:type`
+`POST /feedback-questions/:type`
 #### Request Headers
 ``` json
 {
@@ -333,6 +333,16 @@
 #### Request Params
 - Type should be one of `ST`, `SC`, `PC`, `HC`
 
+
+#### Request Body
+- In case of `PC` and `HC` - pass `cid` in body
+- Not important in case of `SC` and `ST`
+
+```json
+{
+    "cid": 1
+}
+```
 
 #### Response
 ``` json
