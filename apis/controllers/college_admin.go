@@ -370,3 +370,47 @@ func ToggleFeedbackDriveController(c *gin.Context) {
 
 	// drive
 }
+
+func GetDashboardMetricsController(c *gin.Context) {
+	college_id, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	st_count, err := models.GetStudentsCountByCollegeId(college_id.(int))
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		st_count = 0
+	}
+
+	t_count, err := models.GetTeachersCountByCollegeId(college_id.(int))
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		t_count = 0
+	}
+
+	d_count, err := models.GetDrivesCountByCollegeId(college_id.(int))
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		d_count = 0
+	}
+
+	clg_fb_count, err := models.GetCollegeFeedbackCountByCollegeId(college_id.(int))
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		d_count = 0
+	}
+
+	utils.SendResponse(c, "College Metrics", map[string]any{
+		"teachers":          t_count,
+		"students":          st_count,
+		"drives":            d_count,
+		"college_feedbacks": clg_fb_count,
+	})
+}

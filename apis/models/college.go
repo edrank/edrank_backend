@@ -180,3 +180,41 @@ func GetTopNCollegesByType(params types.Top3TeachersBody) ([]Top3CollegesRespons
 
 	return colleges, nil
 }
+
+func GetDrivesCountByCollegeId(cid int) (int, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query("select count(*) as d_count from feedback_drives where cid = ?;", cid)
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	var count int
+	for rows.Next() {
+
+		if err := rows.Scan(&count); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return -1, err
+		}
+	}
+	return count, nil
+}
+
+func GetCollegeFeedbackCountByCollegeId(cid int) (int, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query("select count(*) as clg_fb_count from feedbacks where victim_id = ? AND victim_type = 'COLLEGE';", cid)
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	var count int
+	for rows.Next() {
+
+		if err := rows.Scan(&count); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return -1, err
+		}
+	}
+	return count, nil
+}

@@ -189,3 +189,23 @@ func GetTeachersByTeacherIds(ids []int, course_id int) ([]TeacherModel, error) {
 	}
 	return teachers, nil
 }
+
+
+func GetTeachersCountByCollegeId(cid int) (int, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query("select count(*) as t_count from teachers where cid = ?;", cid)
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return -1, err
+	}
+
+	var count int
+	for rows.Next() {
+
+		if err := rows.Scan(&count); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return -1, err
+		}
+	}
+	return count, nil
+}

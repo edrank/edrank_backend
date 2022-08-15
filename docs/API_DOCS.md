@@ -745,3 +745,32 @@
 ```
 
 </details>
+
+
+
+<details>
+
+<summary style="font-size:20px">Get college_admin dashboard metrics API</summary>
+
+`GET /dashboard-metrics`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Response
+``` json
+{
+    "data": {
+        "college_feedbacks": 4,
+        "drives": 0,
+        "students": 2,
+        "teachers": 3
+    },
+    "message": "College Metrics"
+}
+```
+
+</details>
