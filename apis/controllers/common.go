@@ -767,8 +767,72 @@ func SubmitFeedbackController(c *gin.Context) {
 		utils.SendResponse(c, "Feedback submitted!", map[string]any{})
 
 	case "PARENT|PC":
-		utils.SendResponse(c, "Feedback submission not implemented yet", map[string]any{})
-		return
+		var body types.PCSubmitFeedBackBody
+		if err := c.BindJSON(&body); err != nil {
+			utils.SendError(c, http.StatusBadRequest, errors.New("Bad JSON format"))
+			return
+		}
+
+		var responses []models.ResponsesModel
+		var feedbacks_for_ingestion types.FeedBacksForIngestion
+		for _, feedback_response := range body.Feedback.Mcq {
+			feedbacks_for_ingestion = append(feedbacks_for_ingestion, struct {
+				QuestionId int "json:\"question_id\""
+				AnswerId   int "json:\"answer_id\""
+			}{
+				QuestionId: feedback_response.QuestionId,
+				AnswerId:   feedback_response.AnswerId,
+			})
+		}
+
+		fb_score, sa_score, err := services.GetFeedbackScore(feedbacks_for_ingestion, body.Feedback.TextFeedback, body.CollegeId)
+
+		if err != nil {
+			utils.PrintToConsole("Error processing feedback. Aborted", err.Error())
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		services.UpdateEntityScore("teacher", body.CollegeId, fb_score, sa_score)
+
+		feedbackOpts := models.FeedbackModel{
+			DriveId:       body.DriveId,
+			TenantId:      tenant_id.(int),
+			TenantType:    tenant_type.(string),
+			TextFeedback:  body.Feedback.TextFeedback,
+			FeedbackScore: fb_score, //score from scoring engine
+			IsActive:      true,
+			VictimId:      body.CollegeId,
+			VictimType:    "COLLEGE",
+			SAScore:       sa_score,
+		}
+		// insert feedback to db to get ID
+
+		feedback_id, err := models.CreateNewFeedback(feedbackOpts)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		for _, _iData := range feedbacks_for_ingestion {
+			responses = append(responses, models.ResponsesModel{
+				FeedbackId: feedback_id,
+				QuestionId: _iData.QuestionId,
+				Answer:     _iData.AnswerId,
+				IsActive:   true,
+			})
+		}
+
+		err = models.BulkCreateResponses(responses)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		utils.SendResponse(c, "Feedback submitted!", map[string]any{})
+
 	case "HEI|HC":
 		utils.SendResponse(c, "Feedback submission not implemented yet", map[string]any{})
 		return

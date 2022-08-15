@@ -60,7 +60,7 @@ type (
 		} `json:"feedbacks"`
 	}
 	SCSubmitFeedBackBody struct {
-		DriveId   int `json:"drive_id"`
+		DriveId  int `json:"drive_id"`
 		Feedback struct {
 			Mcq []struct {
 				QuestionId int `json:"question_id"`
@@ -71,6 +71,15 @@ type (
 	}
 
 	PCSubmitFeedBackBody struct {
+		DriveId  int `json:"drive_id"`
+		CollegeId int `json:"college_id"`
+		Feedback struct {
+			Mcq []struct {
+				QuestionId int `json:"question_id"`
+				AnswerId   int `json:"answer_id"`
+			} `json:"mcq"`
+			TextFeedback string `json:"text_feedback"`
+		} `json:"feedback"`
 	}
 
 	HCSubmitFeedBackBody struct {

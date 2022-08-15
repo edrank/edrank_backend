@@ -784,3 +784,68 @@
 ```
 
 </details>
+
+
+
+
+<details>
+
+<summary style="font-size:20px">Submit PC Feedback Form API</summary>
+
+`POST /submit-feedback/PC`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Params
+- Type should be one of `ST`, `SC`, `PC`, `HC`
+
+
+#### Request Body
+```json 
+{
+    "feedback": {
+        "drive_id":1,
+        "college_id":1,
+        "mcq":[
+            {
+                "question_id":1,
+                "answer_id":2
+            },
+            {
+                "question_id":2,
+                "answer_id":3
+            },
+            {
+                "question_id":3,
+                "answer_id":1
+            },
+            {
+                "question_id":4,
+                "answer_id":1
+            },
+            {
+                "question_id":5,
+                "answer_id":5
+            },
+            {
+                "question_id":6,
+                "answer_id":4
+            }
+        ],
+        "text_feedback":"Moderate college. Not very good. Poor staff and management but good infrastructure and facilities"
+    }
+}
+```
+
+#### Response
+``` json
+{
+    "data": {},
+    "message": "Feedback submitted!"
+}
+```
+
+</details>
