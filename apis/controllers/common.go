@@ -538,9 +538,12 @@ func GetFeedbackQuestionsController(c *gin.Context) {
 		return
 	}
 	driveActive := false
+	did := 0
 	for _, dr := range drives {
 		if dr.IsActive {
 			driveActive = true
+			did = dr.Id
+			break
 		}
 	}
 
@@ -560,6 +563,7 @@ func GetFeedbackQuestionsController(c *gin.Context) {
 	utils.SendResponse(c, "Feedback Questions", map[string]any{
 		"questions": questions,
 		"type":      ff_type,
+		"drive_id":  did,
 	})
 }
 

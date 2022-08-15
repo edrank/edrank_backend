@@ -419,13 +419,18 @@ func ToggleFeedbackDriveController(c *gin.Context) {
 			return
 		}
 
-		var lastDrive models.FeedbackDrivesModel
+		var lastDrive models.FeedbackDrivesModel = drives[0]
 
 		for _, drive := range drives {
 			if drive.IsActive {
 				lastDrive = drive
 				break
 			}
+		}
+
+		if lastDrive.IsActive {
+			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("A feedback drive is already in progress"))
+			return
 		}
 
 		lastDriveDiff := lastDrive.CreatedAt.Sub(time.Now())
