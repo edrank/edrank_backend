@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Wed Aug 17 09:10:44 2022
+# Make data base, printed on Thu Aug 18 01:25:21 2022
 
 # Variables
 
@@ -59,13 +59,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/6d9b74a70ca9c7733
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.RFVYQ1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.P5O0Q1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.99
+GNOME_TERMINAL_SERVICE = :1.148
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -99,13 +99,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 168330
+VSCODE_PID = 247703
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/167446,unix/om-bridgeup:/tmp/.ICE-unix/167446
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/245199,unix/om-bridgeup:/tmp/.ICE-unix/245199
 # automatic
 *F = $(notdir $*)
 # environment
@@ -129,7 +129,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ce3e05b5_1296_4783_9e79_ed1ef5da53fe
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/66a1f46f_3e55_4701_99d7_b80e3b33ee8e
 # environment
 MAKELEVEL := 0
 # default
@@ -179,7 +179,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 167776
+SYSTEMD_EXEC_PID = 245473
 # environment
 DISPLAY = :0
 # environment
@@ -276,9 +276,6 @@ Makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 #  Failed to be updated.
 
 # Not a target:
@@ -289,6 +286,9 @@ make: *** No rule to make target 'all'.  Stop.
 
 # Not a target:
 all:
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Wed Aug 17 09:10:44 2022
+# Finished Make data base on Thu Aug 18 01:25:21 2022
 
  

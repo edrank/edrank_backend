@@ -55,3 +55,61 @@ func GetMyTextFeedbacksController(c *gin.Context) {
 		"feedbacks": fbs,
 	})
 }
+
+func GetMyRankController(c *gin.Context) {
+	tenant_id, exists := c.Get("TenantId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	college_id, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	rank_type := c.Param("rank_type")
+
+	if rank_type == "" {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Rank Type"))
+		return
+	}
+
+	if utils.Find([]string{"COLLEGE", "REGIONAL", "STATE", "NATIONAL"}, rank_type) == -1 {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Invalid Rank Type"))
+		return
+	}
+
+	college, err := models.GetCollegeByField("id", college_id.(int))
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	top, err := models.GetTopNTeachersByType(types.Top3TeachersBody{
+		RequestType: rank_type,
+		Cid:         college_id.(int),
+		N:           utils.ONE_MILLION,
+		City:        college.City,
+		State:       college.State,
+	})
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+	var rank int
+	for _, t := range top {
+		if t.Id == tenant_id.(int) {
+			rank = t.Rank
+			break
+		}
+	}
+
+	utils.SendResponse(c, "My Rank", map[string]any{
+		"rank": rank,
+	})
+}

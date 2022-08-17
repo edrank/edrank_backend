@@ -56,6 +56,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 
 	// teacher APIs
 	r.GET("/get-my-text-feedbacks", middlewares.VerifyTenants([]string{"TEACHER"}), controllers.GetMyTextFeedbacksController)
+	r.GET("/get-my-rank/:rank_type", middlewares.VerifyTenants([]string{"TEACHER"}), controllers.GetMyRankController)
 
 	// android specific APIs
 	r.POST("/android/submit-feedback/:type", middlewares.VerifyTenants([]string{"STUDENT", "PARENT", "HEI"}), controllers.AndroidSubmitFeedbackController)

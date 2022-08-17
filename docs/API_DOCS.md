@@ -900,3 +900,30 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">Get my rank API</summary>
+
+`GET /get-my-rank/:rank_type`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Params
+- `rank_type` can be one of - `NATIONAL`, `REGIONAL`, `STATE` or `COLLEGE`
+
+#### Response
+``` json
+{
+    "data": {
+        "rank": 6
+    },
+    "message": "My Rank"
+}
+```
+
+</details>
