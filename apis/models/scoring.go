@@ -94,7 +94,6 @@ func CreateNewFeedback(feedback FeedbackModel) (int, error) {
 	return int(id), nil
 }
 
-
 func CreateNewFeedbackDrive(feedback FeedbackDrivesModel) (int, error) {
 	database := db.GetDatabase()
 	query := "insert into feedback_drives (cid, type, is_active) values (?,?,?);"
@@ -335,7 +334,6 @@ func GetCollegeFeedbackDrives(cid int, drive_type string) ([]FeedbackDrivesModel
 	return fbs, nil
 }
 
-
 func UpdateFeedbackDriveByType(fieldValues map[string]any, whereValues map[string]any) (string, error) {
 	database := db.GetDatabase()
 	var query string = "update feedback_drives set "
@@ -367,4 +365,32 @@ func UpdateFeedbackDriveByType(fieldValues map[string]any, whereValues map[strin
 	}
 
 	return "Fields Updated", nil
+}
+
+func GetFeedbackForValidation(tenant_type string, tenant_id int, victim_id int, victim_type string, drive_id int) (bool, error) {
+	database := db.GetDatabase()
+
+	rows, err := database.Query("select id from feedbacks where tenant_id = ? AND tenant_type = ? AND victim_id = ? AND victim_type = ? AND drive_id = ?;", tenant_id, tenant_type, victim_id, victim_type, drive_id)
+
+	if err == sql.ErrNoRows {
+		return false, errors.New("Cannot find fbs")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return false, err
+	}
+
+	var fbs []FeedbackModel
+
+	for rows.Next() {
+		var fb FeedbackModel
+
+		if err := rows.Scan(&fb.Id); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return false, err
+		}
+		fbs = append(fbs, fb)
+	}
+
+	return len(fbs) > 0, nil
 }

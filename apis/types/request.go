@@ -71,9 +71,22 @@ type (
 	}
 
 	PCSubmitFeedBackBody struct {
-		DriveId  int `json:"drive_id"`
+		DriveId   int `json:"drive_id"`
 		CollegeId int `json:"college_id"`
-		Feedback struct {
+		Feedback  struct {
+			Mcq []struct {
+				QuestionId int `json:"question_id"`
+				AnswerId   int `json:"answer_id"`
+			} `json:"mcq"`
+			TextFeedback string `json:"text_feedback"`
+		} `json:"feedback"`
+	}
+
+	AndroidSubmitFeedbackBody struct {
+		DriveId   int    `json:"drive_id"`
+		TeacherID int    `json:"teacher_id"`
+		CollegeId int    `json:"college_id"`
+		Feedback  struct {
 			Mcq []struct {
 				QuestionId int `json:"question_id"`
 				AnswerId   int `json:"answer_id"`

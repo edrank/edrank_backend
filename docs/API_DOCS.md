@@ -849,3 +849,54 @@
 ```
 
 </details>
+
+
+
+<details>
+
+<summary style="font-size:20px">Submit Feedback Form API for ANDROID</summary>
+
+`POST /android/submit-feedback/:type`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Params
+- Type should be one of `ST`, `SC`, `PC`
+
+
+#### Request Body
+- for `SC` and `PC` - `college_id` is important
+- for `ST`, `teacher_id` is important
+```json 
+{
+    "drive_id": 1,
+    "teacher_id": 4,
+    "college_id": 1,
+    "feedback": {
+        "mcq": [
+            {
+                "question_id": 2,
+                "answer_id": 4
+            },
+            {
+                "question_id": 1,
+                "answer_id": 3
+            }
+        ],
+        "text_feedback": "Teaching was moderate. I didn't understand many concepts yet the teacher didn't bother."
+    }
+}
+```
+
+#### Response
+``` json
+{
+    "data": {},
+    "message": "Feedback submitted!"
+}
+```
+
+</details>

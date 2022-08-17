@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Sat Aug 13 12:09:26 2022
+# Make data base, printed on Wed Aug 17 09:10:44 2022
 
 # Variables
 
@@ -59,13 +59,13 @@ VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/6d9b74a70ca9c7733
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.A2XNQ1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.RFVYQ1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.193
+GNOME_TERMINAL_SERVICE = :1.99
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -99,13 +99,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 9211
+VSCODE_PID = 168330
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/2482,unix/om-bridgeup:/tmp/.ICE-unix/2482
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/167446,unix/om-bridgeup:/tmp/.ICE-unix/167446
 # automatic
 *F = $(notdir $*)
 # environment
@@ -129,7 +129,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/746dc1ea_5d5e_4ec1_807f_c6a08cb87e49
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/ce3e05b5_1296_4783_9e79_ed1ef5da53fe
 # environment
 MAKELEVEL := 0
 # default
@@ -137,7 +137,7 @@ MAKE = $(MAKE_COMMAND)
 # environment
 SNAP_COOKIE = 22M4K3_9UoaxmXLBDZGQH2Q8H9Jq9dHBqVQ-CDNU0vyJMGFJH4SS
 # environment
-PATH = /home/omgupta/.nvm/versions/node/v16.15.1/bin:/home/omgupta/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
+PATH = /home/omgupta/.nvm/versions/node/v16.15.1/bin:/home/omgupta/.cargo/bin:/home/omgupta/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
 # default
 MAKEFILES := 
 # environment
@@ -179,7 +179,7 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 2515
+SYSTEMD_EXEC_PID = 167776
 # environment
 DISPLAY = :0
 # environment
@@ -276,6 +276,9 @@ Makefile:
 #  Implicit rule search has been done.
 #  File does not exist.
 #  File has been updated.
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 #  Failed to be updated.
 
 # Not a target:
@@ -283,9 +286,6 @@ Makefile:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
- 
-make: *** No rule to make target 'all'.  Stop.
-
 
 # Not a target:
 all:
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Sat Aug 13 12:09:26 2022
+# Finished Make data base on Wed Aug 17 09:10:44 2022
 
  
