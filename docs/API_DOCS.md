@@ -927,3 +927,57 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">KBC GRAPH API</summary>
+
+`POST /kbc-graph`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+#### Request Body
+- Incase of teacher - no need to pass `teacher_id`
+- Incase of college_admin - `teacher_id` is mandatory
+``` json
+{
+    "question_id":7,
+    "teacher_id": 1
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "graph_data": [
+            {
+                "OptionName": "Excellent",
+                "ResponseCount": 3
+            },
+            {
+                "OptionName": "Very Good",
+                "ResponseCount": 0
+            },
+            {
+                "OptionName": "Fair",
+                "ResponseCount": 1
+            },
+            {
+                "OptionName": "Poor",
+                "ResponseCount": 0
+            },
+            {
+                "OptionName": "Very Poor",
+                "ResponseCount": 1
+            }
+        ]
+    },
+    "message": "Graph Fetched!"
+}
+```
+
+</details>

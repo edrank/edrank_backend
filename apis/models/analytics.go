@@ -2,6 +2,7 @@ package models
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/edrank/edrank_backend/apis/db"
@@ -10,14 +11,14 @@ import (
 
 func GetResponsesOfQuestionByTeacher(qid int, f_ids []int) ([]ResponsesModel, error) {
 	database := db.GetDatabase()
-	args := make([]interface{}, len(f_ids)+1)
-	args = append(args, qid)
-	for i, id := range f_ids {
-		args[i] = id
+	args := make([]interface{}, len(f_ids))
+	// args = append(args, qid)
+	for _, id := range f_ids {
+		args = append(args, id)
 	}
-	str := "select * from responses where question_id = ? and feedback_id in (?" + strings.Repeat(",?", len(args)-1) + `)`
+	str := "select * from responses where question_id = " + strconv.Itoa(qid) + " and feedback_id in (?" + strings.Repeat(",?", len(args)-1) + `)`
 
-	fmt.Println(str, len(args))
+	fmt.Println(str, len(args), args)
 	rows, err := database.Query(str, args...)
 
 	if err != nil {

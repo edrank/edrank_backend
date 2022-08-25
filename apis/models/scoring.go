@@ -424,7 +424,7 @@ func GetQuestionById(qid int) (QuestionsModel, error) {
 
 func GetFeedbacksForGraph(tid int) ([]FeedbackModel, error) {
 	database := db.GetDatabase()
-	rows, err := database.Query("select * from feedbacks where victim_id = ?", tid)
+	rows, err := database.Query("select id from feedbacks where victim_id = ?", tid)
 	if err == sql.ErrNoRows {
 		return nil, errors.New("cannot find feedback")
 	}
@@ -437,7 +437,7 @@ func GetFeedbacksForGraph(tid int) ([]FeedbackModel, error) {
 	for rows.Next() {
 		var t FeedbackModel
 
-		if err := rows.Scan(&t.Id, &t.DriveId, &t.TenantId, &t.TenantType, &t.VictimId, &t.VictimType, &t.TextFeedback, &t.FeedbackScore, &t.SAScore, &t.IsActive, &t.CreatedAt, &t.UpdatedAt); err != nil {
+		if err := rows.Scan(&t.Id); err != nil {
 			utils.PrintToConsole(err.Error(), "red")
 			return nil, err
 		}
