@@ -4,7 +4,7 @@ const fs = require('fs')
 const csv = require('csv')
 const { default: axios } = require('axios')
 const multer = require('multer')
-const upload = multer({ dest: '.' })
+const upload = multer({ dest: './tmp' })
 app.use(express.json())
 
 
@@ -92,7 +92,6 @@ app.post("/onboard-college", upload.any(), async (req, res) => {
             mainStudents = students
 
 
-
             // teachers
             fs.createReadStream(teacherFile.path)
                 .pipe(csv.parse({ headers: true }))
@@ -144,8 +143,8 @@ app.post("/onboard-college", upload.any(), async (req, res) => {
                         res.send(data)
                     }
                 });
-        });
 
+        });
 })
 
 app.listen(5003, () => {
