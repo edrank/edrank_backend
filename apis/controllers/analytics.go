@@ -122,5 +122,46 @@ func GetSAGraphController(c *gin.Context) {
 		return
 	}
 
-	
+	graphType := c.Param("type")
+	var gid int
+	if graphType == "" || (utils.Find([]string{"college", "teacher"}, graphType) == -1) {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Graph Type"))
+		return
+	}
+
+	switch graphType {
+	case "teacher":
+		if body.TeacherId == 0 {
+			utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid Teacher id"))
+			return
+		}
+		gid = body.TeacherId
+
+	case "college":
+		if body.CollegeId == 0 {
+			utils.SendError(c, http.StatusInternalServerError, errors.New("Invalid College id"))
+			return
+		}
+		gid = body.CollegeId
+	}
+
+	feedbacks, err := models.GetFeedbacksOfGType(gid, graphType)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	var sCountMap map[string]int = map[string]int{
+		"Positive": 0,
+		"Negative": 0,
+		"Neutral":  0,
+	}
+	for _, fb := range feedbacks {
+		sCountMap[utils.GetSentimentByScore(fb.SAScore)]++
+	}
+
+	utils.SendResponse(c, "Sentimental Analysis Graph", map[string]any{
+		"sa_graph": sCountMap,
+	})
 }

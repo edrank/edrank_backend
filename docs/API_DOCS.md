@@ -980,3 +980,45 @@
 ```
 
 </details>
+
+
+
+<details>
+
+<summary style="font-size:20px">SA GRAPH API</summary>
+
+`POST /sa-graph/:type`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Request params
+- `type` can be one of `teacher` or `college`
+- pass `id` accordingly
+#### Request Body
+- Incase of teacher - no need to pass `college_id`
+- Incase of college - `college_id` is mandatory
+``` json
+{
+    "college_id": 1,
+    "teacher_id": 2
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "sa_graph": {
+            "Negative": 6,
+            "Neutral": 0,
+            "Positive": 0
+        }
+    },
+    "message": "Sentimental Analysis Graph"
+}
+```
+
+</details>

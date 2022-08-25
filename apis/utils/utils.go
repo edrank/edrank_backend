@@ -54,6 +54,17 @@ func GetPaginationOpts(size string, page string) (int, int, error) {
 		return ONE_MILLION, 0, err
 	}
 
-	
 	return limit, (offset - 1) * limit, nil
+}
+
+func GetSentimentByScore(score float32) string {
+	if score >= 0 && score < 35 {
+		return "Negative"
+	} else if score >= 35 && score < 66 {
+		return "Neutral"
+	} else if score >= 66 {
+		return "Positive"
+	} else {
+		return "Neutral"
+	}
 }

@@ -105,5 +105,6 @@ type (
 
 	SAGraphBody struct {
 		CollegeId int `json:"college_id"`
+		TeacherId int `json:"teacher_id"`
 	}
 )

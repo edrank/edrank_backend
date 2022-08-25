@@ -68,5 +68,5 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 
 	// analytics APIs
 	r.POST("/kbc-graph", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN", "TEACHER"}), controllers.KBCGraphController)
-	r.POST("/sa-graph", controllers.GetSAGraphController)
+	r.POST("/sa-graph/:type", controllers.GetSAGraphController)
 }

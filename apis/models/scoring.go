@@ -449,10 +449,10 @@ func GetFeedbacksForGraph(tid int) ([]FeedbackModel, error) {
 	return feedbacks, nil
 }
 
-func GetFeedbacksOfCollege(cid int) ([]FeedbackModel, error) {
+func GetFeedbacksOfGType(id int, gType string) ([]FeedbackModel, error) {
 	database := db.GetDatabase()
 
-	rows, err := database.Query("select * from feedbacks where victim_id = ? AND victim_type = ?;", cid, "college")
+	rows, err := database.Query("select * from feedbacks where victim_id = ? AND victim_type = ?;", id, gType)
 
 	if err == sql.ErrNoRows {
 		return nil, errors.New("Cannot find fbs")
