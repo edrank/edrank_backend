@@ -26,6 +26,8 @@ func InitPublicRoutes(r *gin.RouterGroup) {
 	// dev APIs
 	r.POST("/set-onboarding-files", controllers.SetOnBoardingFileController)
 	r.POST("/dev/gen-password-hash", controllers.GenPasswordHash)
+
+	r.POST("/onboard/js", controllers.OnboardFromJSController)
 }
 
 func InitPrivateRoutes(r *gin.RouterGroup) {

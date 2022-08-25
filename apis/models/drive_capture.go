@@ -23,7 +23,7 @@ type (
 func BulkCreateDriveCapture(dcs []DriveCaptureModel) (string, error) {
 	database := db.GetDatabase()
 	for _, dc := range dcs {
-		query := "insert into drive_captures (victim_id, vicim_type, rank, drive_id, is_active) values (?,?,?,?,?);"
+		query := "insert into drive_captures (victim_id, victim_type, rank, drive_id, is_active) values (?,?,?,?,?);"
 
 		stmt, err := database.Prepare(query)
 
