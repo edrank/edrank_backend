@@ -62,4 +62,8 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.POST("/android/submit-feedback/:type", middlewares.VerifyTenants([]string{"STUDENT", "PARENT", "HEI"}), controllers.AndroidSubmitFeedbackController)
 
 	// regulator APIs
+	r.POST("/regulator/get-colleges", middlewares.VerifyTenants([]string{"SUPER_ADMIN"}), controllers.GetRegulatorCollegesController)
+
+	// analytics APIs
+	r.POST("/kbc-graph/:qid", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN", "TEACHER"}), controllers.KBCGraphController)
 }

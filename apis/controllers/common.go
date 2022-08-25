@@ -726,7 +726,7 @@ func SubmitFeedbackController(c *gin.Context) {
 			return
 		}
 
-		services.UpdateEntityScore("teacher", college_id.(int), fb_score, sa_score)
+		services.UpdateEntityScore("college", college_id.(int), fb_score, sa_score)
 
 		feedbackOpts := models.FeedbackModel{
 			DriveId:       body.DriveId,
@@ -793,7 +793,7 @@ func SubmitFeedbackController(c *gin.Context) {
 			return
 		}
 
-		services.UpdateEntityScore("teacher", body.CollegeId, fb_score, sa_score)
+		// services.UpdateEntityScore("college", body.CollegeId, fb_score, sa_score)
 
 		feedbackOpts := models.FeedbackModel{
 			DriveId:       body.DriveId,

@@ -83,9 +83,9 @@ type (
 	}
 
 	AndroidSubmitFeedbackBody struct {
-		DriveId   int    `json:"drive_id"`
-		TeacherID int    `json:"teacher_id"`
-		CollegeId int    `json:"college_id"`
+		DriveId   int `json:"drive_id"`
+		TeacherID int `json:"teacher_id"`
+		CollegeId int `json:"college_id"`
 		Feedback  struct {
 			Mcq []struct {
 				QuestionId int `json:"question_id"`
@@ -96,5 +96,11 @@ type (
 	}
 
 	HCSubmitFeedBackBody struct {
+	}
+
+	KBCGraphBody struct {
+		TeacherId  int `json:"teacher_id"`
+		DriveId    int `json:"drive_id"`
+		QuestionId int `json:"question_id"`
 	}
 )

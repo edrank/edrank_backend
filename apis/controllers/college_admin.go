@@ -413,7 +413,7 @@ func ToggleFeedbackDriveController(c *gin.Context) {
 				return
 			}
 
-			utils.SendResponse(c, "Drive Created!", map[string]any{
+			utils.SendResponse(c, "Drive Enabled!", map[string]any{
 				"drive_id": drive_id,
 			})
 			return
@@ -435,8 +435,13 @@ func ToggleFeedbackDriveController(c *gin.Context) {
 
 		lastDriveDiff := lastDrive.CreatedAt.Sub(time.Now())
 
-		if lastDriveDiff.Hours() > -2190 {
+		if lastDrive.Type == "teacher" && lastDriveDiff.Hours() > -2190 {
 			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Difference between two drives should be at least 3 months"))
+			return
+		}
+
+		if lastDrive.Type == "college" && lastDriveDiff.Hours() > -2190 {
+			utils.SendError(c, http.StatusUnprocessableEntity, errors.New("Difference between two drives should be at least 1 Year"))
 			return
 		}
 
@@ -454,7 +459,7 @@ func ToggleFeedbackDriveController(c *gin.Context) {
 			return
 		}
 
-		utils.SendResponse(c, "Drive Created!", map[string]any{
+		utils.SendResponse(c, "Drive Enabled!", map[string]any{
 			"drive_id": drive_id,
 		})
 		return
@@ -482,6 +487,15 @@ func ToggleFeedbackDriveController(c *gin.Context) {
 		}
 
 		_, err := models.UpdateFeedbackDriveByType(updateFields, where)
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		if body.Type == "teacher" {
+			err = captureFeedback(college_id.(int), body.DriveId)
+		}
 
 		if err != nil {
 			utils.SendError(c, http.StatusInternalServerError, err)
@@ -535,4 +549,38 @@ func GetDashboardMetricsController(c *gin.Context) {
 		"drives":            d_count,
 		"college_feedbacks": clg_fb_count,
 	})
+}
+
+func captureFeedback(cid int, drive_id int) error {
+	topTeachers, err := models.GetTopNTeachersByType(types.Top3TeachersBody{
+		N:           utils.ONE_MILLION,
+		Cid:         cid,
+		RequestType: "COLLEGE",
+	})
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return err
+	}
+	var insertCaptures []models.DriveCaptureModel
+	for _, teacher := range topTeachers {
+		capture_opts := models.DriveCaptureModel{
+			VictimId:   teacher.Id,
+			VictimType: "teacher",
+			DriveId:    drive_id,
+			Rank:       teacher.Rank,
+			IsActive:   true,
+		}
+		insertCaptures = append(insertCaptures, capture_opts)
+	}
+
+	// bulk insert captures
+	_, err = models.BulkCreateDriveCapture(insertCaptures)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return err
+	}
+
+	return nil
 }

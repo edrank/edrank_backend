@@ -394,3 +394,57 @@ func GetFeedbackForValidation(tenant_type string, tenant_id int, victim_id int, 
 
 	return len(fbs) > 0, nil
 }
+
+func GetQuestionById(qid int) (QuestionsModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query("select * from questions where id = ?", qid)
+	if err == sql.ErrNoRows {
+		return QuestionsModel{}, errors.New("cannot find question")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return QuestionsModel{}, err
+	}
+
+	var questions []QuestionsModel
+	for rows.Next() {
+		var t QuestionsModel
+
+		if err := rows.Scan(&t.Id, &t.Title, &t.Option1, &t.Option2, &t.Option3, &t.Option4, &t.Option5, &t.Type, &t.IsActive, &t.CreatedAt, &t.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return QuestionsModel{}, err
+		}
+		questions = append(questions, t)
+	}
+	if len(questions) == 0 {
+		return QuestionsModel{}, errors.New("Cannot find question")
+	}
+	return questions[0], nil
+}
+
+func GetFeedbackByForGraph(drive_id int, tid int) (FeedbackModel, error) {
+	database := db.GetDatabase()
+	rows, err := database.Query("")
+	if err == sql.ErrNoRows {
+		return FeedbackModel{}, errors.New("cannot find feedback")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return FeedbackModel{}, err
+	}
+
+	var feedbacks []FeedbackModel
+	for rows.Next() {
+		var t FeedbackModel
+
+		if err := rows.Scan(&t.Id, &t.DriveId, &t.TenantId, &t.TenantType, &t.VictimId, &t.VictimType, &t.TextFeedback, &t.FeedbackScore, &t.SAScore, &t.IsActive, &t.CreatedAt, &t.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return FeedbackModel{}, err
+		}
+		feedbacks = append(feedbacks, t)
+	}
+	if len(feedbacks) == 0 {
+		return FeedbackModel{}, errors.New("Cannot find feedback")
+	}
+	return feedbacks[0], nil
+}
