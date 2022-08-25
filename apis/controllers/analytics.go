@@ -114,3 +114,13 @@ func KBCGraphController(c *gin.Context) {
 		"graph_data": graphRes,
 	})
 }
+
+func GetSAGraphController(c *gin.Context) {
+	var body types.SAGraphBody
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	
+}

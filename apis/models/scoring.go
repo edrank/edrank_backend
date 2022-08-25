@@ -448,3 +448,31 @@ func GetFeedbacksForGraph(tid int) ([]FeedbackModel, error) {
 	}
 	return feedbacks, nil
 }
+
+func GetFeedbacksOfCollege(cid int) ([]FeedbackModel, error) {
+	database := db.GetDatabase()
+
+	rows, err := database.Query("select * from feedbacks where victim_id = ? AND victim_type = ?;", cid, "college")
+
+	if err == sql.ErrNoRows {
+		return nil, errors.New("Cannot find fbs")
+	}
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return nil, err
+	}
+
+	var fbs []FeedbackModel
+
+	for rows.Next() {
+		var feedback FeedbackModel
+
+		if err := rows.Scan(&feedback.Id, &feedback.DriveId, &feedback.TenantId, &feedback.TenantType, &feedback.VictimId, &feedback.VictimType, &feedback.TextFeedback, &feedback.FeedbackScore, &feedback.SAScore, &feedback.IsActive, &feedback.CreatedAt, &feedback.UpdatedAt); err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return nil, err
+		}
+		fbs = append(fbs, feedback)
+	}
+
+	return fbs, nil
+}

@@ -41,7 +41,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.POST("/feedback-questions/:type", middlewares.VerifyTenants([]string{"PARENT", "STUDENT", "HEI"}), controllers.GetFeedbackQuestionsController)
 	r.POST("/submit-feedback/:type", middlewares.VerifyTenants([]string{"STUDENT", "PARENT", "HEI"}), controllers.SubmitFeedbackController)
 	r.POST("/get-feedback-teachers", middlewares.VerifyTenants([]string{"STUDENT"}), controllers.GetFeedbackTeachersController)
-	r.POST("/get-my-colleges-rank", middlewares.VerifyTenants([]string{"STUDENT", "TEACHER", "PARENT"}), controllers.GetMyCollegesRankController)
+	r.POST("/get-my-colleges-rank", middlewares.VerifyTenants([]string{"STUDENT", "TEACHER", "PARENT", "SUPER_ADMIN"}), controllers.GetMyCollegesRankController)
 	r.GET("/get-course/:id", controllers.GetCourse)
 
 	// college admin APIs
@@ -64,8 +64,9 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	// regulator APIs
 	r.POST("/regulator/get-colleges", middlewares.VerifyTenants([]string{"SUPER_ADMIN"}), controllers.GetRegulatorCollegesController)
 	r.POST("/detailed-feedback", middlewares.VerifyTenants([]string{"SUPER_ADMIN"}), controllers.GetDetailedFeedbackController)
-	
+
 
 	// analytics APIs
 	r.POST("/kbc-graph", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN", "TEACHER"}), controllers.KBCGraphController)
+	r.POST("/sa-graph", controllers.GetSAGraphController)
 }
