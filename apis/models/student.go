@@ -34,8 +34,25 @@ type (
 	}
 )
 
-func CreateBulkStudents(students []StudentModel) {
+func CreateBulkStudents(students []StudentModel) error {
+	database := db.GetDatabase()
+	query := "insert into students (parent_id,cid,name,email,phone,course_id,year,batch,password,enrollment,dob,fathers_name,mother_name,guardian_email,guardian_phone,is_active) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);"
 
+	stmt, err := database.Prepare(query)
+
+	if err != nil {
+		utils.PrintToConsole(err.Error(), "red")
+		return err
+	}
+
+	for _, student := range students {
+		_, err := stmt.Exec(student.ParentId, student.Cid, student.Name, student.Email, student.Phone, student.CourseId, student.Year, student.Batch, student.Password, student.EnrollmentNumber, student.Dob, student.FathersName, student.MotherName, student.GuardianEmail, student.GuardianPhone, student.IsActive)
+		if err != nil {
+			utils.PrintToConsole(err.Error(), "red")
+			return err
+		}
+	}
+	return nil
 }
 
 func GetStudentByField(fieldName string, fieldValue any) (StudentModel, error) {

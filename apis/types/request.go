@@ -1,5 +1,7 @@
 package types
 
+import "time"
+
 type (
 	// Common
 	ChangePasswordBody struct {
@@ -106,5 +108,43 @@ type (
 	SAGraphBody struct {
 		CollegeId int `json:"college_id"`
 		TeacherId int `json:"teacher_id"`
+	}
+
+	OnboardingAPIBody struct {
+		Students []struct {
+			Name             string    `json:"name"`
+			Email            string    `json:"email"`
+			Phone            string    `json:"phone"`
+			CourseId         int       `json:"course_id"`
+			Year             int       `json:"year"`
+			Batch            string    `json:"batch"`
+			Password         string    `json:"password"`
+			EnrollmentNumber string    `json:"enrollment"`
+			Dob              time.Time `json:"dob"`
+			FathersName      string    `json:"fathers_name"`
+			MotherName       string    `json:"mother_name"`
+			GuardianEmail    string    `json:"guardian_email"`
+			GuardianPhone    string    `json:"guardian_phone"`
+			IsActive         bool      `json:"is_active"`
+		}
+		Teachers []struct {
+			Name           string `json:"name"`
+			OfficialEmail  string `json:"email"`
+			AlternateEmail string `json:"alt_email"`
+			Department     string `json:"department"`
+			CourseId       int    `json:"course_id"`
+			Designation    string `json:"designation"`
+			Password       string `json:"password"`
+			IsActive       bool   `json:"is_active"`
+		}
+	}
+
+	GCSubmitBody struct {
+		ComplaintFor string `json:"complaint_for"`
+		Subject string `json:"subject"`
+		IsCC bool `json:"is_cc"`
+		CCResponse string `json:"cc_response"`
+		ProofFileId int `json:"proof_file_id"`
+		Description string `json:"description"`
 	}
 )

@@ -40,11 +40,12 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.GET("/my-profile", controllers.GetMyProfile)
 	r.POST("/top-n-teachers", controllers.TopNTeachersController)
 	r.POST("/top-n-colleges", controllers.TopNCollegesController)
-	r.POST("/feedback-questions/:type", middlewares.VerifyTenants([]string{"PARENT", "STUDENT", "HEI"}), controllers.GetFeedbackQuestionsController)
+	r.POST("/feedback-questions/:type", middlewares.VerifyTenants([]string{"PARENT", "STUDENT", "HEI", "COLLEGE_ADMIN"}), controllers.GetFeedbackQuestionsController)
 	r.POST("/submit-feedback/:type", middlewares.VerifyTenants([]string{"STUDENT", "PARENT", "HEI"}), controllers.SubmitFeedbackController)
 	r.POST("/get-feedback-teachers", middlewares.VerifyTenants([]string{"STUDENT"}), controllers.GetFeedbackTeachersController)
 	r.POST("/get-my-colleges-rank", middlewares.VerifyTenants([]string{"STUDENT", "TEACHER", "PARENT", "SUPER_ADMIN"}), controllers.GetMyCollegesRankController)
 	r.GET("/get-course/:id", controllers.GetCourse)
+	r.POST("/submit-gc", controllers.SubmitGCFormController)
 
 	// college admin APIs
 	r.POST("/onboard-college", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.OnBoardCollegeController)

@@ -6,6 +6,7 @@ const { default: axios } = require('axios')
 const multer = require('multer')
 const upload = multer({ dest: './tmp' })
 app.use(express.json())
+const bcrypt = require('bcrypt')
 
 
 
@@ -61,7 +62,7 @@ app.post("/onboard-college", upload.any(), async (req, res) => {
     });
 
 
-    let mainStudents, mainTeachers;
+    let mainStudents, mainTeachers, mainParents = {};
     fs.createReadStream(studentFile.path)
         .pipe(csv.parse({ headers: true }))
         .on("error", (error) => {
@@ -73,26 +74,46 @@ app.post("/onboard-college", upload.any(), async (req, res) => {
         })
         .on("end", async () => {
             let keys = [], student = {}, students = []
-            fileRows.forEach((fr, i) => {
+            // fileRows.forEach(async (fr, i) => {
+            let i = 0;
+            for (let fr of fileRows) {
+                // console.log(fr)
                 if (i == 0) {
                     fr.forEach(d => {
                         keys.push(d)
                     })
                 } else {
                     fr.forEach((d, i) => {
+                        // console.log(keys, keys[i], i, fr.length, fileRows.length)
                         student[studentsMapping[keys[i]].trim()] = d.trim();
                     })
+
+                    let hash1 = await bcrypt.hash(`${student['name']}@123`, 10)
                     student.course_id = Courses[student.course]
+                    student.password = hash1
+                    student.is_active = true
+                    student['dob'] = new Date(student['dob'])
+                    student['year'] = parseInt(student['year'])
+                    student['course_id'] = parseInt(student['course_id'])
                     delete student['course']
-
+                    // console.log(student)
                     students.push(student)
+                    let hash = await bcrypt.hash(`${student['fathers_name']}@123`, 10)
+                    mainParents[student['enrollment_number']] = {
+                        name: student['fathers_name'],
+                        email: student['guardian_email'],
+                        phone: student['guardian_phone'],
+                        password: hash,
+                        is_active: true
+                    }
                 }
+                i++;
 
-            })
+            }
             mainStudents = students
 
-
             // teachers
+            let fileRows1 = []
             fs.createReadStream(teacherFile.path)
                 .pipe(csv.parse({ headers: true }))
                 .on("error", (error) => {
@@ -100,26 +121,35 @@ app.post("/onboard-college", upload.any(), async (req, res) => {
                 })
                 .on("data", (row) => {
                     // console.log(row)
-                    fileRows.push(row)
+                    fileRows1.push(row)
                 })
                 .on("end", async () => {
-                    let keys = [], student = {}, teachers = []
-                    fileRows.forEach((fr, i) => {
+                    let keys1 = [], student = {}, teachers = []
+                    // fileRows1.forEach(async (fr, i) => 
+                    let i = 0
+                    for (let fr of fileRows1) {
                         if (i == 0) {
                             fr.forEach(d => {
-                                keys.push(d)
+                                keys1.push(d)
                             })
                         } else {
                             fr.forEach((d, i) => {
-                                student[teachersMapping[keys[i]].trim()] = d.trim();
+                                // console.log("11111111111111111", fr, keys1, keys1[i])
+                                student[teachersMapping[keys1[i]].trim()] = d.trim();
                             })
+
+                            let hash2 = await bcrypt.hash(`${student['name']}@123`, 10)
                             student.course_id = Courses[student.course]
-                            // delete student['course']
-                            console.log(student)
+                            student.is_active = true
+                            student['course_id'] = parseInt(student['course_id'])
+                            student['password'] = hash2
+                            delete student['course']
+                            // console.log(student)
                             teachers.push(student)
                         }
+                        i++
+                    }
 
-                    })
                     mainTeachers = teachers;
 
                     console.log({
@@ -127,21 +157,29 @@ app.post("/onboard-college", upload.any(), async (req, res) => {
                         teachers: mainTeachers
                     })
 
-                    let data = await axios.post('http://localhost:5000/api/v1/onboard/js', {
-                        students: mainStudents,
-                        teachers: mainTeachers
-                    }, {
-                        headers: {
-                            "hello": "edrank"
-                        }
-                    })
+                    try {
+                        let data = await axios.post('http://localhost:5000/api/v1/onboard/js', {
+                            students: mainStudents,
+                            teachers: mainTeachers,
+                            parents: mainParents,
+                            cid: req.body.cid
+                        }, {
+                            headers: {
+                                "hello": "edrank"
+                            }
+                        })
 
-                    if (data && data.data) {
-                        console.log(data.data)
-                        res.send(data.data)
-                    } else {
-                        res.send(data)
+                        if (data && data.data) {
+                            // console.log(data.data)
+                            res.send(data.data)
+                        } else {
+                            res.send(data)
+                        }
+                    } catch (err) {
+                        console.log(err)
+                        res.send(err)
                     }
+
                 });
 
         });
