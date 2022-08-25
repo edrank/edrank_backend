@@ -422,15 +422,15 @@ func GetQuestionById(qid int) (QuestionsModel, error) {
 	return questions[0], nil
 }
 
-func GetFeedbackByForGraph(drive_id int, tid int) (FeedbackModel, error) {
+func GetFeedbacksForGraph(tid int) ([]FeedbackModel, error) {
 	database := db.GetDatabase()
-	rows, err := database.Query("")
+	rows, err := database.Query("select * from feedbacks where victim_id = ?", tid)
 	if err == sql.ErrNoRows {
-		return FeedbackModel{}, errors.New("cannot find feedback")
+		return nil, errors.New("cannot find feedback")
 	}
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")
-		return FeedbackModel{}, err
+		return nil, err
 	}
 
 	var feedbacks []FeedbackModel
@@ -439,12 +439,12 @@ func GetFeedbackByForGraph(drive_id int, tid int) (FeedbackModel, error) {
 
 		if err := rows.Scan(&t.Id, &t.DriveId, &t.TenantId, &t.TenantType, &t.VictimId, &t.VictimType, &t.TextFeedback, &t.FeedbackScore, &t.SAScore, &t.IsActive, &t.CreatedAt, &t.UpdatedAt); err != nil {
 			utils.PrintToConsole(err.Error(), "red")
-			return FeedbackModel{}, err
+			return nil, err
 		}
 		feedbacks = append(feedbacks, t)
 	}
 	if len(feedbacks) == 0 {
-		return FeedbackModel{}, errors.New("Cannot find feedback")
+		return nil, errors.New("Cannot find feedback")
 	}
-	return feedbacks[0], nil
+	return feedbacks, nil
 }

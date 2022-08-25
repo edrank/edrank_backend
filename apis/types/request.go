@@ -100,7 +100,6 @@ type (
 
 	KBCGraphBody struct {
 		TeacherId  int `json:"teacher_id"`
-		DriveId    int `json:"drive_id"`
 		QuestionId int `json:"question_id"`
 	}
 )

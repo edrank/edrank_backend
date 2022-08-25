@@ -25,7 +25,7 @@ type (
 
 func GetAllCollegeAdminsOfCollege(cid int, limit int, offset int) ([]CollegeAdminModel, error) {
 	database := db.GetDatabase()
-	rows, err := database.Query("select * from college_admin where cid = ? limit ? offset ?", cid)
+	rows, err := database.Query("select * from college_admin where cid = ? limit ? offset ?", cid, limit, offset)
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")

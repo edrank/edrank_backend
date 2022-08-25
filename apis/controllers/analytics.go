@@ -34,15 +34,26 @@ func KBCGraphController(c *gin.Context) {
 	question, err := models.GetQuestionById(body.QuestionId)
 
 	if err != nil {
-		utils.SendError(c, http.StatusBadRequest, err)
+		utils.SendError(c, http.StatusInternalServerError, err)
 		return
 	}
 
-	// feedback, err := models.GetFeedbackByForGraph("", 1)
-
 	switch tenant_type {
 	case "TEACHER":
-		responses, err := models.GetResponsesOfQuestionByTeacher(1, tenant_id.(int))
+		feedbacks, err := models.GetFeedbacksForGraph(tenant_id.(int))
+
+		if err != nil {
+			utils.SendError(c, http.StatusInternalServerError, err)
+			return
+		}
+
+		var f_ids [] int
+
+		for _, fb := range feedbacks {
+			f_ids = append(f_ids, fb.Id)
+		}
+
+		responses, err := models.GetResponsesOfQuestionByTeacher(body.QuestionId, f_ids)
 
 		if err != nil {
 			utils.SendError(c, http.StatusInternalServerError, err)
