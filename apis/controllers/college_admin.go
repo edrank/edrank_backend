@@ -584,3 +584,36 @@ func captureFeedback(cid int, drive_id int) error {
 
 	return nil
 }
+
+func GetCollegeFeedbackDrivesController(c *gin.Context) {
+	college_id, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	var totalDrives []models.FeedbackDrivesModel
+	drives, err := models.GetCollegeFeedbackDrives(college_id.(int), "college")
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	totalDrives = append(totalDrives, drives...)
+
+	drives, err = models.GetCollegeFeedbackDrives(college_id.(int), "teacher")
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+
+	totalDrives = append(totalDrives, drives...)
+
+	utils.SendResponse(c, "Feedback Drives", map[string]any{
+		"drives": drives,
+	})
+
+}

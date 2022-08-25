@@ -50,7 +50,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	r.GET("/my-college-entity/:entity", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetEntitiesOfMyCollegeController)
 	r.POST("/toggle-feedback-drive", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.ToggleFeedbackDriveController)
 	r.GET("/dashboard-metrics", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetDashboardMetricsController)
-
+	r.GET("/get-college-drives", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN"}), controllers.GetCollegeFeedbackDrivesController)
 	// parent APIs
 	r.GET("/get-my-students", middlewares.VerifyTenants([]string{"PARENT"}), controllers.GetStudentsOfParent)
 
