@@ -23,6 +23,11 @@ func TopNCollegesController(c *gin.Context) {
 		return
 	}
 
+	if utils.Find([]string{"top", "below"}, body.Mode) == -1 {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Invalid mode "))
+		return
+	}
+
 	if body.N == -1 {
 		body.N = utils.ONE_MILLION
 	}

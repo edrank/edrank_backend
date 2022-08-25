@@ -41,6 +41,7 @@ type (
 		City        string `json:"city"`
 		State       string `json:"state"`
 		N           int    `json:"n"`
+		Mode        string `json:"mode"`
 	}
 
 	GetFeedbackTeachersBody struct {

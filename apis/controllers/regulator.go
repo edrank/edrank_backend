@@ -7,3 +7,6 @@ func GetRegulatorCollegesController(c *gin.Context) {
 
 }
 
+func GetDetailedFeedbackController (c *gin.Context) {
+	
+}

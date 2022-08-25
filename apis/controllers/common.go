@@ -201,6 +201,38 @@ func LoginController(c *gin.Context) {
 			GuardianPhone:    st.GuardianPhone,
 			IsActive:         st.IsActive,
 		}
+	case utils.TenantMap["SUPER_ADMIN"]:
+		p, err := models.GetRegulatorByField("email", body.Email)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+
+		if !checkPass(body.Password, p.Password) {
+			utils.SendError(c, http.StatusUnauthorized, errors.New("Invalid Credentials"))
+			return
+		}
+		tenant_id = p.Id
+		cc = types.CustomClaims{
+			TenantId:   p.Id,
+			TenantType: tenant_type,
+			IsActive:   p.IsActive,
+			Email:      p.Email,
+		}
+		user = struct {
+			Id       int    `json:"id"`
+			Name     string `json:"name"`
+			Email    string `json:"email"`
+			Phone    string `json:"phone"`
+			IsActive bool   `json:"is_active"`
+		}{
+			Id:       p.Id,
+			Name:     p.Name,
+			Email:    p.Email,
+			Phone:    p.Phone,
+			IsActive: p.IsActive,
+		}
 	default:
 		utils.SendError(c, http.StatusUnprocessableEntity, errors.New(fmt.Sprintf("%s login not implemented yet", tenant_type)))
 		return

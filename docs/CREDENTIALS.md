@@ -52,3 +52,12 @@
     "password":"adam123"
 }
 ```
+
+## Regiulator
+
+```json
+{
+    "email":"regulator@gmail.com",
+    "password":"reg123"
+}
+```

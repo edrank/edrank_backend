@@ -68,7 +68,7 @@ type (
 
 func CreateNewFeedback(feedback FeedbackModel) (int, error) {
 	database := db.GetDatabase()
-	query := "insert into feedbacks (drive_id, tenant_id, tenant_type, victim_id, victim_type, text_feedback, feedback_score, is_active) values (?,?,?,?,?,?,?,?);"
+	query := "insert into feedbacks (drive_id, tenant_id, tenant_type, victim_id, victim_type, text_feedback, feedback_score, sa_score, is_active) values (?,?,?,?,?,?,?,?,?);"
 
 	stmt, err := database.Prepare(query)
 
@@ -77,7 +77,7 @@ func CreateNewFeedback(feedback FeedbackModel) (int, error) {
 		return -1, err
 	}
 
-	resp, err := stmt.Exec(feedback.DriveId, feedback.TenantId, feedback.TenantType, feedback.VictimId, feedback.VictimType, feedback.TextFeedback, feedback.FeedbackScore, feedback.IsActive)
+	resp, err := stmt.Exec(feedback.DriveId, feedback.TenantId, feedback.TenantType, feedback.VictimId, feedback.VictimType, feedback.TextFeedback, feedback.FeedbackScore, feedback.SAScore, feedback.IsActive)
 
 	if err != nil {
 		utils.PrintToConsole(err.Error(), "red")

@@ -1,11 +1,7 @@
 package services
 
 import (
-	"bytes"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 
 	"github.com/edrank/edrank_backend/apis/models"
 	"github.com/edrank/edrank_backend/apis/types"
@@ -20,46 +16,59 @@ var (
 		4: -25.00,
 		5: -50.00,
 	}
-	SA_WEIGHTAGE float32      = 12.50
-	client       *http.Client = &http.Client{}
+	SA_WEIGHTAGE float32 = 12.50
+	// client       *http.Client = &http.Client{}
 )
 
 func GetSAScore(text string) float32 {
-	bodyJsonStr := []byte(fmt.Sprintf(`{ "text_to_analyze": "%s" }`, text))
-	req, err := http.NewRequest("POST", utils.ML_ENGINE_URL+"/analyze", bytes.NewBuffer(bodyJsonStr))
+	// bodyJsonStr := []byte(fmt.Sprintf(`{ "text_to_analyze": "%s" }`, text))
+	// req, err := http.NewRequest("POST", utils.ML_ENGINE_URL+"/analyze", bytes.NewBuffer(bodyJsonStr))
 
-	if err != nil {
-		fmt.Print(err.Error())
-		return 0.0
+	// if err != nil {
+	// 	fmt.Print(err.Error())
+	// 	return 0.0
+	// }
+
+	// req.Header.Add("Accept", "application/json")
+	// req.Header.Add("Content-Type", "application/json")
+
+	// resp, err := client.Do(req)
+	// if err != nil {
+	// 	fmt.Print(err.Error())
+	// 	return 0.0
+	// }
+
+	// defer resp.Body.Close()
+
+	// bodyBytes, err := ioutil.ReadAll(resp.Body)
+	// if err != nil {
+	// 	fmt.Print(err.Error())
+	// 	return 0.0
+	// }
+
+	// var responseObject struct {
+	// 	Score float32 `json:"score"`
+	// }
+
+	// err = json.Unmarshal(bodyBytes, &responseObject)
+
+	// if err != nil {
+	// 	return 0.0
+	// }
+	// return responseObject.Score
+
+	sentiment := VaderUp(text)
+	mainCompound := sentiment.Compound
+	if mainCompound < 0 {
+		mainCompound = -mainCompound
+		mainCompound = 1 - mainCompound
+	} else {
+		mainCompound += 1
 	}
 
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Content-Type", "application/json")
-
-	resp, err := client.Do(req)
-	if err != nil {
-		fmt.Print(err.Error())
-		return 0.0
-	}
-
-	defer resp.Body.Close()
-
-	bodyBytes, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		fmt.Print(err.Error())
-		return 0.0
-	}
-
-	var responseObject struct {
-		Score float32 `json:"score"`
-	}
-
-	err = json.Unmarshal(bodyBytes, &responseObject)
-
-	if err != nil {
-		return 0.0
-	}
-	return responseObject.Score
+	fmt.Println("sentiment + - $ !", sentiment.Positive, sentiment.Negative, sentiment.Neutral, sentiment.Compound)
+	
+	return ((float32(mainCompound) * 100) / 200 * 100)
 }
 
 func GetFeedbackScore(feedbacks types.FeedBacksForIngestion, text_feedback string, teacher_id int) (float32, float32, error) {
@@ -93,7 +102,7 @@ func UpdateEntityScore(entity_type string, id int, fb_score float32, sa_score fl
 
 	left_over := 100 - new_score
 
-	left_score_percent := (left_over * sa_score)/100
+	left_score_percent := (left_over * sa_score) / 100
 
 	new_score += left_score_percent
 

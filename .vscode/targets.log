@@ -6,7 +6,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 18 01:25:21 2022
+# Make data base, printed on Thu Aug 25 17:34:09 2022
 
 # Variables
 
@@ -21,7 +21,7 @@ SSH_AGENT_LAUNCHER = gnome-keyring
 # environment
 SNAP_INSTANCE_KEY = 
 # environment
-VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend
+VSCODE_CWD = /home/omgupta/Desktop/edrank/edrank_backend/apis
 # environment
 NVM_DIR = /home/omgupta/.nvm
 # default
@@ -35,7 +35,7 @@ GOPATH = /home/omgupta/go
 # environment
 SNAP_INSTANCE_NAME = code
 # environment
-GDK_PIXBUF_MODULEDIR = /snap/code/104/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
+GDK_PIXBUF_MODULEDIR = /snap/code/105/usr/lib/x86_64-linux-gnu/gdk-pixbuf-2.0/2.10.0/loaders
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # default
@@ -47,7 +47,7 @@ PWD = /home/omgupta/Desktop/edrank/edrank_backend
 # environment
 XDG_DATA_DIRS = /usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop
 # environment
-OLDPWD = /home/omgupta
+OLDPWD = /home/omgupta/Desktop/edrank/edrank_backend
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # automatic
@@ -55,17 +55,17 @@ OLDPWD = /home/omgupta
 # environment
 NVM_INC = /home/omgupta/.nvm/versions/node/v16.15.1/include/node
 # environment
-VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/6d9b74a70ca9c7733b29f0456fd8195364076dda
+VSCODE_CODE_CACHE_PATH = /home/omgupta/.config/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
 # environment
 LANG = C
 # environment
-XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.P5O0Q1
+XAUTHORITY = /run/user/1001/.mutter-Xwaylandauth.1V2LR1
 # default
 .LOADED := 
 # default
 .INCLUDE_DIRS = /usr/local/include /usr/include /usr/include
 # environment
-GNOME_TERMINAL_SERVICE = :1.148
+GNOME_TERMINAL_SERVICE = :1.143
 # makefile
 MAKEFLAGS = pqrR
 # makefile
@@ -99,13 +99,13 @@ SNAP_REEXEC =
 # automatic
 @F = $(notdir $@)
 # environment
-VSCODE_PID = 247703
+VSCODE_PID = 206875
 # environment
 XDG_SESSION_TYPE = wayland
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
 # environment
-SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/245199,unix/om-bridgeup:/tmp/.ICE-unix/245199
+SESSION_MANAGER = local/om-bridgeup:@/tmp/.ICE-unix/68069,unix/om-bridgeup:/tmp/.ICE-unix/68069
 # automatic
 *F = $(notdir $*)
 # environment
@@ -129,7 +129,7 @@ XMODIFIERS = @im=ibus
 # environment
 SHLVL = 1
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/66a1f46f_3e55_4701_99d7_b80e3b33ee8e
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/72579e36_317e_4c7a_8f90_69e979e3f02e
 # environment
 MAKELEVEL := 0
 # default
@@ -147,15 +147,15 @@ LANGUAGE = en_IN:en
 # environment
 SNAP_USER_COMMON = /home/omgupta/snap/code/common
 # environment
-SNAP = /snap/code/104
+SNAP = /snap/code/105
 # environment
-SNAP_REVISION = 104
+SNAP_REVISION = 105
 # environment
 SNAP_REAL_HOME = /home/omgupta
 # environment
 USERNAME = omgupta
 # environment
-GNOME_SETUP_DISPLAY = :1
+GNOME_SETUP_DISPLAY = :3
 # environment
 LESSCLOSE = /usr/bin/lesspipe %s %s
 # automatic
@@ -179,9 +179,9 @@ SNAP_ARCH = amd64
 # makefile
 .DEFAULT_GOAL := 
 # environment
-SYSTEMD_EXEC_PID = 245473
+SYSTEMD_EXEC_PID = 71364
 # environment
-DISPLAY = :0
+DISPLAY = :2
 # environment
 USER = omgupta
 # environment
@@ -191,7 +191,7 @@ MAKE_VERSION := 4.3
 # environment
 DISABLE_WAYLAND = 1
 # environment
-SNAP_DATA = /var/snap/code/104
+SNAP_DATA = /var/snap/code/105
 # environment
 SNAP_CONTEXT = 22M4K3_9UoaxmXLBDZGQH2Q8H9Jq9dHBqVQ-CDNU0vyJMGFJH4SS
 # environment
@@ -215,13 +215,13 @@ QT_IM_MODULE = ibus
 # environment
 ELECTRON_RUN_AS_NODE = 1
 # environment
-VSCODE_IPC_HOOK = /run/user/1001/vscode-0e2b80d2-1.70.1-main.sock
+VSCODE_IPC_HOOK = /run/user/1001/vscode-0e2b80d2-1.70.2-main.sock
 # environment
 TERM = xterm-256color
 # environment
 SNAP_NAME = code
 # environment
-GSETTINGS_SCHEMA_DIR = /snap/code/104/usr/share/glib-2.0/schemas
+GSETTINGS_SCHEMA_DIR = /snap/code/105/usr/share/glib-2.0/schemas
 # environment
 IM_CONFIG_PHASE = 1
 # environment
@@ -231,7 +231,7 @@ GOPROXY = https://proxy.golang.org,direct
 # automatic
 <F = $(notdir $<)
 # environment
-SNAP_VERSION = 6d9b74a7
+SNAP_VERSION = e4503b30
 # default
 SUFFIXES := 
 # environment
@@ -245,7 +245,7 @@ SNAP_COMMON = /var/snap/code/common
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink load
 # environment
-SNAP_USER_DATA = /home/omgupta/snap/code/104
+SNAP_USER_DATA = /home/omgupta/snap/code/105
 # environment
 XDG_MENU_PREFIX = gnome-
 # environment
@@ -286,9 +286,6 @@ Makefile:
 
 # Not a target:
 all:
- 
-make: *** No rule to make target 'all'.  Stop.
-
 #  Command line target.
 #  Implicit rule search has been done.
 #  File does not exist.
@@ -309,6 +306,9 @@ GNUmakefile:
 #  Failed to be updated.
 
 # files hash-table stats:
+ 
+make: *** No rule to make target 'all'.  Stop.
+
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
@@ -322,6 +322,6 @@ GNUmakefile:
 # strcache performance: lookups = 24 / hit rate = 12%
 # hash-table stats:
 # Load=21/8192=0%, Rehash=0, Collisions=0/24=0%
-# Finished Make data base on Thu Aug 18 01:25:21 2022
+# Finished Make data base on Thu Aug 25 17:34:09 2022
 
  
