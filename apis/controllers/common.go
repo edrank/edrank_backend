@@ -446,6 +446,26 @@ func GetCollegeController(c *gin.Context) {
 	})
 }
 
+func GetMyCollegeForNonCollegeController(c *gin.Context) {
+	var body struct {
+		Cid int `json:"college_id"`
+	}
+	if err := c.BindJSON(&body); err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	college, err := models.GetCollegeByField("id", body.Cid)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+	utils.SendResponse(c, "Fetched College", map[string]any{
+		"college": college,
+	})
+}
+
 func GetMyProfile(c *gin.Context) {
 	tenant_type := c.GetString("TenantType")
 	tenant_id := c.GetInt("TenantId")

@@ -64,7 +64,7 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	// regulator APIs
 	r.POST("/regulator/get-colleges", middlewares.VerifyTenants([]string{"SUPER_ADMIN"}), controllers.GetRegulatorCollegesController)
 	r.POST("/detailed-feedback", middlewares.VerifyTenants([]string{"SUPER_ADMIN"}), controllers.GetDetailedFeedbackController)
-
+	r.POST("/get-college", controllers.GetMyCollegeForNonCollegeController)
 
 	// analytics APIs
 	r.POST("/kbc-graph", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN", "TEACHER"}), controllers.KBCGraphController)
