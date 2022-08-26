@@ -617,3 +617,38 @@ func GetCollegeFeedbackDrivesController(c *gin.Context) {
 	})
 
 }
+
+func GetTeacherLinkingDataController(c *gin.Context) {
+	college_id, exists := c.Get("CollegeId")
+
+	if !exists {
+		utils.SendError(c, http.StatusInternalServerError, errors.New("Cannot validate context"))
+		return
+	}
+
+	students, err := models.GetStudentsByField("cid", college_id)
+
+	if err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	teachers, err := models.GetAllTeachersOfMyCollege(college_id.(int), utils.ONE_MILLION, 0)
+	if err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	courses, err := models.GetAllCourses()
+
+	if err != nil {
+		utils.SendError(c, http.StatusBadRequest, err)
+		return
+	}
+
+	utils.SendResponse(c, "Linking Data", map[string]any{
+		"teachers": teachers,
+		"students": students,
+		"courses":  courses,
+	})
+}

@@ -73,7 +73,7 @@ func GetDriveCaptureByField(fieldName string, fieldValue any) ([]DriveCaptureMod
 
 func GetFeedbacksForReport(teacher_id int) ([]FeedbackModel, error) {
 	database := db.GetDatabase()
-	rows, err := database.Query("select * from feedbacks where victim_id = ? and victim_type = 'TEACHER';", teacher_id)
+	rows, err := database.Query("select * from feedbacks where victim_id = ? and victim_type = 'TEACHER' ORDER BY sa_score DESC;", teacher_id)
 	if err == sql.ErrNoRows {
 		return nil, errors.New("Cannot find feedback")
 	}
@@ -99,5 +99,5 @@ func GetFeedbacksForReport(teacher_id int) ([]FeedbackModel, error) {
 }
 
 func GetQuestionAnswerCountForReport(teacher_id int) {
-	
+
 }

@@ -48,6 +48,14 @@ func LoginController(c *gin.Context) {
 			utils.SendError(c, http.StatusUnauthorized, errors.New("Invalid Credentials"))
 			return
 		}
+
+		college, err := models.GetCollegeByField("id", ca.Cid)
+
+		if err != nil {
+			utils.SendError(c, http.StatusBadRequest, err)
+			return
+		}
+
 		tenant_id = ca.Id
 		cc = types.CustomClaims{
 			TenantId:   ca.Id,
@@ -57,17 +65,19 @@ func LoginController(c *gin.Context) {
 			Cid:        ca.Cid,
 		}
 		user = struct {
-			Id       int    `json:"id"`
-			Cid      int    `json:"cid"`
-			Name     string `json:"name"`
-			Email    string `json:"email"`
-			IsActive bool   `json:"is_active"`
+			Id                      int    `json:"id"`
+			Cid                     int    `json:"cid"`
+			Name                    string `json:"name"`
+			Email                   string `json:"email"`
+			CollegeOnBoardingStatus string `json:"onboarding_status"`
+			IsActive                bool   `json:"is_active"`
 		}{
-			Id:       ca.Id,
-			Cid:      ca.Cid,
-			Name:     ca.Name,
-			Email:    ca.Email,
-			IsActive: ca.IsActive,
+			Id:                      ca.Id,
+			Cid:                     ca.Cid,
+			Name:                    ca.Name,
+			Email:                   ca.Email,
+			IsActive:                ca.IsActive,
+			CollegeOnBoardingStatus: college.OnboardingStatus,
 		}
 	case utils.TenantMap["TEACHER"]:
 		ca, err := models.GetTeacherByField("email", body.Email)
