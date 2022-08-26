@@ -1022,3 +1022,41 @@
 ```
 
 </details>
+
+
+
+<details>
+
+<summary style="font-size:20px">Grivenancencen Submit API</summary>
+
+`POST /submit-gc`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Request Body
+``` json
+{
+    "complaint_for":"college",
+    "subject":"Very brutal teacher behavior",
+    "is_cc": true,
+    "cc_response": "Its okay. Leave it.",
+    "proof_file_id": 2,
+    "description":"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+
+}
+```
+#### Response
+``` json
+{
+    "data": {
+        "id": 1
+    },
+    "message": "Grievance Submitted. Will be reviwed shortly"
+}
+```
+
+</details>
