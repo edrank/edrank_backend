@@ -1104,3 +1104,210 @@
 ```
 
 </details>
+
+
+
+<details>
+
+<summary style="font-size:20px">Linking API</summary>
+
+`GET /get-teacher-linking-data`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Response
+``` json
+{
+    "data": {
+        "courses": [
+            {
+                "id": 1,
+                "name": "Bachelors of Computer Applications",
+                "abbreviation": "BCA",
+                "duration_in_years": 3
+            },
+            {
+                "id": 2,
+                "name": "Bachelors of Technology",
+                "abbreviation": "B Tech.",
+                "duration_in_years": 4
+            },
+            {
+                "id": 3,
+                "name": "Bachelors of Business Administration",
+                "abbreviation": "BBA",
+                "duration_in_years": 3
+            },
+            {
+                "id": 4,
+                "name": "Bachelors of Commerce",
+                "abbreviation": "B Com.",
+                "duration_in_years": 3
+            },
+            {
+                "id": 5,
+                "name": "Bachelors of Education",
+                "abbreviation": "B Ed.",
+                "duration_in_years": 2
+            },
+            {
+                "id": 6,
+                "name": "Masters of Computer Applications",
+                "abbreviation": "MCA",
+                "duration_in_years": 3
+            },
+            {
+                "id": 7,
+                "name": "Masters of Technology",
+                "abbreviation": "M Tech.",
+                "duration_in_years": 2
+            },
+            {
+                "id": 8,
+                "name": "Masters of Business Administration",
+                "abbreviation": "MBA",
+                "duration_in_years": 2
+            },
+            {
+                "id": 9,
+                "name": "Bachelor of Architecture",
+                "abbreviation": "B Arch",
+                "duration_in_years": 5
+            },
+            {
+                "id": 10,
+                "name": "Bachelor of Pharmacy",
+                "abbreviation": "B Pharm",
+                "duration_in_years": 4
+            },
+            {
+                "id": 11,
+                "name": "Master of Architecture",
+                "abbreviation": "M Arch",
+                "duration_in_years": 2
+            },
+            {
+                "id": 12,
+                "name": "Bachelor of Arts",
+                "abbreviation": "BA",
+                "duration_in_years": 3
+            },
+            {
+                "id": 13,
+                "name": "Bachelor of Science",
+                "abbreviation": "B.Sc.",
+                "duration_in_years": 3
+            },
+            {
+                "id": 14,
+                "name": "Bachelor of Tourism and Travel Management",
+                "abbreviation": "BTTM",
+                "duration_in_years": 4
+            },
+            {
+                "id": 15,
+                "name": "Bachelor of Journalism and Mass Communication",
+                "abbreviation": "BJMC",
+                "duration_in_years": 3
+            }
+        ],
+        "students": [
+            {
+                "id": 1,
+                "parent_id": 1,
+                "cid": 1,
+                "name": "Sumit Verma",
+                "email": "test+1@gmail.com",
+                "phone": "9643959973",
+                "course_id": 1,
+                "year": 3,
+                "batch": "2019-22",
+                "password": "$2a$14$74TX4CB2Q4acP2/K3XtQ0.FlPPk3aW0.TFvsxWd55JEemBfBiStuq",
+                "enrollment": "04214902019",
+                "dob": "2001-08-16T00:29:56Z",
+                "fathers_name": "Brijesh Verma",
+                "mother_name": "Kareena Kapoor",
+                "guardian_email": "adam@gmail.com",
+                "guardian_phone": "9872827722",
+                "is_active": true,
+                "created_at": "2022-07-30T19:03:55Z",
+                "updated_at": "2022-08-14T12:26:16Z"
+            },
+            {
+                "id": 2,
+                "parent_id": 1,
+                "cid": 1,
+                "name": "Akash Verma",
+                "email": "akshay@gmail.com",
+                "phone": "9878616222",
+                "course_id": 1,
+                "year": 2,
+                "batch": "2019-22",
+                "password": "$2a$14$A0kz4GVhr/K.2XZr6A0zeOaNaKZx.HCcvaXZgHC8xQs.msDru.bZS",
+                "enrollment": "04914902019",
+                "dob": "2022-08-11T17:10:48Z",
+                "fathers_name": "Brijesh Verma",
+                "mother_name": "Kareena Kapoor",
+                "guardian_email": "adam@gmail.com",
+                "guardian_phone": "9878616271",
+                "is_active": true,
+                "created_at": "2022-08-11T17:12:21Z",
+                "updated_at": "2022-08-14T12:26:12Z"
+            }
+        ],
+        "teachers": [
+            {
+                "id": 1,
+                "cid": 1,
+                "name": "Kavita Pabreja",
+                "email": "omgupta1608+2@gmail.com",
+                "alt_email": "omgupta1608+3@gmail.com",
+                "department": "Computer Science",
+                "course_id": 1,
+                "designation": "Assistant Professor",
+                "score": 61.23,
+                "password": "$2a$14$/L8ug6Gb3Wh8G6/LT5AGYeuS.72Tmb6cLjUAot9T02DvGkt2R0miS",
+                "is_active": true,
+                "created_at": "2022-07-31T19:06:59Z",
+                "updated_at": "2022-08-08T04:20:30Z"
+            },
+            {
+                "id": 2,
+                "cid": 1,
+                "name": "Seema Kidwai",
+                "email": "omgupta1608+3@gmail.com",
+                "alt_email": "omgupta1608+4@gmail.com",
+                "department": "Computer Applications",
+                "course_id": 1,
+                "designation": "Professor",
+                "score": 83.98,
+                "password": "$2a$14$x8BbpWEU.Vm8Kdypjq/HRu9QZr10AM9RCodg4ERCayflH.gLdnkXm",
+                "is_active": true,
+                "created_at": "2022-07-31T19:06:59Z",
+                "updated_at": "2022-08-14T12:24:25Z"
+            },
+            {
+                "id": 3,
+                "cid": 1,
+                "name": "Preeti Jain",
+                "email": "omgupta1608+7@gmail.com",
+                "alt_email": "omgupta1608+6@gmail.com",
+                "department": "Computer Science",
+                "course_id": 1,
+                "designation": "Assistant Professor",
+                "score": 91.08,
+                "password": "$2a$14$aR1M8X2QDZHyrT4lRFx1eu5tZpyTbm65BXYch6kcipS2S3P/nbQlK",
+                "is_active": true,
+                "created_at": "2022-07-31T19:09:33Z",
+                "updated_at": "2022-08-14T12:23:25Z"
+            }
+        ]
+    },
+    "message": "Linking Data"
+}```
+
+</details>
