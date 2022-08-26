@@ -1060,3 +1060,47 @@
 ```
 
 </details>
+
+
+<details>
+
+<summary style="font-size:20px">Progress graph API</summary>
+
+`GET /progress-graph/:tid`
+#### Request Headers
+``` json
+{
+    "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOjEsInRlbmFudF90eXBlIjoiQ09MTEVHRV9BRE1JTiIsImlzX2FjdGl2ZSI6dHJ1ZSwiZW1haWwiOiJvbWd1cHRhMTYwOEBnbWFpbC5jb20ifQ.UFnQCWw_9lsD6bDqHx4RJalvNxwuTmSkeVzuCsQ_TlA"
+}
+```
+
+#### Request params
+- `tid` is the teacher Id
+
+#### Response
+``` json
+{
+    "data": {
+        "progress": [
+            {
+                "drive_id": 1,
+                "started_at": "2022-08-26T02:44:54Z",
+                "rank": 2
+            },
+            {
+                "drive_id": 2,
+                "started_at": "2022-08-26T05:38:21Z",
+                "rank": 11
+            },
+            {
+                "drive_id": 3,
+                "started_at": "2022-08-26T05:38:21Z",
+                "rank": 7
+            }
+        ]
+    },
+    "message": "Progress"
+}
+```
+
+</details>

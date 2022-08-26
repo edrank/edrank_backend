@@ -28,6 +28,8 @@ func InitPublicRoutes(r *gin.RouterGroup) {
 	r.POST("/dev/gen-password-hash", controllers.GenPasswordHash)
 
 	r.POST("/onboard/js", controllers.OnboardFromJSController)
+
+	r.GET("/get-report-data", controllers.GetReportDataController)
 }
 
 func InitPrivateRoutes(r *gin.RouterGroup) {
@@ -72,4 +74,5 @@ func InitPrivateRoutes(r *gin.RouterGroup) {
 	// analytics APIs
 	r.POST("/kbc-graph", middlewares.VerifyTenants([]string{"COLLEGE_ADMIN", "TEACHER"}), controllers.KBCGraphController)
 	r.POST("/sa-graph/:type", controllers.GetSAGraphController)
+	r.GET("/progress-graph/:tid", controllers.GetProgessGraph)
 }

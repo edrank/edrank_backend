@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/edrank/edrank_backend/apis/models"
 	"github.com/edrank/edrank_backend/apis/types"
@@ -163,5 +164,48 @@ func GetSAGraphController(c *gin.Context) {
 
 	utils.SendResponse(c, "Sentimental Analysis Graph", map[string]any{
 		"sa_graph": sCountMap,
+	})
+}
+
+func GetProgessGraph(c *gin.Context) {
+	teacher_id := c.Param("tid")
+
+	if teacher_id == "" {
+		utils.SendError(c, http.StatusBadRequest, errors.New("Invalid Teacher Id"))
+		return
+	}
+
+	captures, err := models.GetDriveCaptureByField("victim_id", teacher_id)
+
+	if err != nil {
+		utils.SendError(c, http.StatusInternalServerError, err)
+		return
+	}
+	var progress map[int]int = make(map[int]int)
+	var start map[int]time.Time = make(map[int]time.Time)
+	for _, capture := range captures {
+		progress[capture.DriveId] = capture.Rank
+		start[capture.DriveId] = capture.CreatedAt
+	}
+
+	var progressArr []struct {
+		DriveId   int       `json:"drive_id"`
+		StartDate time.Time `json:"started_at"`
+		Rank      int       `json:"rank"`
+	}
+	for k, v := range progress {
+		progressArr = append(progressArr, struct {
+			DriveId   int       "json:\"drive_id\""
+			StartDate time.Time "json:\"started_at\""
+			Rank      int       "json:\"rank\""
+		}{
+			DriveId:   v,
+			Rank:      k,
+			StartDate: start[k],
+		})
+	}
+
+	utils.SendResponse(c, "Progress", map[string]any{
+		"progress": progressArr,
 	})
 }

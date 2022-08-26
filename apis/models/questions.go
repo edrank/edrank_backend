@@ -44,3 +44,5 @@ func GetAllQuestionsByType(ff_type string) ([]QuestionsModel, error) {
 	}
 	return questions, nil
 }
+
+// func
